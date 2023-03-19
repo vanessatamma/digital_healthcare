@@ -8,12 +8,12 @@ const auth = getAuth();
 onAuthStateChanged(auth, (user) => {
   console.log("onAuthStateChanged", user)
   if (user) {
-    const uid = user.uid;
+   // const uid = user.uid;
     userAuth.isLoggedIn = true;
-    console.log('vero')
+    console.log('Logged In')
   } else {
     userAuth.isLoggedIn = false;
-    console.log('falso')
+    console.log('Logged Out')
   }
 });
 </script>

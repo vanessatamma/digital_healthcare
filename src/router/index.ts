@@ -5,6 +5,7 @@ import {getAuth, onAuthStateChanged} from "firebase/auth";
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
+    { path: '/', redirect: '/home' },
     {
       path: '/login',
       name: 'Login',
@@ -16,16 +17,16 @@ const router = createRouter({
       component: () => import('../views/Signup.vue')
     },
     {
-      path: '/',
+      path: '/home',
       name: 'Home',
-      component: () => import('../views/Home.vue')
+      component: () => import('../views/Home.vue'),
+      meta: { requiresAuth: true }
     },
     {
       path: "/about",
       name: 'About',
       component: () => import("../views/About.vue"),
       meta: { requiresAuth: true }
-
     },
   ]
 })
@@ -46,12 +47,11 @@ const getCurrentUser = () => {
 
 router.beforeEach( async (to, from, next) => {
   if (to.matched.some((record) => record.meta.requiresAuth)){
-    console.log('sei quiii beforeEach')
     if (await getCurrentUser()){
       next();
     } else {
       alert("Non hai i permessi di accesso.");
-      next('/');
+      next('/login');
     }
   } else {
     next();
