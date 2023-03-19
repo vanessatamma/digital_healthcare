@@ -10,6 +10,7 @@ import router from "@/router";
 import type {IUser} from "@/interfaces/user.interfaces";
 import { setDoc, doc } from "firebase/firestore";
 import {db} from "@/firebase/init";
+import {useToast} from "vue-toast-notification";
 
 
 export const useAuthStore = defineStore('auth',  {
@@ -44,9 +45,15 @@ export const useAuthStore = defineStore('auth',  {
                 userType: user.userType,
             });
         } catch (e) {
-            this.errorMessage = "Errore durante la registrazione dell'utente";
-            alert("Errore durante la registrazione dell'utente");
-            console.log("Errore ", this.errorMessage, e);
+            if((e as any).message.includes('email-already-in-use')) {
+                this.errorMessage = "Email già utilizzata.";
+            } else {
+                this.errorMessage = "Errore durante la registrazione dell'utente";
+            }
+            useToast({
+                position: 'top',
+                duration: 4000,
+            }).error(this.errorMessage);
         }
 
     },
