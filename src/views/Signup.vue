@@ -25,8 +25,10 @@ const schema = Yup.object().shape({
   userType: Yup.string().required('Selezionare un opzione'),
 });
 
-function onSubmit(values) {
-  userAuth.register(values);
+async function onSubmit(values) {
+  userAuth.isLoading = true;
+  await userAuth.register(values);
+  userAuth.isLoading = false;
 }
 </script>
 
@@ -117,8 +119,15 @@ function onSubmit(values) {
                 <div class="col-3">
                   <button type="reset" class="btn btn-secondary w-100">Reset</button>
                 </div>
-                <div class="col-9">
-                  <button type="submit" class="btn btn-primary mr-1 w-100">Registra Utente</button>
+                <div class="col-9" v-if="!userAuth.isLoading">
+                  <button type="submit" class="btn btn-primary mr-1 w-100">
+                      Registra Utente
+                  </button>
+                </div>
+                <div v-else class="col-9 text-center">
+                  <div class="spinner-border" role="status">
+                    <span class="visually-hidden">Loading...</span>
+                  </div>
                 </div>
               </div>
               <div class="signin">

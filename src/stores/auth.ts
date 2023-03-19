@@ -12,31 +12,30 @@ import { setDoc, doc } from "firebase/firestore";
 import {db} from "@/firebase/init";
 import {useToast} from "vue-toast-notification";
 
-
 export const useAuthStore = defineStore('auth',  {
-  state: () => (
-      {
-        isLoggedIn: true,
-        user: {
-            firstName: "",
-            lastName:"",
-            email:"",
-            password:"",
-            confirmPassword: "",
-            userType:"",
-        },
-        errorMessage: "",
-      }
-  ),
+  state: () => ({
+    isLoading: false,
+    isLoggedIn: false,
+    user: {
+        firstName: "",
+        lastName:"",
+        email:"",
+        password:"",
+        confirmPassword: "",
+        userType:"",
+    },
+    errorMessage: "",
+  }),
   getters: {},
   actions: {
     async register(user: IUser) {
         // Register User with email and password on firebase
         try {
+
             const auth = getAuth();
             const userCredential: UserCredential = await createUserWithEmailAndPassword(auth, user.email, user.password);
             // Retrieve unique id from firebase Auth
-            const { uid } = userCredential.user;
+            const {uid} = userCredential.user;
             // Set user in firestore with the current user info
             await setDoc(doc(db, "users", uid), {
                 firstName: user.firstName,
@@ -50,12 +49,11 @@ export const useAuthStore = defineStore('auth',  {
             } else {
                 this.errorMessage = "Errore durante la registrazione dell'utente";
             }
-            useToast({
-                position: 'top',
-                duration: 4000,
-            }).error(this.errorMessage);
-        }
+            // Show toast error
+            useToast({position: 'top', duration: 4000,}).error(this.errorMessage);
+        } finally {
 
+        }
     },
     signIn() {
       const auth = getAuth();
