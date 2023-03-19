@@ -1,6 +1,9 @@
 <script setup>
 import { Form, Field } from 'vee-validate';
 import * as Yup from 'yup';
+import { useAuthStore } from "@/stores/auth";
+
+const userAuth = useAuthStore()
 
 const schema = Yup.object().shape({
   firstName: Yup.string()
@@ -23,8 +26,7 @@ const schema = Yup.object().shape({
 });
 
 function onSubmit(values) {
-  // display form values on success
-  alert('SUCCESS!! :-)\n\n' + JSON.stringify(values, null, 4));
+  userAuth.register(values);
 }
 </script>
 

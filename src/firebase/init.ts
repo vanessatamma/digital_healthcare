@@ -1,5 +1,5 @@
 import { initializeApp } from "firebase/app";
-import { getFirestore } from "firebase/firestore";
+import {collection, getFirestore} from "firebase/firestore";
 
 const firebaseConfig = {
     apiKey: "AIzaSyAaC1bhLtE8MRgWzxZ6yZ61BD0mo-yo-k4",
@@ -10,8 +10,11 @@ const firebaseConfig = {
     appId: "1:110884474902:web:537c068fc747527f7da537"
 };
 
-export const initFirebase = () => { initializeApp(firebaseConfig) }
+// export const initFirebase = () => { initializeApp(firebaseConfig) }
+
+export const initFirebase = initializeApp(firebaseConfig);
 
 
-// init firestore service
-//export const db = getFirestore();
+// Initialize Cloud Firestore and get a reference to the service
+export const db = getFirestore(initFirebase);
+export const usersRef = collection(db, 'users');

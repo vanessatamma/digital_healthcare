@@ -15,7 +15,7 @@ import 'bootstrap/dist/js/bootstrap.js'
 
 
 // Init Firebase
-initFirebase();
+//initFirebase();
 
 app.use(createPinia())
 app.use(router)
