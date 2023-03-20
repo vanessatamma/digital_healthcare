@@ -12,6 +12,7 @@
   },
   "dependencies": {
     "@popperjs/core": "^2.11.6",
+    "aos": "^2.3.4",
     "bootstrap": "^5.2.3",
     "firebase": "^9.18.0",
     "pinia": "^2.0.32",
@@ -22,6 +23,7 @@
     "yup": "^1.0.2"
   },
   "devDependencies": {
+    "@types/aos": "^3.0.4",
     "@types/jsdom": "^21.1.0",
     "@types/node": "^18.14.2",
     "@vitejs/plugin-vue": "^4.0.0",

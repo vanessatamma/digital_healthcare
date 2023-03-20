@@ -4,6 +4,7 @@ export interface IUser {
     email: string;
     password: string | undefined;
     confirmPassword: string | undefined;
+    lastLogin: string | number | null;
     userType: string;
 }
 

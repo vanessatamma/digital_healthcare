@@ -1,16 +1,17 @@
 import { defineStore } from 'pinia'
 import {
-  getAuth,
-  signOut,
-  createUserWithEmailAndPassword,
-  signInWithEmailAndPassword,
-  type UserCredential,
+    getAuth,
+    signOut,
+    createUserWithEmailAndPassword,
+    signInWithEmailAndPassword,
+    type UserCredential, onAuthStateChanged,
 } from "firebase/auth";
 import router from "@/router";
 import type {ILoginCredentials, IUser} from "@/interfaces/user.interfaces";
 import { setDoc, doc, getDoc } from "firebase/firestore";
 import {db} from "@/firebase/init";
 import {useToast} from "vue-toast-notification";
+import {capitalizeString, formattedLastLoginDate} from "@/shared/utils";
 
 export const useAuthStore = defineStore('auth',  {
   state: () => ({
@@ -22,11 +23,22 @@ export const useAuthStore = defineStore('auth',  {
         email: "",
         password: undefined,
         confirmPassword: undefined,
+        lastLogin: null,
         userType:"",
     },
     errorMessage: "",
   }),
-  getters: {},
+  getters: {
+      capitalizedName(state) {
+          return `${capitalizeString(state.user.firstName)} ${capitalizeString(state.user.lastName)}`
+      },
+      lastLogin(state) {
+          if(state.user.lastLogin) {
+              return formattedLastLoginDate(state.user.lastLogin);
+          }
+          return '-';
+      }
+  },
   actions: {
       async register(user: IUser) {
         // Register User with email and password on firebase
@@ -49,6 +61,7 @@ export const useAuthStore = defineStore('auth',  {
                 userType: user.userType,
                 password: undefined,
                 confirmPassword: undefined,
+                lastLogin: (userCredential.user.metadata as any).lastLoginAt
             };
             useToast({position: 'top', duration: 2000,}).success(
                 "Registrazione effettuata con successo. " +
@@ -82,6 +95,7 @@ export const useAuthStore = defineStore('auth',  {
                       ...userSnap.data() as IUser,
                       confirmPassword: undefined,
                       password: undefined,
+                      lastLogin: (userCredential.user.metadata as any).lastLoginAt
                   };
               } else {
                   // doc.data() will be undefined in this case

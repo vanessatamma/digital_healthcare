@@ -40,8 +40,9 @@ const getCurrentUser = () => {
     const removeListener = onAuthStateChanged(
         getAuth(),
         async (user) => {
-          console.log('getCurrentUser', user)
+          //console.log('getCurrentUser', user)
           if(user) {
+            console.log('getCurrentUser', user)
             const userSnap = await getDoc(doc(db, "users", (user as any).uid));
             if (userSnap.exists()) {
               const userAuth = useAuthStore()
@@ -49,6 +50,7 @@ const getCurrentUser = () => {
                 ...userSnap.data() as IUser,
                 confirmPassword: undefined,
                 password: undefined,
+                lastLogin: (user.metadata as any).lastLoginAt
               };
             }
           }
@@ -62,7 +64,7 @@ const getCurrentUser = () => {
 }
 
 router.beforeEach( async (to, from, next) => {
-  console.log("B-E")
+  //console.log("B-E")
   if (to.matched.some((record) => record.meta.requiresAuth)){
     if (await getCurrentUser()){
       next();

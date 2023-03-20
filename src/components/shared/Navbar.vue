@@ -1,9 +1,9 @@
 <script setup>
 import {useAuthStore} from "@/stores/auth";
+import {formattedLastLoginDate} from "@/shared/utils";
 const userAuth = useAuthStore()
-</script>
 
-<template>
+/*
   <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="container-fluid">
       <a class="navbar-brand ms-4" href="#">Digital Healthcare</a>
@@ -19,7 +19,7 @@ const userAuth = useAuthStore()
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
-       
+
         <form>
           <button
               v-if="!userAuth.isLoggedIn"
@@ -52,4 +52,14 @@ const userAuth = useAuthStore()
       </div>
     </div>
   </nav>
+ */
+</script>
+
+<template>
+  <div class="row mb-5 align-items-center">
+    <div class="col-md-12 col-lg-6 mb-4 mb-lg-0" data-aos="fade-up">
+      <h2>Benvenuto {{ userAuth.capitalizedName }} </h2>
+      <p class="mb-0">Ultimo Login: {{ userAuth.lastLogin }}</p>
+    </div>
+  </div>
 </template>
