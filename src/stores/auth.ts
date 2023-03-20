@@ -101,8 +101,8 @@ export const useAuthStore = defineStore('auth',  {
                   this.errorMessage = "Impossibile effettuare il login.";
               }
               useToast({position: 'top', duration: 2500,}).error(this.errorMessage);
+              this.isLoading = false;
           }
-
     },
     async signout() {
       try {
