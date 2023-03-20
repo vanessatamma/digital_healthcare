@@ -117,15 +117,20 @@ export const useAuthStore = defineStore('auth',  {
               useToast({position: 'top', duration: 2500,}).error(this.errorMessage);
               this.isLoading = false;
           }
-    },
-    async signout() {
-      try {
-          const auth = getAuth();
-          await signOut(auth);
-         // await router.push({name: 'Login'});
-      } catch (e) {
-          useToast({position: 'top', duration: 4000,}).error("Impossibile effettuare il logout");
-      }
+        },
+      logout() {
+          try {
+              this.isLoading = true;
+              const auth = getAuth();
+              useToast({position: 'top', duration: 2000,}).success("Logout in corso.. ");
+              setTimeout(async () => {
+                  await signOut(auth);
+                  this.isLoading = false;
+              }, 2000)
+          } catch (e) {
+              useToast({position: 'top', duration: 4000,}).error("Impossibile effettuare il logout");
+              this.isLoading = false;
+          }
     },
   },
 })

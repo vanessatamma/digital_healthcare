@@ -1,9 +1,37 @@
 @import './base.css';
+@import "bootstrap";
 
 .home {
     background: #ececec;
-    height: 100vh;
+    min-height: 100vh;
    // overflow: hidden;
+}
+
+$primaryColor: #9ee2df;
+
+
+.btn-outline-primary,
+.btn-outline-primary:hover,
+.btn-outline-primary:active,
+.btn-outline-primary:visited,
+.btn-outline-primary:focus {
+    background-color: $primaryColor !important;
+    border-color: $primaryColor !important;;
+    color: #007f7c !important;
+
+    &:hover {
+        color: black !important;
+    }
+}
+
+.btn-outline-danger,
+.btn-outline-danger:hover,
+.btn-outline-danger:active,
+.btn-outline-danger:visited,
+.btn-outline-danger:focus{
+    &:hover svg {
+        color: white !important;
+    }
 }
 
 .section {
@@ -96,3 +124,5 @@
 .heading {
     font-size: 28px;
 }
+
+
