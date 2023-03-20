@@ -10,7 +10,6 @@ const schema = Yup.object().shape({
       .required('Email Obbligatoria.')
       .email('Formato email non valido.'),
   password: Yup.string()
-      .min(6, 'La Password deve avere almeno 6 caratteri.')
       .required('Password Obbligatoria.'),
 });
 
