@@ -1,5 +1,9 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import {getAuth, onAuthStateChanged} from "firebase/auth";
+import {doc, getDoc} from "firebase/firestore";
+import {db} from "@/firebase/init";
+import type {IUser} from "@/interfaces/user.interfaces";
+import {useAuthStore} from "@/stores/auth";
 
 
 const router = createRouter({
@@ -32,11 +36,23 @@ const router = createRouter({
 })
 
 const getCurrentUser = () => {
-  console.log('getCurrentUser')
   return new Promise(( resolve, reject ) =>{
     const removeListener = onAuthStateChanged(
         getAuth(),
-        (user) => {
+        async (user) => {
+          console.log('getCurrentUser', user)
+          if(user) {
+            const userSnap = await getDoc(doc(db, "users", (user as any).uid));
+            if (userSnap.exists()) {
+              const userAuth = useAuthStore()
+              userAuth.user = {
+                ...userSnap.data() as IUser,
+                confirmPassword: undefined,
+                password: undefined,
+              };
+            }
+          }
+
           removeListener();
           resolve(user)
         },
@@ -46,11 +62,12 @@ const getCurrentUser = () => {
 }
 
 router.beforeEach( async (to, from, next) => {
+  console.log("B-E")
   if (to.matched.some((record) => record.meta.requiresAuth)){
     if (await getCurrentUser()){
       next();
     } else {
-      alert("Non hai i permessi di accesso.");
+      console.log("Non hai i permessi di accesso.");
       next('/login');
     }
   } else {

@@ -6,7 +6,7 @@ import { useAuthStore } from "@/stores/auth";
 const userAuth = useAuthStore()
 const auth = getAuth();
 onAuthStateChanged(auth, (user) => {
-  console.log("onAuthStateChanged", user)
+  console.log("OASC")
   if (user) {
    // const uid = user.uid;
     userAuth.isLoggedIn = true;

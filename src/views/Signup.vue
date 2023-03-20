@@ -131,7 +131,7 @@ async function onSubmit(values) {
                 </div>
               </div>
               <div class="signin">
-                <span>Hai già un account? <a href="#">Login</a></span>
+                <span>Hai già un account? <a href="#" @click="$router.push('/login')">Login</a></span>
               </div>
             </Form>
           </div>
