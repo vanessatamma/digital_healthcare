@@ -8,7 +8,7 @@ import {
 } from "firebase/auth";
 import router from "@/router";
 import type {ILoginCredentials, IUser} from "@/interfaces/user.interfaces";
-import {setDoc, doc, getDoc, collection, addDoc} from "firebase/firestore";
+import {setDoc, doc, getDoc, collection, addDoc, getDocs} from "firebase/firestore";
 import {db} from "@/firebase/init";
 import {useToast} from "vue-toast-notification";
 import {
@@ -166,22 +166,24 @@ export const useAuthStore = defineStore('auth',  {
           if(!patientSnap.exists()) {
               //create the current patient and the related collection of pss
               const patientRef = doc(db, "patients", formattedCF);
-              const pssRef = collection(patientRef, "pss")
               await setDoc(patientRef, {});
-              //write an empty subcollection pss
-              await addDoc(pssRef, {});
+            //write an empty subcollection pss
+            //  const pssRef = collection(patientRef, "pss")
+            //  await addDoc(pssRef, {});
               useToast({position: 'top', duration: 2000}).success("Registrazione Codice Fiscale paziente effettuata con successo.");
           } else {
               useToast({position: 'top', duration: 2000}).success("Il paziente risulta già registrato, scaricamento PSS in corso..");
           }
+          // Retireve all pss of the current patient
+          await this.getPssList();
+
           this.patient.isCreating = true;
           this.patient.isLoading = false;
 
-          // scaricare tutti i pss e visualizzzarli in psslists
       },
       async getPatientInfo() {
           const userSnap = await getDoc(doc(db, "patients", this.patient.cf));
-          //console.log('getPatientInfo', this.patient.cf, userSnap.data(), isEmptyObject(userSnap.data()));
+
           if(!isEmptyObject(userSnap.data())) {
               this.patient.info = (userSnap.data() as any)
           }
@@ -194,7 +196,13 @@ export const useAuthStore = defineStore('auth',  {
           await this.getPatientInfo();
       },
       async getPssList() {
-
+          const patientRef = doc(db, "patients", this.patient.cf);
+          const pssRef = collection(patientRef, "pss")
+          const pssSnapshot = await getDocs(pssRef);
+          pssSnapshot.forEach((doc) => {
+              // doc.data() is never undefined for query doc snapshots
+              console.log(doc.id, " => ", doc.data());
+          });
       }
   },
 })

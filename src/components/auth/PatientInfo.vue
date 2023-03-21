@@ -42,7 +42,7 @@ const schemaPatient = Yup.object().shape({
 async function onSubmit(values) {
   await userAuth.setPatientInfo({
     ...values,
-    dateOfBirth: date.value.toLocaleString().substring(0, 9)
+    dateOfBirth: date.value ? date.value.toLocaleString().substring(0, 9) : null,
   })
 }
 
@@ -72,7 +72,7 @@ const saveForm = () => {
                 class="input"
                 id="lastName"
                 :class="{ 'is-invalid': errors.lastName }"
-                v-model="userAuth.patient.info.lastName"
+
             />
             <div class="invalid-feedback">{{errors.lastName}}</div>
           </div>
@@ -81,7 +81,7 @@ const saveForm = () => {
           <div class="input-field">
             <label for="firstName">Nome</label>
             <Field
-                v-model="userAuth.patient.info.firstName"
+
                 name="firstName" type="text" class="input" id="firstName" :class="{ 'is-invalid': errors.firstName }" />
             <div class="invalid-feedback">{{errors.firstName}}</div>
           </div>
@@ -90,7 +90,7 @@ const saveForm = () => {
           <div class="input-field">
             <label for="cf">Codice Fiscale</label>
             <Field
-                v-model="userAuth.patient.info.cf"
+
                 name="cf"
                 type="text"
                 class="input"
@@ -104,7 +104,7 @@ const saveForm = () => {
         <div class="col-12">
           <label class="mb-1" for="genre">Genere</label>
           <Field
-              v-model="userAuth.patient.info.genre"
+
               id="genre" name="genre" as="select" class="input" :class="{ 'is-invalid': errors.genre }">
             <option value="Non Specificato">Non specificato</option>
             <option value="Maschio">Maschio</option>
@@ -120,41 +120,40 @@ const saveForm = () => {
               :enable-time-picker="false"
               locale="it"
               :placeholder="userAuth.patient.info.dateOfBirth"
-              v-model="date"
           />
         </div>
         <div class="col-12">
           <div class="input-field">
             <label class="mb-1" for="cityOfBirth">Comune di nascita</label>
-            <Field v-model="userAuth.patient.info.cityOfBirth" name="cityOfBirth" type="text" class="input" id="cityOfBirth" :class="{ 'is-invalid': errors.cityOfBirth }" />
+            <Field name="cityOfBirth" type="text" class="input" id="cityOfBirth" :class="{ 'is-invalid': errors.cityOfBirth }" />
             <div class="invalid-feedback">{{errors.cityOfBirth}}</div>
           </div>
         </div>
         <div class="col-12">
           <div class="input-field">
             <label class="mb-1" for="domicile">Domicilio</label>
-            <Field v-model="userAuth.patient.info.domicile" name="domicile" type="text" class="input" id="domicile" :class="{ 'is-invalid': errors.domicile }" />
+            <Field  name="domicile" type="text" class="input" id="domicile" :class="{ 'is-invalid': errors.domicile }" />
             <div class="invalid-feedback">{{errors.domicile}}</div>
           </div>
         </div>
         <div class="col-12">
           <div class="input-field">
             <label class="mb-1" for="phone">Telefono</label>
-            <Field v-model="userAuth.patient.info.phone" name="phone" type="text" class="input" id="phone" :class="{ 'is-invalid': errors.phone }" />
+            <Field name="phone" type="text" class="input" id="phone" :class="{ 'is-invalid': errors.phone }" />
             <div class="invalid-feedback">{{errors.phone}}</div>
           </div>
         </div>
         <div class="col-12">
           <div class="input-field">
             <label class="mb-1" for="email">Email</label>
-            <Field v-model="userAuth.patient.info.email" name="email" type="text" class="input" id="email" :class="{ 'is-invalid': errors.email }" />
+            <Field  name="email" type="text" class="input" id="email" :class="{ 'is-invalid': errors.email }" />
             <div class="invalid-feedback">{{errors.email}}</div>
           </div>
         </div>
         <div class="col-12">
           <div class="input-field">
             <label class="mb-1" for="pec">PEC</label>
-            <Field v-model="userAuth.patient.info.pec" name="pec" type="text" class="input" id="email" :class="{ 'is-invalid': errors.pec }" />
+            <Field name="pec" type="text" class="input" id="email" :class="{ 'is-invalid': errors.pec }" />
             <div class="invalid-feedback">{{errors.pec}}</div>
           </div>
         </div>
@@ -164,14 +163,14 @@ const saveForm = () => {
         <div class="col-12">
           <div class="input-field">
             <label class="mb-1" for="infoCaregiver">INFO</label>
-            <Field v-model="userAuth.patient.info.infoCaregiver" name="infoCaregiver" type="text" class="input" id="infoCaregiver" :class="{ 'is-invalid': errors.infoCaregiver }" />
+            <Field name="infoCaregiver" type="text" class="input" id="infoCaregiver" :class="{ 'is-invalid': errors.infoCaregiver }" />
             <div class="invalid-feedback">{{errors.infoCaregiver}}</div>
           </div>
         </div>
         <div class="col-12">
           <div class="input-field">
             <label class="mb-1" for="phoneCaregiver">Telefono</label>
-            <Field v-model="userAuth.patient.info.phoneCaregiver" name="phoneCaregiver" type="text" class="input" id="phoneCaregiver" :class="{ 'is-invalid': errors.phoneCaregiver }" />
+            <Field  name="phoneCaregiver" type="text" class="input" id="phoneCaregiver" :class="{ 'is-invalid': errors.phoneCaregiver }" />
             <div class="invalid-feedback">{{errors.phoneCaregiver}}</div>
           </div>
         </div>

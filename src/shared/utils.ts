@@ -16,7 +16,9 @@ export const formattedLastLoginDate = (timeStamp: string) => {
 }
 
 export const isEmptyObject = (obj: any) => {
-    return Object.keys(obj).length === 0;
+    if(obj !== undefined && obj) {
+        return Object.keys(obj).length === 0;
+    }
 }
 
 export const recursivelyNullifyUndefinedValues = (obj: any) => {
