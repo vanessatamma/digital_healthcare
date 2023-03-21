@@ -11,7 +11,12 @@ import type {ILoginCredentials, IUser} from "@/interfaces/user.interfaces";
 import {setDoc, doc, getDoc, collection, addDoc} from "firebase/firestore";
 import {db} from "@/firebase/init";
 import {useToast} from "vue-toast-notification";
-import {capitalizeString, formattedLastLoginDate, isEmptyObject} from "@/shared/utils";
+import {
+    capitalizeString,
+    formattedLastLoginDate,
+    isEmptyObject,
+    recursivelyNullifyUndefinedValues
+} from "@/shared/utils";
 
 export const useAuthStore = defineStore('auth',  {
   state: () => ({
@@ -32,7 +37,20 @@ export const useAuthStore = defineStore('auth',  {
           isUpdating: false,
           isLoading: false,
           cf: "",
-          info: null,
+          info: {
+              lastName: '-',
+              firstName: '-',
+              cf: '-',
+              cityOfBirth: '-',
+              dateOfBirth: '-',
+              domicile: '-',
+              email: '-',
+              genre: '-',
+              infoCaregiver: '-',
+              pec: '-',
+              phone: '-',
+              phoneCaregiver: '-',
+          },
       },
   }),
   getters: {
@@ -163,10 +181,17 @@ export const useAuthStore = defineStore('auth',  {
       },
       async getPatientInfo() {
           const userSnap = await getDoc(doc(db, "patients", this.patient.cf));
-          console.log('getPatientInfo', this.patient.cf, userSnap.data(), isEmptyObject(userSnap.data()));
+          //console.log('getPatientInfo', this.patient.cf, userSnap.data(), isEmptyObject(userSnap.data()));
           if(!isEmptyObject(userSnap.data())) {
-              this.patient.info = userSnap.data() as any;
+              this.patient.info = (userSnap.data() as any)
           }
+      },
+      async setPatientInfo(patientInfo: any) {
+          const patientRef = doc(db, "patients", this.patient.cf);
+          await setDoc(patientRef, recursivelyNullifyUndefinedValues(patientInfo));
+          useToast({position: 'top', duration: 2000}).success("Dati paziente inseriti con successo.");
+          this.patient.isUpdating = false;
+          await this.getPatientInfo();
       },
       async getPssList() {
 

@@ -40,7 +40,10 @@ const schemaPatient = Yup.object().shape({
 });
 
 async function onSubmit(values) {
-  console.log('onSubmit patient info', values)
+  await userAuth.setPatientInfo({
+    ...values,
+    dateOfBirth: date.value.toLocaleString().substring(0, 9)
+  })
 }
 
 const updateForm = () => {
@@ -54,6 +57,7 @@ const saveForm = () => {
 </script>
 <template>
   <h2 class="mb-3">Dati anagrafici Paziente</h2>
+
   <!-- Form  -->
   <Form :ref="'form'" @submit="onSubmit" :validation-schema="schemaPatient" v-slot="{ errors }" v-if="userAuth.patient.isUpdating">
     <div class="row">
@@ -62,14 +66,23 @@ const saveForm = () => {
           <!-- Lastname -->
           <div class="input-field">
             <label for="lastName">Cognome</label>
-            <Field name="lastName" type="text" class="input" id="lastName" :class="{ 'is-invalid': errors.lastName }" />
+            <Field
+                name="lastName"
+                type="text"
+                class="input"
+                id="lastName"
+                :class="{ 'is-invalid': errors.lastName }"
+                v-model="userAuth.patient.info.lastName"
+            />
             <div class="invalid-feedback">{{errors.lastName}}</div>
           </div>
         </div>
         <div class="col-12">
           <div class="input-field">
             <label for="firstName">Nome</label>
-            <Field name="firstName" type="text" class="input" id="firstName" :class="{ 'is-invalid': errors.firstName }" />
+            <Field
+                v-model="userAuth.patient.info.firstName"
+                name="firstName" type="text" class="input" id="firstName" :class="{ 'is-invalid': errors.firstName }" />
             <div class="invalid-feedback">{{errors.firstName}}</div>
           </div>
         </div>
@@ -77,6 +90,7 @@ const saveForm = () => {
           <div class="input-field">
             <label for="cf">Codice Fiscale</label>
             <Field
+                v-model="userAuth.patient.info.cf"
                 name="cf"
                 type="text"
                 class="input"
@@ -84,16 +98,17 @@ const saveForm = () => {
                 :class="{ 'is-invalid': errors.cf }"
             />
             <div class="invalid-feedback">{{errors.cf}}</div>
-
           </div>
 
         </div>
         <div class="col-12">
           <label class="mb-1" for="genre">Genere</label>
-          <Field id="genre" name="genre" as="select" class="input" :class="{ 'is-invalid': errors.genre }">
-            <option value="not-specified">Non specificato</option>
-            <option value="man">Maschio</option>
-            <option value="woman">Femmina</option>
+          <Field
+              v-model="userAuth.patient.info.genre"
+              id="genre" name="genre" as="select" class="input" :class="{ 'is-invalid': errors.genre }">
+            <option value="Non Specificato">Non specificato</option>
+            <option value="Maschio">Maschio</option>
+            <option value="Femmina">Femmina</option>
           </Field>
         </div>
       </div>
@@ -101,53 +116,69 @@ const saveForm = () => {
         <div class="col-12 mb-3" >
           <label class="mb-1" for="genre">Data di nascita</label>
           <VueDatePicker
+              :format="'dd/MM/yyyy'"
               :enable-time-picker="false"
               locale="it"
+              :placeholder="userAuth.patient.info.dateOfBirth"
               v-model="date"
           />
         </div>
         <div class="col-12">
-          <label class="mb-1" for="cityOfBirth">Comune di nascita</label>
-          <Field name="cityOfBirth" type="text" class="input" id="cityOfBirth" :class="{ 'is-invalid': errors.cityOfBirth }" />
-          <div class="invalid-feedback">{{errors.cityOfBirth}}</div>
+          <div class="input-field">
+            <label class="mb-1" for="cityOfBirth">Comune di nascita</label>
+            <Field v-model="userAuth.patient.info.cityOfBirth" name="cityOfBirth" type="text" class="input" id="cityOfBirth" :class="{ 'is-invalid': errors.cityOfBirth }" />
+            <div class="invalid-feedback">{{errors.cityOfBirth}}</div>
+          </div>
         </div>
         <div class="col-12">
-          <label class="mb-1" for="domicile">Domicilio</label>
-          <Field name="domicile" type="text" class="input" id="domicile" :class="{ 'is-invalid': errors.domicile }" />
-          <div class="invalid-feedback">{{errors.domicile}}</div>
+          <div class="input-field">
+            <label class="mb-1" for="domicile">Domicilio</label>
+            <Field v-model="userAuth.patient.info.domicile" name="domicile" type="text" class="input" id="domicile" :class="{ 'is-invalid': errors.domicile }" />
+            <div class="invalid-feedback">{{errors.domicile}}</div>
+          </div>
         </div>
         <div class="col-12">
-          <label class="mb-1" for="phone">Telefono</label>
-          <Field name="phone" type="text" class="input" id="phone" :class="{ 'is-invalid': errors.phone }" />
-          <div class="invalid-feedback">{{errors.phone}}</div>
+          <div class="input-field">
+            <label class="mb-1" for="phone">Telefono</label>
+            <Field v-model="userAuth.patient.info.phone" name="phone" type="text" class="input" id="phone" :class="{ 'is-invalid': errors.phone }" />
+            <div class="invalid-feedback">{{errors.phone}}</div>
+          </div>
         </div>
         <div class="col-12">
-          <label class="mb-1" for="email">Email</label>
-          <Field name="email" type="text" class="input" id="email" :class="{ 'is-invalid': errors.email }" />
-          <div class="invalid-feedback">{{errors.email}}</div>
+          <div class="input-field">
+            <label class="mb-1" for="email">Email</label>
+            <Field v-model="userAuth.patient.info.email" name="email" type="text" class="input" id="email" :class="{ 'is-invalid': errors.email }" />
+            <div class="invalid-feedback">{{errors.email}}</div>
+          </div>
         </div>
         <div class="col-12">
-          <label class="mb-1" for="pec">PEC</label>
-          <Field name="pec" type="text" class="input" id="email" :class="{ 'is-invalid': errors.pec }" />
-          <div class="invalid-feedback">{{errors.pec}}</div>
+          <div class="input-field">
+            <label class="mb-1" for="pec">PEC</label>
+            <Field v-model="userAuth.patient.info.pec" name="pec" type="text" class="input" id="email" :class="{ 'is-invalid': errors.pec }" />
+            <div class="invalid-feedback">{{errors.pec}}</div>
+          </div>
         </div>
       </div>
       <div class="col-12 col-md-3">
         <h4 class="fw-semibold my-sm-2">Caregiver</h4>
         <div class="col-12">
-          <label class="mb-1" for="infoCaregiver">INFO</label>
-          <Field name="infoCaregiver" type="text" class="input" id="infoCaregiver" :class="{ 'is-invalid': errors.infoCaregiver }" />
-          <div class="invalid-feedback">{{errors.infoCaregiver}}</div>
+          <div class="input-field">
+            <label class="mb-1" for="infoCaregiver">INFO</label>
+            <Field v-model="userAuth.patient.info.infoCaregiver" name="infoCaregiver" type="text" class="input" id="infoCaregiver" :class="{ 'is-invalid': errors.infoCaregiver }" />
+            <div class="invalid-feedback">{{errors.infoCaregiver}}</div>
+          </div>
         </div>
         <div class="col-12">
-          <label class="mb-1" for="phoneCaregiver">Telefono</label>
-          <Field name="phoneCaregiver" type="text" class="input" id="phoneCaregiver" :class="{ 'is-invalid': errors.phoneCaregiver }" />
-          <div class="invalid-feedback">{{errors.phoneCaregiver}}</div>
+          <div class="input-field">
+            <label class="mb-1" for="phoneCaregiver">Telefono</label>
+            <Field v-model="userAuth.patient.info.phoneCaregiver" name="phoneCaregiver" type="text" class="input" id="phoneCaregiver" :class="{ 'is-invalid': errors.phoneCaregiver }" />
+            <div class="invalid-feedback">{{errors.phoneCaregiver}}</div>
+          </div>
         </div>
       </div>
     </div>
     <hr class="my-4">
-    <div class="row ">
+    <div class="row">
       <div class="col-4" v-if="!userAuth.patient.isUpdating">
         <button type="reset" @click="updateForm" class="btn btn-primary mr-1 w-100">
           Modifica dati paziente
@@ -175,45 +206,45 @@ const saveForm = () => {
       <div class="col-12 col-md-4">
         <div class="col-12">
           <!-- Lastname -->
-          <ItemText title="Cognome" :value='"Giuseppe"' />
+          <ItemText title="Cognome" :value='userAuth.patient.info.lastName' />
         </div>
         <div class="col-12">
-          <ItemText title="Nome" :value='"Giuseppe"' />
+          <ItemText title="Nome" :value='userAuth.patient.info.firstName'  />
         </div>
         <div class="col-12">
-          <ItemText title="Codice Fiscale" :value='"Giuseppe"' />
+          <ItemText title="Codice Fiscale" :value='userAuth.patient.info.cf.toUpperCase()' />
         </div>
         <div class="col-12">
-          <ItemText title="Genere" :value='"Giuseppe"' />
+          <ItemText title="Genere" :value='userAuth.patient.info.genre'  />
         </div>
       </div>
       <div class="col-12 col-md-5">
         <div class="col-12">
-          <ItemText title="Data di nascita" :value='"Giuseppe"' />
+          <ItemText title="Data di nascita" :value='userAuth.patient.info.dateOfBirth' />
         </div>
         <div class="col-12">
-          <ItemText title="Comune di nascita" :value='"Giuseppe"' />
+          <ItemText title="Comune di nascita" :value='userAuth.patient.info.cityOfBirth' />
         </div>
         <div class="col-12">
-          <ItemText title="Domicilio" :value='"Giuseppe"' />
+          <ItemText title="Domicilio" :value='userAuth.patient.info.domicile' />
         </div>
         <div class="col-12">
-          <ItemText title="Telefono" :value='"Giuseppe"' />
+          <ItemText title="Telefono" :value='userAuth.patient.info.phone' />
         </div>
         <div class="col-12">
-          <ItemText title="Email" :value='"Giuseppe"' />
+          <ItemText title="Email" :value='userAuth.patient.info.email' />
         </div>
         <div class="col-12">
-          <ItemText title="PEC" :value='"Giuseppe"' />
+          <ItemText title="PEC" :value='userAuth.patient.info.pec' />
         </div>
       </div>
       <div class="col-12 col-md-3">
         <h4 class="fw-semibold my-sm-2">Caregiver</h4>
         <div class="col-12">
-          <ItemText title="Info" :value='"Giuseppe"' />
+          <ItemText title="Info" :value='userAuth.patient.info.infoCaregiver' />
         </div>
         <div class="col-12">
-          <ItemText title="Telefono" :value='"Giuseppe"' />
+          <ItemText title="Telefono" :value='userAuth.patient.info.phoneCaregiver'  />
         </div>
       </div>
     </div>

@@ -7,7 +7,7 @@ const props = defineProps(['title', 'value'])
       {{ props.title }}:
     </span>
     <span class="value">
-      {{ props.value }}
+      {{ props.value ?? '-' }}
     </span>
   </div>
 </template>

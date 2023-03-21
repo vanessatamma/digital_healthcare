@@ -8,7 +8,6 @@ import PatientInfo from "@/components/auth/PatientInfo.vue";
 
 const userAuth = useAuthStore()
 
-
 const schema = Yup.object().shape({
   cf: Yup.string()
       .uppercase()
@@ -19,16 +18,6 @@ const schema = Yup.object().shape({
 async function onSubmit(values) {
   await userAuth.checkCF(values.cf);
 }
-/*
-
-STEP:
-
--> inserire CF
--> controllare che non sia gia' presente su firebase
--> se e' presente leggere l'utente e modificarlo insieme ai suoi pss, quindi una volta letto verranno mostrati tutti i suoi pss
--> se non lo e' creare nuovo utente e poi mostrare bottone aggiungi pss
-
- */
 
 </script>
 <template>

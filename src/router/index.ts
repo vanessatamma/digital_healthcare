@@ -48,7 +48,6 @@ const getCurrentUser = () => {
         async (user) => {
           //console.log('getCurrentUser', user)
           if(user) {
-            console.log('getCurrentUser', user)
             const userSnap = await getDoc(doc(db, "users", (user as any).uid));
             if (userSnap.exists()) {
               const userAuth = useAuthStore()
