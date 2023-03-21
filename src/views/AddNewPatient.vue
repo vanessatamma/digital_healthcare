@@ -4,6 +4,7 @@ import { Form, Field } from 'vee-validate';
 import * as Yup from 'yup';
 import { useAuthStore } from "@/stores/auth";
 import PssLists from "@/components/auth/PssLists.vue";
+import PatientInfo from "@/components/auth/PatientInfo.vue";
 
 const userAuth = useAuthStore()
 
@@ -38,8 +39,8 @@ STEP:
         <Navbar :arrow-back="true" />
         <br>
         <div class="card-wrapper">
-          <div class="card card__new-patient">
-            <Form v-if="!userAuth.patient.isCreating" @submit="onSubmit" :validation-schema="schema" v-slot="{ errors }">
+          <div class="card card__new-patient" :style="[userAuth.patient.isCreating ? {'width': '100%'} : {'width': '60%'}]" >
+            <Form class="check-cf" v-if="!userAuth.patient.isCreating" @submit="onSubmit" :validation-schema="schema" v-slot="{ errors }">
               <!-- CF -->
               <div class="input-field">
                 <span>
@@ -71,8 +72,9 @@ STEP:
               </div>
             </Form>
             <div v-else>
-              FORM CREZIONE PSS
-              <!-- Inizio creazione PSS -->
+              <!-- Dati Paziente -->
+              <PatientInfo />
+              <!-- Form PSS -->
               <PssLists />
             </div>
           </div>
@@ -89,13 +91,13 @@ STEP:
   display: flex;
   justify-content: center;
 }
+
 .card {
   &__new-patient {
     border-radius: 10px;
     background: #fff;
     box-shadow: 5px 5px 10px 1px rgba(0, 0, 0, 0.2);
     padding: 1.5rem;
-    width: 70%;
   }
 }
 

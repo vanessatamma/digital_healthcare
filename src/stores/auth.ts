@@ -30,6 +30,7 @@ export const useAuthStore = defineStore('auth',  {
       patient: {
           isCreating: false,
           isLoading: false,
+          cf: "",
       },
   }),
   getters: {
@@ -140,21 +141,26 @@ export const useAuthStore = defineStore('auth',  {
           this.patient.isLoading = true;
           // check on firestore the inserted CF
           const formattedCF = cf.toUpperCase();
+          this.patient.cf = formattedCF;
           const patientSnap = await getDoc(doc(db, "patients", formattedCF));
           if(!patientSnap.exists()) {
               //create the current patient and the related collection of pss
               const patientRef = doc(db, "patients", formattedCF);
               const pssRef = collection(patientRef, "pss")
               await setDoc(patientRef, {});
-              //write a empty subcollection pss
+              //write an empty subcollection pss
               await addDoc(pssRef, {});
-
               useToast({position: 'top', duration: 2000}).success("Registrazione Codice Fiscale paziente effettuata con successo.");
           } else {
               useToast({position: 'top', duration: 2000}).success("Il paziente risulta già registrato, scaricamento PSS in corso..");
           }
           this.patient.isCreating = true;
           this.patient.isLoading = false;
+
+          // scaricare tutti i pss e visualizzzarli in psslists
+      },
+      async getPssList() {
+
       }
   },
 })
