@@ -207,7 +207,7 @@ export const useAuthStore = defineStore('auth',  {
       async getPssList() {
           const patientRef = doc(db, "patients", this.patient.cf);
           const pssRef = collection(patientRef, "pss")
-          const pssSnapshot = await getDocs(pssRef);ß
+          const pssSnapshot = await getDocs(pssRef);
           let pssList: any[] = [];
           if(!pssSnapshot.empty) {
               pssSnapshot.forEach((doc) => {
