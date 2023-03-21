@@ -26,11 +26,8 @@ export const recursivelyNullifyUndefinedValues = (obj: any) => {
         .entries(obj)
         .forEach(([key, value]) => {
             if (!!value && (typeof value === 'object')) {
-
                 recursivelyNullifyUndefinedValues(value);
-
             } else if (value === undefined) {
-
                 obj[key] = null;
             }
         });

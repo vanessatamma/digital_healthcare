@@ -48,7 +48,7 @@ const items: Item[] = [
     <div class="add-new-pss">
       <strong>Nessun PSS trovato.</strong>
 
-      <button type="button" class="btn btn-outline-primary arrow-back" @click="userAuth.addNewPss">
+      <button type="button" class="btn btn-outline-primary arrow-back" @click="userAuth.patient.isCreatingNewPss = true">
         Aggiungi PSS
         <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-file-plus" viewBox="0 0 16 16">
           <path d="M8.5 6a.5.5 0 0 0-1 0v1.5H6a.5.5 0 0 0 0 1h1.5V10a.5.5 0 0 0 1 0V8.5H10a.5.5 0 0 0 0-1H8.5V6z"/>

@@ -68,14 +68,22 @@ const validationSchema = [
     organDonation: yup.string().label('Gravidanze e parti'),
   }),
 
-
 ];
 
 /**
  * Only Called when the last step is submitted
  */
+
+const chronicPathologies: string[] = reactive([]);
+const actualPathologies: string[] = reactive([]);
 function onSubmit(formData: any) {
-  console.log(JSON.stringify(formData, null, 2));
+  userAuth.addNewPss({
+    ...formData,
+    chronicPathologies,
+    actualPathologies,
+    date: new Date()
+  });
+  //console.log(JSON.stringify(formData, null, 2));
 }
 const onReset = () => {
   userAuth.patient.isCreatingNewPss = false;
@@ -86,8 +94,6 @@ const onChangeStep = (stepIndex: number) => {
   currentStep.value = stepIndex + 1;
 }
 
-const chronicPathologies: string[] = reactive([]);
-const actualPathologies: string[] = reactive([]);
 const addPatology = (patology: string, arrayToCheck: string[]) => {
   if (!arrayToCheck.includes(patology)) {
     arrayToCheck.push(patology);

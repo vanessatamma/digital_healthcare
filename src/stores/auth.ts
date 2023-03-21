@@ -207,25 +207,28 @@ export const useAuthStore = defineStore('auth',  {
       async getPssList() {
           const patientRef = doc(db, "patients", this.patient.cf);
           const pssRef = collection(patientRef, "pss")
-          const pssSnapshot = await getDocs(pssRef);
-          console.log('PSS-LIST')
+          const pssSnapshot = await getDocs(pssRef);ß
+          let pssList: any[] = [];
           if(!pssSnapshot.empty) {
               pssSnapshot.forEach((doc) => {
-                  // doc.data() is never undefined for query doc snapshots
                   console.log(doc.id, " => ", doc.data());
+                  const data = doc.data();
+                  pssList.push(data as any);
               });
-          } else {
-
+              this.patient.pssList = pssList as any;
           }
-
       },
-      async addNewPss() {
-          console.log('addNewPss', this.patient.cf)
-          this.patient.isCreatingNewPss = true;
-          // salvare la data di oggi nel pss perche servira' per fare il filtro
+      async addNewPss(pss: any) {
+          console.log('addNewPss', this.patient.cf, recursivelyNullifyUndefinedValues(pss))
+          const patientRef = doc(db, "patients", this.patient.cf);
+          const pssRef = collection(patientRef, "pss")
+          await addDoc(pssRef, recursivelyNullifyUndefinedValues(pss));
 
+          useToast({position: 'top', duration: 2000}).success("PSS caricato con successo.");
+
+          await this.getPssList();
             //dopo metterlo a false
-          //this.patient.isCreatingNewPss = false;
+          this.patient.isCreatingNewPss = false;
       }
   },
 })
