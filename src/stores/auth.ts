@@ -18,11 +18,8 @@ import {
     recursivelyNullifyUndefinedValues
 } from "@/shared/utils";
 
-export const useAuthStore = defineStore('auth',  {
-  state: () => ({
-      isLoading: false,
-      isLoggedIn: false,
-      user: {
+
+const initialUserState = {
         firstName: "",
         lastName:"",
         email: "",
@@ -30,28 +27,37 @@ export const useAuthStore = defineStore('auth',  {
         confirmPassword: undefined,
         lastLogin: null,
         userType:"",
+    };
+const initialPatientState =  {
+    isCreating: false,
+    isUpdating: false,
+    isLoading: false,
+    cf: "",
+    info: {
+        lastName: '-',
+        firstName: '-',
+        cf: '-',
+        cityOfBirth: '-',
+        dateOfBirth: '-',
+        domicile: '-',
+        email: '-',
+        genre: '-',
+        infoCaregiver: '-',
+        pec: '-',
+        phone: '-',
+        phoneCaregiver: '-',
     },
+    pssList: [],
+    currentPss: {},
+    isCreatingNewPss: false,
+};
+export const useAuthStore = defineStore('auth',  {
+  state: () => ({
+      isLoading: false,
+      isLoggedIn: false,
+      user: initialUserState,
       errorMessage: "",
-      patient: {
-          isCreating: false,
-          isUpdating: false,
-          isLoading: false,
-          cf: "",
-          info: {
-              lastName: '-',
-              firstName: '-',
-              cf: '-',
-              cityOfBirth: '-',
-              dateOfBirth: '-',
-              domicile: '-',
-              email: '-',
-              genre: '-',
-              infoCaregiver: '-',
-              pec: '-',
-              phone: '-',
-              phoneCaregiver: '-',
-          },
-      },
+      patient: initialPatientState
   }),
   getters: {
       capitalizedName(state) {
@@ -148,9 +154,13 @@ export const useAuthStore = defineStore('auth',  {
               this.isLoading = true;
               const auth = getAuth();
               useToast({position: 'top', duration: 2000,}).success("Logout in corso.. ");
+              this.patient = JSON.parse(JSON.stringify(initialPatientState));
+              this.user = JSON.parse(JSON.stringify(initialUserState));
+
               setTimeout(async () => {
-                  await signOut(auth);
-                  this.isLoading = false;
+                    await signOut(auth);
+                  this.patient.isCreating = false;
+                   this.isLoading = false;
               }, 2000)
           } catch (e) {
               useToast({position: 'top', duration: 4000,}).error("Impossibile effettuare il logout");
@@ -183,7 +193,6 @@ export const useAuthStore = defineStore('auth',  {
       },
       async getPatientInfo() {
           const userSnap = await getDoc(doc(db, "patients", this.patient.cf));
-
           if(!isEmptyObject(userSnap.data())) {
               this.patient.info = (userSnap.data() as any)
           }
@@ -199,10 +208,24 @@ export const useAuthStore = defineStore('auth',  {
           const patientRef = doc(db, "patients", this.patient.cf);
           const pssRef = collection(patientRef, "pss")
           const pssSnapshot = await getDocs(pssRef);
-          pssSnapshot.forEach((doc) => {
-              // doc.data() is never undefined for query doc snapshots
-              console.log(doc.id, " => ", doc.data());
-          });
+          console.log('PSS-LIST')
+          if(!pssSnapshot.empty) {
+              pssSnapshot.forEach((doc) => {
+                  // doc.data() is never undefined for query doc snapshots
+                  console.log(doc.id, " => ", doc.data());
+              });
+          } else {
+
+          }
+
+      },
+      async addNewPss() {
+          console.log('addNewPss', this.patient.cf)
+          this.patient.isCreatingNewPss = true;
+          // salvare la data di oggi nel pss perche servira' per fare il filtro
+
+            //dopo metterlo a false
+          //this.patient.isCreatingNewPss = false;
       }
   },
 })
