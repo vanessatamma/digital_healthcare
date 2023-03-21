@@ -1,19 +1,42 @@
 <script setup>
 import { Form, Field } from 'vee-validate';
 import ItemText from "@/components/shared/ItemText.vue";
-import {onMounted} from "vue";
+import {onMounted, ref} from "vue";
 import {useAuthStore} from "@/stores/auth";
 import * as Yup from "yup";
 const userAuth = useAuthStore()
 onMounted(() => {
   userAuth.getPatientInfo();
 });
-
+const date = ref();
 const schemaPatient = Yup.object().shape({
   firstName: Yup.string()
       .required('Campo Obbligatorio.'),
   lastName: Yup.string()
       .required('Campo Obbligatorio.'),
+  domicile: Yup.string()
+      .required('Campo Obbligatorio.'),
+  cityOfBirth: Yup.string()
+      .required('Campo Obbligatorio.'),
+  phone: Yup.string()
+      .required('Campo Obbligatorio.')
+      .trim()
+      .matches(/^(([+])39)?((3[1-6][0-9]))(\d{7})$/, 'Formato numero non corretto.'),
+  cf: Yup.string()
+      .uppercase()
+      .required('Campo Obbligatorio.')
+      .matches(/^([A-Z]{6}[0-9LMNPQRSTUV]{2}[ABCDEHLMPRST]{1}[0-9LMNPQRSTUV]{2}[A-Z]{1}[0-9LMNPQRSTUV]{3}[A-Z]{1})$|([0-9]{11})$/, 'Formato codice fiscale non valido.'),
+  genre: Yup.string(),
+      //.required('Campo Obbligatorio.'),
+  email: Yup.string()
+      .required('Campo Obbligatorio.')
+      .email('Formato email non valido.'),
+  pec: Yup.string()
+      .matches(/(?:[a-z0-9!#$%&'*+\/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+\/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:\w*.?pec(?:.?\w+)*)/g,'Formato PEC non valido.'),
+  infoCaregiver: Yup.string(),
+  phoneCaregiver: Yup.string()
+      .trim()
+      .matches(/^(([+])39)?((3[1-6][0-9]))(\d{7})$/, 'Formato numero non corretto.'),
 });
 
 async function onSubmit(values) {
@@ -21,7 +44,7 @@ async function onSubmit(values) {
 }
 
 const updateForm = () => {
-  userAuth.patient.isUpdating = true
+  userAuth.patient.isUpdating = !userAuth.patient.isUpdating;
 }
 
 const saveForm = () => {
@@ -51,54 +74,98 @@ const saveForm = () => {
           </div>
         </div>
         <div class="col-12">
-          <ItemText title="Codice Fiscale" :value='"Giuseppe"' />
+          <div class="input-field">
+            <label for="cf">Codice Fiscale</label>
+            <Field
+                name="cf"
+                type="text"
+                class="input"
+                id="cf"
+                :class="{ 'is-invalid': errors.cf }"
+            />
+            <div class="invalid-feedback">{{errors.cf}}</div>
+
+          </div>
+
         </div>
         <div class="col-12">
-          <ItemText title="Genere" :value='"Giuseppe"' />
+          <label class="mb-1" for="genre">Genere</label>
+          <Field id="genre" name="genre" as="select" class="input" :class="{ 'is-invalid': errors.genre }">
+            <option value="not-specified">Non specificato</option>
+            <option value="man">Maschio</option>
+            <option value="woman">Femmina</option>
+          </Field>
         </div>
       </div>
       <div class="col-12 col-md-5">
-        <div class="col-12">
-          <ItemText title="Data di nascita" :value='"Giuseppe"' />
+        <div class="col-12 mb-3" >
+          <label class="mb-1" for="genre">Data di nascita</label>
+          <VueDatePicker
+              :enable-time-picker="false"
+              locale="it"
+              v-model="date"
+          />
         </div>
         <div class="col-12">
-          <ItemText title="Comune di nascita" :value='"Giuseppe"' />
+          <label class="mb-1" for="cityOfBirth">Comune di nascita</label>
+          <Field name="cityOfBirth" type="text" class="input" id="cityOfBirth" :class="{ 'is-invalid': errors.cityOfBirth }" />
+          <div class="invalid-feedback">{{errors.cityOfBirth}}</div>
         </div>
         <div class="col-12">
-          <ItemText title="Domicilio" :value='"Giuseppe"' />
+          <label class="mb-1" for="domicile">Domicilio</label>
+          <Field name="domicile" type="text" class="input" id="domicile" :class="{ 'is-invalid': errors.domicile }" />
+          <div class="invalid-feedback">{{errors.domicile}}</div>
         </div>
         <div class="col-12">
-          <ItemText title="Telefono" :value='"Giuseppe"' />
+          <label class="mb-1" for="phone">Telefono</label>
+          <Field name="phone" type="text" class="input" id="phone" :class="{ 'is-invalid': errors.phone }" />
+          <div class="invalid-feedback">{{errors.phone}}</div>
         </div>
         <div class="col-12">
-          <ItemText title="Email" :value='"Giuseppe"' />
+          <label class="mb-1" for="email">Email</label>
+          <Field name="email" type="text" class="input" id="email" :class="{ 'is-invalid': errors.email }" />
+          <div class="invalid-feedback">{{errors.email}}</div>
         </div>
         <div class="col-12">
-          <ItemText title="PEC" :value='"Giuseppe"' />
+          <label class="mb-1" for="pec">PEC</label>
+          <Field name="pec" type="text" class="input" id="email" :class="{ 'is-invalid': errors.pec }" />
+          <div class="invalid-feedback">{{errors.pec}}</div>
         </div>
       </div>
       <div class="col-12 col-md-3">
         <h4 class="fw-semibold my-sm-2">Caregiver</h4>
         <div class="col-12">
-          <ItemText title="Info" :value='"Giuseppe"' />
+          <label class="mb-1" for="infoCaregiver">INFO</label>
+          <Field name="infoCaregiver" type="text" class="input" id="infoCaregiver" :class="{ 'is-invalid': errors.infoCaregiver }" />
+          <div class="invalid-feedback">{{errors.infoCaregiver}}</div>
         </div>
         <div class="col-12">
-          <ItemText title="Telefono" :value='"Giuseppe"' />
+          <label class="mb-1" for="phoneCaregiver">Telefono</label>
+          <Field name="phoneCaregiver" type="text" class="input" id="phoneCaregiver" :class="{ 'is-invalid': errors.phoneCaregiver }" />
+          <div class="invalid-feedback">{{errors.phoneCaregiver}}</div>
         </div>
       </div>
     </div>
-    <hr>
-    <div class="row d-flex justify-content-end">
+    <hr class="my-4">
+    <div class="row ">
       <div class="col-4" v-if="!userAuth.patient.isUpdating">
         <button type="reset" @click="updateForm" class="btn btn-primary mr-1 w-100">
           Modifica dati paziente
         </button>
       </div>
-      <div class="col-4" v-else>
-        <button type="submit" @click="saveForm" class="btn btn-primary mr-1 w-100">
-          Salva
-        </button>
+      <div class="d-flex justify-content-end gap-2" v-else>
+        <div class="col-4" >
+          <button type="reset" @click="updateForm" class="btn btn-warning mr-1 w-100">
+            Annulla
+          </button>
+        </div>
+        <div class="col-4" >
+          <button type="submit" @click="saveForm" class="btn btn-outline-primary mr-1 w-100">
+            Salva
+          </button>
+        </div>
       </div>
+
     </div>
   </Form>
 
@@ -173,5 +240,8 @@ const saveForm = () => {
 }
 .input {
   height: 25px;
+}
+.input-field {
+  padding: 0;
 }
 </style>
