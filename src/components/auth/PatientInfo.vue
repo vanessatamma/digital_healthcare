@@ -249,14 +249,14 @@ const saveForm = () => {
     </div>
   </div>
   <hr v-if="!userAuth.patient.isUpdating" >
-  <div v-if="!userAuth.patient.isUpdating" class="row d-flex justify-content-end">
+  <div v-if="!userAuth.patient.isUpdating" class="row d-flex justify-content-center">
     <div class="col-4" v-if="!userAuth.patient.isUpdating">
-      <button @click="updateForm" class="btn btn-primary mr-1 w-100">
+      <button @click="updateForm" class="btn btn-outline-primary mr-1 w-100">
         Modifica dati paziente
       </button>
     </div>
     <div class="col-4" v-else>
-      <button @click="saveForm" class="btn btn-primary mr-1 w-100">
+      <button @click="saveForm" class="btn btn-outline-primary mr-1 w-100">
         Salva
       </button>
     </div>

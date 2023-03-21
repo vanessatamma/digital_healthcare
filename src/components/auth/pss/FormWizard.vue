@@ -9,7 +9,7 @@ const props = defineProps({
   },
 });
 
-const emit = defineEmits(['submit']);
+const emit = defineEmits(['submit', 'reset', 'next', 'previous']);
 const currentStepIdx = ref(0);
 
 // Injects the starting step, child <form-steps> will use this to generate their ids
@@ -30,7 +30,7 @@ const hasPrevious = computed(() => {
   return currentStepIdx.value > 0;
 });
 
-// extracts the indivdual step schema
+// extracts the individual step schema
 const currentSchema = computed(() => {
   return props.validationSchema[currentStepIdx.value];
 });
@@ -43,11 +43,11 @@ const { values, handleSubmit } = useForm({
 });
 
 // We are using the "submit" handler to progress to next steps
-// and to submit the form if its the last step
+// and to submit the form if it's the last step
 const onSubmit = handleSubmit((values) => {
   if (!isLastStep.value) {
     currentStepIdx.value++;
-
+    emit('previous', currentStepIdx.value);
     return;
   }
 
@@ -59,8 +59,8 @@ function goToPrev() {
   if (currentStepIdx.value === 0) {
     return;
   }
-
   currentStepIdx.value--;
+  emit('previous', currentStepIdx.value);
 }
 </script>
 
@@ -68,12 +68,23 @@ function goToPrev() {
   <form @submit="onSubmit">
     <slot />
 
-    <div>
-      <button v-if="hasPrevious" type="button" @click="goToPrev">
-        Previous
-      </button>
-      <button type="submit">{{ isLastStep ? 'Submit' : 'Next' }}</button>
+    <div class="row mt-5">
+      <div class="col-2">
+        <button class="btn btn-warning mr-1 w-100" @click="emit('reset')">
+          Reset
+        </button>
+      </div>
+      <div class="col-5">
+        <button class="btn btn-outline-primary mr-1 w-100" v-if="hasPrevious" type="button" @click="goToPrev">
+          Step Precedente
+        </button>
+      </div>
 
+      <div class="col-5">
+        <button class="btn btn-outline-primary mr-1 w-100" type="submit">
+          {{ isLastStep ? 'Salva PSS' : 'Step Successivo' }}
+        </button>
+      </div>
     </div>
 
     <pre>{{ values }}</pre>
