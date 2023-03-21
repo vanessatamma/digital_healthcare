@@ -9,7 +9,6 @@ import PatientInfo from "@/components/auth/PatientInfo.vue";
 const userAuth = useAuthStore()
 
 
-
 const schema = Yup.object().shape({
   cf: Yup.string()
       .uppercase()
@@ -47,7 +46,6 @@ STEP:
                   Se il paziente è già presente nel sistema potrà scegliere di modificare i dati, altrimenti inserirà da zero un nuovo paziente nel database.
                 </span>
                 <Field
-                    @input="(value) => value.toUpperCase()"
                     name="cf"
                     type="text"
                     class="input"

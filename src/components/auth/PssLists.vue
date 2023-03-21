@@ -21,6 +21,7 @@ const items: Item[] = [
 </script>
 <template>
   <h2 class="mb-3">Lista dei PSS disponibili</h2>
+  <div class="my-4"><strong>Dati del: </strong>inserire dropdown date</div>
   <DataTable
       :headers="headers"
       :items="items"

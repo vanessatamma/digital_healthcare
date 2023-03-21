@@ -13,5 +13,8 @@ export const formattedLastLoginDate = (timeStamp: string) => {
         minute: "numeric",
     };
     return new Date(Number(timeStamp)).toLocaleString('it-IT', options as any);
-  //  return date.getHours() + ":" + date.getMinutes() + ", "+ date.toDateString();
+}
+
+export const isEmptyObject = (obj: any) => {
+    return Object.keys(obj).length === 0;
 }

@@ -11,7 +11,7 @@ import type {ILoginCredentials, IUser} from "@/interfaces/user.interfaces";
 import {setDoc, doc, getDoc, collection, addDoc} from "firebase/firestore";
 import {db} from "@/firebase/init";
 import {useToast} from "vue-toast-notification";
-import {capitalizeString, formattedLastLoginDate} from "@/shared/utils";
+import {capitalizeString, formattedLastLoginDate, isEmptyObject} from "@/shared/utils";
 
 export const useAuthStore = defineStore('auth',  {
   state: () => ({
@@ -29,8 +29,10 @@ export const useAuthStore = defineStore('auth',  {
       errorMessage: "",
       patient: {
           isCreating: false,
+          isUpdating: false,
           isLoading: false,
           cf: "",
+          info: null,
       },
   }),
   getters: {
@@ -158,6 +160,13 @@ export const useAuthStore = defineStore('auth',  {
           this.patient.isLoading = false;
 
           // scaricare tutti i pss e visualizzzarli in psslists
+      },
+      async getPatientInfo() {
+          const userSnap = await getDoc(doc(db, "patients", this.patient.cf));
+          console.log('getPatientInfo', this.patient.cf, userSnap.data(), isEmptyObject(userSnap.data()));
+          if(!isEmptyObject(userSnap.data())) {
+              this.patient.info = userSnap.data() as any;
+          }
       },
       async getPssList() {
 
