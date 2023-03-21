@@ -1,67 +1,27 @@
 <script setup>
 import {useAuthStore} from "@/stores/auth";
-import {formattedLastLoginDate} from "@/shared/utils";
 const userAuth = useAuthStore()
 
-/*
-  <nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <div class="container-fluid">
-      <a class="navbar-brand ms-4" href="#">Digital Healthcare</a>
-      <button
-          class="navbar-toggler"
-          type="button"
-          data-bs-toggle="collapse"
-          data-bs-target="#navbarSupportedContent"
-          aria-controls="navbarSupportedContent"
-          aria-expanded="false"
-          aria-label="Toggle navigation"
-      >
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+const props = defineProps(['arrowBack'])
 
-        <form>
-          <button
-              v-if="!userAuth.isLoggedIn"
-              type="button"
-              class="btn btn-outline-primary mx-2"
-              data-bs-toggle="modal"
-              data-bs-target="#login"
-          >
-            Log in
-          </button>
-          <!-- Cerrar sesión -->
-          <button
-              v-if="userAuth.isLoggedIn"
-              class="btn btn-outline-danger me-2"
-              @click="userAuth.signout"
-          >
-            Log out
-          </button>
-          <!-- Regístrate -->
-          <button
-              v-if="!userAuth.isLoggedIn"
-              type="button"
-              class="btn btn-outline-warning"
-              data-bs-toggle="modal"
-              data-bs-target="#registro"
-          >
-            Regístrate
-          </button>
-        </form>
-      </div>
-    </div>
-  </nav>
- */
 </script>
 
 <template>
   <div class="navbar row mb-5 align-items-center" data-aos="fade-up">
-    <div class="col-md-9 col-lg-9 mb-4 mb-lg-0" >
+    <div class="col-4 col-md-9 col-lg-9 mb-4 mb-lg-0" v-if="props.arrowBack">
+      <button type="button" class="btn btn-outline-primary arrow-back" @click="$router.push('/home')">
+        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-arrow-left-square-fill" viewBox="0 0 16 16">
+          <path d="M16 14a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12zm-4.5-6.5H5.707l2.147-2.146a.5.5 0 1 0-.708-.708l-3 3a.5.5 0 0 0 0 .708l3 3a.5.5 0 0 0 .708-.708L5.707 8.5H11.5a.5.5 0 0 0 0-1z"/>
+        </svg>
+      </button>
+    </div>
+
+    <div class="col-md-9 col-lg-9 mb-4 mb-lg-0" v-else >
       <h2>Benvenuto {{ userAuth.capitalizedName }} </h2>
       <p class="mb-0">Ultimo Login: {{ userAuth.lastLogin }}</p>
     </div>
-    <div class="col-md-12 col-lg-3 mb-4 mb-lg-0 text-center">
+
+    <div class="col-8 col-md-3 col-lg-3 mb-4 mb-lg-0 text-end">
       <!-- Settings -->
       <button type="button" class="btn btn-outline-primary mx-2" >
         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-gear-fill" viewBox="0 0 16 16">
@@ -93,5 +53,11 @@ const userAuth = useAuthStore()
 .loader {
   height: 16px;
   width: 16px;
+}
+.arrow-back {
+
+  @media(min-width: 761px) {
+    width: 30%;
+  }
 }
 </style>

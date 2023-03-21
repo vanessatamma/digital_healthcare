@@ -50,20 +50,20 @@ async function onSubmit(values) {
               <!-- Name -->
               <div class="input-field">
                 <Field name="firstName" type="text" class="input" id="firstName" :class="{ 'is-invalid': errors.firstName }" />
-                <label for="firstName">Nome*</label>
+                <label for="firstName">Nome</label>
                 <div class="invalid-feedback">{{errors.firstName}}</div>
               </div>
               <!-- Surname -->
               <div class="input-field">
                 <Field name="lastName" type="text" class="input" id="lastName" :class="{ 'is-invalid': errors.lastName }" />
-                <label for="lastName">Cognome*</label>
+                <label for="lastName">Cognome</label>
                 <div class="invalid-feedback">{{errors.lastName}}</div>
               </div>
               <!-- Email -->
               <div class="input-field">
                 <Field name="email" type="text" class="input" id="email" :class="{ 'is-invalid': errors.email }" />
                 <div class="invalid-feedback">{{errors.email}}</div>
-                <label for="email">Email*</label>
+                <label for="email">Email</label>
               </div>
               <!-- User type -->
               <div class="container user-type">

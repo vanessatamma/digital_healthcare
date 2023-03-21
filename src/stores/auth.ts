@@ -4,20 +4,20 @@ import {
     signOut,
     createUserWithEmailAndPassword,
     signInWithEmailAndPassword,
-    type UserCredential, onAuthStateChanged,
+    type UserCredential,
 } from "firebase/auth";
 import router from "@/router";
 import type {ILoginCredentials, IUser} from "@/interfaces/user.interfaces";
-import { setDoc, doc, getDoc } from "firebase/firestore";
+import {setDoc, doc, getDoc, collection, addDoc} from "firebase/firestore";
 import {db} from "@/firebase/init";
 import {useToast} from "vue-toast-notification";
 import {capitalizeString, formattedLastLoginDate} from "@/shared/utils";
 
 export const useAuthStore = defineStore('auth',  {
   state: () => ({
-    isLoading: false,
-    isLoggedIn: false,
-    user: {
+      isLoading: false,
+      isLoggedIn: false,
+      user: {
         firstName: "",
         lastName:"",
         email: "",
@@ -26,7 +26,11 @@ export const useAuthStore = defineStore('auth',  {
         lastLogin: null,
         userType:"",
     },
-    errorMessage: "",
+      errorMessage: "",
+      patient: {
+          isCreating: false,
+          isLoading: false,
+      },
   }),
   getters: {
       capitalizedName(state) {
@@ -132,5 +136,25 @@ export const useAuthStore = defineStore('auth',  {
               this.isLoading = false;
           }
     },
+      async checkCF(cf: string) {
+          this.patient.isLoading = true;
+          // check on firestore the inserted CF
+          const formattedCF = cf.toUpperCase();
+          const patientSnap = await getDoc(doc(db, "patients", formattedCF));
+          if(!patientSnap.exists()) {
+              //create the current patient and the related collection of pss
+              const patientRef = doc(db, "patients", formattedCF);
+              const pssRef = collection(patientRef, "pss")
+              await setDoc(patientRef, {});
+              //write a empty subcollection pss
+              await addDoc(pssRef, {});
+
+              useToast({position: 'top', duration: 2000}).success("Registrazione Codice Fiscale paziente effettuata con successo.");
+          } else {
+              useToast({position: 'top', duration: 2000}).success("Il paziente risulta già registrato, scaricamento PSS in corso..");
+          }
+          this.patient.isCreating = true;
+          this.patient.isLoading = false;
+      }
   },
 })

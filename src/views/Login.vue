@@ -39,7 +39,7 @@ async function onSubmit(values) {
               <div class="input-field">
                 <Field name="email" type="text" class="input" id="email" :class="{ 'is-invalid': errors.email }" />
                 <div class="invalid-feedback">{{errors.email}}</div>
-                <label for="email">Email*</label>
+                <label for="email">Email</label>
               </div>
               <!-- Password -->
               <div class="input-field">
@@ -72,6 +72,7 @@ async function onSubmit(values) {
 </template>
 
 <style lang="scss" scoped>
+@import '../assets/form.scss';
 .form-wrapper {
   &__card {
     width: 900px;
@@ -143,54 +144,7 @@ i{
     color:#a9e6e3;
   }
 }
-.input-field{
-  display: flex;
-  flex-direction: column;
-  position: relative;
-  padding: 0 10px 0 10px;
-  margin-bottom: 20px;
-}
-.input{
-  height: 45px;
-  width: 100%;
-  background: transparent;
-  border: none;
-  border-bottom: 1px solid rgba(0,0,0,0.2);
-  outline: none;
 
-  color: #40414a;
-}
-.input-box .input-field label{
-  position: absolute;
-  top: 10px;
-  left: 10px;
-  pointer-events: none;
-  transition: .5s;
-}
-.input-field .input:focus ~ label{
-  top: -10px;
-  font-size: 13px;
-}
-.input-field .input:valid ~ label{
-  top: -10px;
-  font-size: 13px;
-  color: #5d5076;
-}
-.input-field .input:focus, .input-field .input:valid{
-  border-bottom: 1px solid #743ae1;
-}
-.submit{
-  border: none;
-  outline: none;
-  height: 45px;
-  background: #ececec;
-  border-radius: 5px;
-  transition: .4s;
-}
-.submit:hover{
-  background: rgba(37, 95, 156,0.9);
-  color: #fff;
-}
 .signin{
   text-align: center;
   font-size: small;

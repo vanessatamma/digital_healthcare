@@ -4,14 +4,14 @@ import Navbar from "@/components/shared/Navbar.vue";
 </script>
 
 <template>
-  <main class="home">
+  <main class="wrapper-page">
     <section class="section site-portfolio">
       <div class="container">
         <Navbar />
         <br>
         <div id="portfolio-grid" class="row no-gutter" data-aos="fade-up" data-aos-delay="200">
-          <div class="item web col-sm-6 col-md-6 col-lg-6 mb-4">
-            <a href="work-single.html" class="item-wrap fancybox">
+          <div @click="$router.push('/list-patients')"  class="item web col-sm-6 col-md-6 col-lg-6 mb-4">
+            <div class="item-wrap fancybox">
               <div class="work-info">
                 <h3>Lista Pazienti</h3>
                 <span>
@@ -22,10 +22,10 @@ import Navbar from "@/components/shared/Navbar.vue";
                 </span>
               </div>
               <img class="img-fluid" src="../assets/lists.jpg">
-            </a>
+            </div>
           </div>
           <div class="item photography col-sm-6 col-md-6 col-lg-6 mb-4">
-            <a href="work-single.html" class="item-wrap fancybox">
+            <div @click="$router.push('/add-new-patient')" class="item-wrap fancybox">
               <div class="work-info">
                 <h3>Aggiungi Paziente</h3>
                 <span>
@@ -36,7 +36,7 @@ import Navbar from "@/components/shared/Navbar.vue";
                 </span>
               </div>
               <img class="img-fluid" src="../assets/add.jpg">
-            </a>
+            </div>
           </div>
         </div>
       </div>
