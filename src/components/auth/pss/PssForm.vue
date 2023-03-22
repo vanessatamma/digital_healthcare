@@ -20,10 +20,9 @@ const props = withDefaults(defineProps<Props>(), {
 })
 let chronicPathologies: string[] = reactive([]);
 let actualPathologies: string[] = reactive([]);
-let localModel = reactive({});
+
 
 onMounted(() => {
-  console.log('PSS FORM',  props.model)
   if(props.model) {
     chronicPathologies = [...props.model.chronicPathologies as any];
     actualPathologies = props.model.actualPathologies as any;
@@ -77,10 +76,10 @@ const validationSchema = [
   }),
 
   yup.object({
-    height: yup.number().nullable().min(1, "Inserire un'altezza valida").label('Altezza'),
-    weight: yup.number().nullable().min(1, "Inserire un peso valido").label('Peso'),
-    bmi: yup.number().nullable().label('BMI'),
-    bloodPressure: yup.number().nullable().label('Pressione Arteriosa'),
+    height: yup.string().min(1, "Inserire un'altezza valida").nullable().label('Altezza'),
+    weight: yup.string().min(1, "Inserire un peso valido").nullable().label('Peso'),
+    bmi: yup.string().nullable().label('BMI'),
+    bloodPressure: yup.string().nullable().label('Pressione Arteriosa'),
     adi: yup.string().nullable().label('ADI'),
     adp: yup.string().nullable().label('ADP'),
   }),
@@ -93,11 +92,6 @@ const validationSchema = [
   }),
 
 ];
-
-/**
- * Only Called when the last step is submitted
- */
-
 
 function onSubmit(formData: any) {
   userAuth.addNewPss({

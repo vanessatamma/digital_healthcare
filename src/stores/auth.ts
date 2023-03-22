@@ -233,7 +233,7 @@ export const useAuthStore = defineStore('auth',  {
         //  this.patient.currentPss = pssList[0];
       },
       async addNewPss(pss: any) {
-          //console.log('addNewPss', this.patient.cf, recursivelyNullifyUndefinedValues(pss))
+         // console.log('addNewPss', this.patient.cf, recursivelyNullifyUndefinedValues(pss))
           const patientRef = doc(db, "patients", this.patient.cf);
           const pssRef = collection(patientRef, "pss")
           await addDoc(pssRef, recursivelyNullifyUndefinedValues(pss));
@@ -243,9 +243,7 @@ export const useAuthStore = defineStore('auth',  {
           await this.getPssList();
             //dopo metterlo a false
           this.patient.isCreatingNewPss = false;
+          this.patient.isUpdatingCurrentPss = false;
       },
-      async updateSelectedPss() {
-          console.log('updateSelectedPss', this.patient.currentPss)
-      }
   },
 })
