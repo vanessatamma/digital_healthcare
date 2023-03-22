@@ -70,7 +70,7 @@ export const useAuthStore = defineStore('auth',  {
           return '-';
       },
       pssDateList(state) {
-          return state.patient.pssList.map(pss => formattedLastLoginDate((pss as any).date));
+          return state.patient.pssList.map(pss => (pss as any).date);
       }
   },
   actions: {

@@ -1,10 +1,14 @@
 <script setup lang="ts">
 import {useAuthStore} from "@/stores/auth";
 import PssForm from "@/components/auth/pss/PssForm.vue";
-import {ref} from "vue";
+import {onMounted, ref} from "vue";
 import ButtonAddNewPss from "@/components/auth/pss/ButtonAddNewPss.vue";
 const userAuth = useAuthStore()
-const date = ref();
+const selectedDate = ref();
+
+onMounted(() => {
+  selectedDate.value = userAuth.pssDateList[0];
+})
 
 /*
 
@@ -47,18 +51,21 @@ le date del ropdworn sono quelle dei pss
         <strong>Dati del: </strong>
       </div>
       <div class="col-9 col-sm-6">
-        <VueDatePicker
-            :format="'dd/MM/yyyy'"
-            :enable-time-picker="false"
-            locale="it"
-            v-model="date"
-        />
+        <select class="form-select" v-model="selectedDate">
+          <option>Seleziona una data</option>
+          <option v-for="(date, index) in userAuth.pssDateList" :key="index" :value="date">
+            {{ date }}
+          </option>
+        </select>
       </div>
       <div class="col-12 col-sm-4 mt-4 mt-sm-0 text-center">
         <ButtonAddNewPss class="w-100" :with-icon="false"/>
       </div>
     </div>
-    data {{ date }} {{ userAuth.pssDateList }}
+    data {{ userAuth.pssDateList }} selected {{ selectedDate }}
+    <div class="row">
+
+    </div>
 
     <!-- ADD NEW PSS -->
     <PssForm v-if="userAuth.patient.isCreatingNewPss" />

@@ -85,7 +85,6 @@ function onSubmit(formData: any) {
     actualPathologies,
     date: formattedShortDate(date.value)
   });
-  //console.log(JSON.stringify(formData, null, 2));
 }
 const onReset = () => {
   userAuth.patient.isCreatingNewPss = false;
