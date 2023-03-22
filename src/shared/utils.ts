@@ -27,6 +27,12 @@ export const isEmptyObject = (obj: any) => {
     }
 }
 
+export const checkIfNull = (value: string) => {
+    if(!value || value === 'undefined') return '-';
+
+    return value;
+}
+
 export const recursivelyNullifyUndefinedValues = (obj: any) => {
     Object
         .entries(obj)

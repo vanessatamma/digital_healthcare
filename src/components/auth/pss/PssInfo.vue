@@ -242,7 +242,7 @@ const userAuth = useAuthStore()
     </div>
     <div class="row my-3 pss-actions text-center">
       <div class="col-6">
-        <button type="button" class="btn btn-outline-success arrow-back w-100">
+        <button type="button" class="btn btn-outline-success arrow-back w-100" @click="userAuth.downloadPdf">
           Scarica PSS
         </button>
       </div>

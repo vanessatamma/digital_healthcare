@@ -12,12 +12,15 @@ import {setDoc, doc, getDoc, collection, addDoc, getDocs} from "firebase/firesto
 import {db} from "@/firebase/init";
 import {useToast} from "vue-toast-notification";
 import {
-    capitalizeString,
+    capitalizeString, checkIfNull,
     formattedLastLoginDate,
     isEmptyObject,
     recursivelyNullifyUndefinedValues
 } from "@/shared/utils";
 
+import * as pdfMake from "pdfmake/build/pdfmake";
+import * as pdfFonts from 'pdfmake/build/vfs_fonts';
+(<any>pdfMake).vfs = pdfFonts.pdfMake.vfs;
 export const initialPssState = {
         lastName: '-',
         firstName: '-',
@@ -250,5 +253,62 @@ export const useAuthStore = defineStore('auth',  {
           this.patient.isCreatingNewPss = false;
           this.patient.isUpdatingCurrentPss = false;
       },
+      async downloadPdf() {
+          const dd = {
+              content: [
+                  {
+                      text: `Paziente: ${this.patient.info.lastName} ${this.patient.info.firstName}`,
+                      margin: [ 0, 0, 0, 10 ],
+                      style: 'header'
+                  },
+                  {
+                      text: `PSS - ${(this.patient.currentPss as any).date}`,
+                      margin: [ 0, 0, 0, 10 ],
+                      style: 'subheader'
+                  },
+
+                  {
+                      style: 'tableExample',
+                      color: '#444',
+                      margin: [ 0, 0, 0, 10 ],
+                      table: {
+                          widths: [200, '*'],
+                          body: [
+                              [{text: 'Dati del medico', style: 'header', colSpan: 2, alignment: 'center',}, {}],
+                              ['Cognome', `${checkIfNull((this.patient.currentPss as any).lastName)}`,],
+                              ['Nome', `${checkIfNull((this.patient.currentPss as any).firstName)}`,],
+                              ['Codice Fiscale', `${checkIfNull((this.patient.currentPss as any).cf.toUpperCase())}`,],
+                              ['Recapito Telefonico', `${checkIfNull((this.patient.currentPss as any).phone)}`,],
+                              ['Email', `${checkIfNull((this.patient.currentPss as any).email)}`,],
+                              ['PEC', `${checkIfNull((this.patient.currentPss as any).pec)}`,],
+                          ]
+                      }
+                  },
+                  {
+                      text: 'It is possible to apply multiple styles, by passing an array. This paragraph uses two styles: quote and small. When multiple styles are provided, they are evaluated in the specified order which is important in case they define the same properties',
+                      style: ['quote', 'small']
+                  }
+              ],
+              styles: {
+                  header: {
+                      fontSize: 18,
+                      bold: true,
+                      padding: 10
+                  },
+                  subheader: {
+                      fontSize: 15,
+                      bold: true
+                  },
+                  quote: {
+                      italics: true
+                  },
+                  small: {
+                      fontSize: 8
+                  }
+              }
+
+          }
+          pdfMake.createPdf(dd).download('PSS');
+      }
   },
 })
