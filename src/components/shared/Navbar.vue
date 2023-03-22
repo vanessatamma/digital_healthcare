@@ -1,15 +1,23 @@
 <script setup>
-import {useAuthStore} from "@/stores/auth";
+import {initialPatientState, useAuthStore} from "@/stores/auth";
 const userAuth = useAuthStore()
-
+import { useRouter } from 'vue-router';
 const props = defineProps(['arrowBack'])
 
+const router = useRouter()
+const goBack = () => {
+  userAuth.patient = initialPatientState;
+
+  router.push({
+    name: 'Home',
+  })
+}
 </script>
 
 <template>
   <div class="navbar row mb-5 align-items-center" data-aos="fade-up">
     <div class="col-4 col-md-9 col-lg-9 mb-4 mb-lg-0" v-if="props.arrowBack">
-      <button type="button" class="btn btn-outline-primary arrow-back" @click="$router.push('/home')">
+      <button type="button" class="btn btn-outline-primary arrow-back" @click="goBack">
         <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-arrow-left-square-fill" viewBox="0 0 16 16">
           <path d="M16 14a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12zm-4.5-6.5H5.707l2.147-2.146a.5.5 0 1 0-.708-.708l-3 3a.5.5 0 0 0 0 .708l3 3a.5.5 0 0 0 .708-.708L5.707 8.5H11.5a.5.5 0 0 0 0-1z"/>
         </svg>

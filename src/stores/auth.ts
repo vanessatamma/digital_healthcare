@@ -23,7 +23,7 @@ export const initialPssState = {
         firstName: '-',
         cf: '-',
     };
-const initialUserState = {
+export const initialUserState = {
         firstName: "",
         lastName:"",
         email: "",
@@ -32,7 +32,7 @@ const initialUserState = {
         lastLogin: null,
         userType:"",
     };
-const initialPatientState =  {
+export const initialPatientState =  {
     isCreating: false,
     isUpdating: false,
     isLoading: false,
