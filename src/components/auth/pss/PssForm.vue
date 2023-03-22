@@ -7,6 +7,7 @@ import {useAuthStore} from "@/stores/auth";
 import * as Yup from "yup";
 import {reactive, ref} from "vue";
 import {formattedShortDate} from "@/shared/utils";
+import { v4 as uuidv4 } from 'uuid';
 const userAuth = useAuthStore()
 const date = ref();
 
@@ -83,7 +84,8 @@ function onSubmit(formData: any) {
     ...formData,
     chronicPathologies,
     actualPathologies,
-    date: formattedShortDate(date.value)
+    date: formattedShortDate(date.value),
+    id: uuidv4(),
   });
 }
 const onReset = () => {

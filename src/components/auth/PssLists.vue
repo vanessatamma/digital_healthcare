@@ -1,39 +1,24 @@
 <script setup lang="ts">
-import {useAuthStore} from "@/stores/auth";
+import {initialPssState, useAuthStore} from "@/stores/auth";
 import PssForm from "@/components/auth/pss/PssForm.vue";
-import {onMounted, ref} from "vue";
+import {ref} from "vue";
 import ButtonAddNewPss from "@/components/auth/pss/ButtonAddNewPss.vue";
+import ItemText from "@/components/shared/ItemText.vue";
 const userAuth = useAuthStore()
 const selectedDate = ref();
+const selectedPssId = ref();
 
-onMounted(() => {
-  selectedDate.value = userAuth.pssDateList[0];
-})
+const onChangePss = (event: any) => {
+  // use id to get the specific Pss
+  if(event.target.value === '-') {
+    selectedPssId.value = null;
+    userAuth.patient.currentPss = initialPssState;
+  } else {
+    selectedPssId.value = event.target.value;
+    userAuth.patient.currentPss = userAuth.patient.pssList.find(pss => (pss as any).id === event.target.value)!;
+  }
+}
 
-/*
-
-le date del ropdworn sono quelle dei pss
-
-
-  <DataTable
-      :headers="headers"
-      :items="items"
-      :hide-footer="true"
-  />
-
-  <div class="accordion" id="accordionFlushExample">
-      <div class="accordion-item">
-        <h2 class="accordion-header" id="flush-headingOne">
-          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
-            Accordion Item #1
-          </button>
-        </h2>
-        <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
-          <div class="accordion-body">Placeholder content for this accordion, which is intended to demonstrate the <code>.accordion-flush</code> class. This is the first item's accordion body.</div>
-        </div>
-      </div>
-    </div>
- */
 </script>
 <template>
   <h2 class="mb-3">Lista dei PSS disponibili</h2>
@@ -46,15 +31,19 @@ le date del ropdworn sono quelle dei pss
 
     <hr class="my-4">
     <!-- PSS LIST -->
-    <div class="row my-4">
+    <div class="row my-4" v-if="userAuth.patient.pssList.length > 0">
       <div class="col-3 col-sm-2 d-flex align-items-center">
         <strong>Dati del: </strong>
       </div>
       <div class="col-9 col-sm-6">
-        <select class="form-select" v-model="selectedDate">
-          <option>Seleziona una data</option>
-          <option v-for="(date, index) in userAuth.pssDateList" :key="index" :value="date">
-            {{ date }}
+        <select class="form-select" v-model="selectedDate" @change="onChangePss($event)">
+          <option :value="'-'">Seleziona una data</option>
+          <option
+              v-for="(pss, index) in userAuth.pssDateList"
+              :key="pss.id"
+              :value="pss.id"
+          >
+            {{ pss.date }}
           </option>
         </select>
       </div>
@@ -62,9 +51,37 @@ le date del ropdworn sono quelle dei pss
         <ButtonAddNewPss class="w-100" :with-icon="false"/>
       </div>
     </div>
-    data {{ userAuth.pssDateList }} selected {{ selectedDate }}
-    <div class="row">
 
+    <div class="row" v-if="userAuth.patient.pssList.length > 0 && Boolean(selectedPssId)">
+      <div class="accordion" id="accordionFlushExample">
+        <div class="accordion-item">
+          <h2 class="accordion-header" id="flush-headingOne">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
+             Dati del medico
+            </button>
+          </h2>
+
+          <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
+            <div class="accordion-body">
+              <div class="row">
+                <div class="col-12 col-md-4">
+                  <div class="col-12">
+                    <!-- Lastname -->
+                    <ItemText title="Cognome" :value='userAuth.patient.currentPss.lastName' />
+                  </div>
+                  <div class="col-12">
+                    <!-- firstname -->
+                    <ItemText title="Nome" :value='userAuth.patient.currentPss.firstName'  />
+                  </div>
+                  <div class="col-12">
+                    <ItemText title="Codice Fiscale" :value='userAuth.patient.currentPss.cf.toUpperCase()' />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
 
     <!-- ADD NEW PSS -->
@@ -78,6 +95,8 @@ le date del ropdworn sono quelle dei pss
   display: flex;
   justify-content: space-between;
   align-items: center;
-
+}
+.item-text {
+  font-size: 14px;
 }
 </style>

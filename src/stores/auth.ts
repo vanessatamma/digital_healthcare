@@ -18,7 +18,11 @@ import {
     recursivelyNullifyUndefinedValues
 } from "@/shared/utils";
 
-
+export const initialPssState = {
+        lastName: '-',
+        firstName: '-',
+        cf: '-',
+    };
 const initialUserState = {
         firstName: "",
         lastName:"",
@@ -48,7 +52,7 @@ const initialPatientState =  {
         phoneCaregiver: '-',
     },
     pssList: [],
-    currentPss: {},
+    currentPss: initialPssState,
     isCreatingNewPss: false,
 };
 export const useAuthStore = defineStore('auth',  {
@@ -70,7 +74,12 @@ export const useAuthStore = defineStore('auth',  {
           return '-';
       },
       pssDateList(state) {
-          return state.patient.pssList.map(pss => (pss as any).date);
+          return state.patient.pssList.map(pss => {
+              return {
+                  date: (pss as any).date,
+                  id: (pss as any).id
+              }
+          });
       }
   },
   actions: {
@@ -214,15 +223,16 @@ export const useAuthStore = defineStore('auth',  {
           let pssList: any[] = [];
           if(!pssSnapshot.empty) {
               pssSnapshot.forEach((doc) => {
-                  console.log(doc.id, " => ", doc.data());
+                 // console.log(doc.id, " => ", doc.data());
                   const data = doc.data();
                   pssList.push(data as any);
               });
               this.patient.pssList = pssList as any;
           }
+        //  this.patient.currentPss = pssList[0];
       },
       async addNewPss(pss: any) {
-          console.log('addNewPss', this.patient.cf, recursivelyNullifyUndefinedValues(pss))
+          //console.log('addNewPss', this.patient.cf, recursivelyNullifyUndefinedValues(pss))
           const patientRef = doc(db, "patients", this.patient.cf);
           const pssRef = collection(patientRef, "pss")
           await addDoc(pssRef, recursivelyNullifyUndefinedValues(pss));
