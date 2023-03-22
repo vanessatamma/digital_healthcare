@@ -248,7 +248,7 @@ const saveForm = () => {
       </div>
     </div>
   </div>
-  <hr v-if="!userAuth.patient.isUpdating" >
+
   <div v-if="!userAuth.patient.isUpdating" class="row d-flex justify-content-center">
     <div class="col-4" v-if="!userAuth.patient.isUpdating">
       <button @click="updateForm" class="btn btn-outline-primary mr-1 w-100">
@@ -261,7 +261,6 @@ const saveForm = () => {
       </button>
     </div>
   </div >
-
 </template>
 <style lang="scss" scoped>
 @import '../../assets/form.scss';

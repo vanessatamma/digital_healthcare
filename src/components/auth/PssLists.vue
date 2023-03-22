@@ -3,7 +3,7 @@ import {initialPssState, useAuthStore} from "@/stores/auth";
 import PssForm from "@/components/auth/pss/PssForm.vue";
 import {ref} from "vue";
 import ButtonAddNewPss from "@/components/auth/pss/ButtonAddNewPss.vue";
-import ItemText from "@/components/shared/ItemText.vue";
+import PssInfo from "@/components/auth/pss/PssInfo.vue";
 const userAuth = useAuthStore()
 const selectedDate = ref();
 const selectedPssId = ref();
@@ -21,6 +21,7 @@ const onChangePss = (event: any) => {
 
 </script>
 <template>
+  <hr class="my-4">
   <h2 class="mb-3">Lista dei PSS disponibili</h2>
   <div>
     <div v-if="userAuth.patient.pssList.length === 0" class="add-new-pss">
@@ -28,8 +29,6 @@ const onChangePss = (event: any) => {
 
       <ButtonAddNewPss :with-icon="true"/>
     </div>
-
-    <hr class="my-4">
     <!-- PSS LIST -->
     <div class="row my-4" v-if="userAuth.patient.pssList.length > 0">
       <div class="col-3 col-sm-2 d-flex align-items-center">
@@ -53,35 +52,7 @@ const onChangePss = (event: any) => {
     </div>
 
     <div class="row" v-if="userAuth.patient.pssList.length > 0 && Boolean(selectedPssId)">
-      <div class="accordion" id="accordionFlushExample">
-        <div class="accordion-item">
-          <h2 class="accordion-header" id="flush-headingOne">
-            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
-             Dati del medico
-            </button>
-          </h2>
-
-          <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
-            <div class="accordion-body">
-              <div class="row">
-                <div class="col-12 col-md-4">
-                  <div class="col-12">
-                    <!-- Lastname -->
-                    <ItemText title="Cognome" :value='userAuth.patient.currentPss.lastName' />
-                  </div>
-                  <div class="col-12">
-                    <!-- firstname -->
-                    <ItemText title="Nome" :value='userAuth.patient.currentPss.firstName'  />
-                  </div>
-                  <div class="col-12">
-                    <ItemText title="Codice Fiscale" :value='userAuth.patient.currentPss.cf.toUpperCase()' />
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+     <PssInfo />
     </div>
 
     <!-- ADD NEW PSS -->
@@ -95,8 +66,5 @@ const onChangePss = (event: any) => {
   display: flex;
   justify-content: space-between;
   align-items: center;
-}
-.item-text {
-  font-size: 14px;
 }
 </style>
