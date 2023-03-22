@@ -69,18 +69,18 @@ function goToPrev() {
     <slot />
 
     <div class="row mt-5">
-      <div class="col-2">
+      <div class="col-12 col-sm-4">
         <button class="btn btn-warning mr-1 w-100" @click="emit('reset')">
-          Reset
+          Annulla Inserimento
         </button>
       </div>
-      <div class="col-5">
+      <div class="col-12 col-sm-4">
         <button class="btn btn-outline-primary mr-1 w-100" v-if="hasPrevious" type="button" @click="goToPrev">
           Step Precedente
         </button>
       </div>
 
-      <div class="col-5">
+      <div class="col-12 col-sm-4">
         <button class="btn btn-outline-primary mr-1 w-100" type="submit">
           {{ isLastStep ? 'Salva PSS' : 'Step Successivo' }}
         </button>

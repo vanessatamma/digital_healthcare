@@ -3,6 +3,12 @@ export const capitalizeString = (word: string) => {
     return word.charAt(0).toUpperCase() + word.slice(1);
 }
 
+export const formattedShortDate = (date: string) => {
+    function pad(s: string | number) { return (s < 10) ? '0' + s : s; }
+    const d = new Date(date)
+    return [pad(d.getDate()), pad(d.getMonth()+1), d.getFullYear()].join('/')
+}
+
 export const formattedLastLoginDate = (timeStamp: string) => {
     const options = {
         weekday: "long",

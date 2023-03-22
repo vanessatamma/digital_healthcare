@@ -6,12 +6,14 @@ import FormStep from "@/components/auth/pss/FormStep.vue";
 import {useAuthStore} from "@/stores/auth";
 import * as Yup from "yup";
 import {reactive, ref} from "vue";
+import {formattedShortDate} from "@/shared/utils";
 const userAuth = useAuthStore()
-
+const date = ref();
 
 const validationSchema = [
   // dati del medico
   yup.object({
+    date: yup.string().required('Campo Obbligatorio.').label('Date'),
     lastName: yup.string().required('Campo Obbligatorio.').label('Cognome Medico'),
     firstName: yup.string().required('Campo Obbligatorio.').label('Nome Medico'),
     cf: Yup.string()
@@ -81,7 +83,7 @@ function onSubmit(formData: any) {
     ...formData,
     chronicPathologies,
     actualPathologies,
-    date: new Date()
+    date: formattedShortDate(date.value)
   });
   //console.log(JSON.stringify(formData, null, 2));
 }
@@ -106,7 +108,7 @@ const addPatology = (patology: string, arrayToCheck: string[]) => {
 </script>
 
 <template>
-  <div class="pss-form">
+  <div class="pss-form mt-5">
     <div class="d-flex justify-content-between align-items-center">
       <h2>
         INSERIMENTO DATI PAZIENTE
@@ -131,6 +133,23 @@ const addPatology = (patology: string, arrayToCheck: string[]) => {
 
       <!-- Dati del medico -->
       <FormStep>
+        <div class="row mb-3">
+          <div class="col-6 col-sm-4">
+            <h4>Inserisci data PSS</h4>
+          </div>
+          <div class="col-6 col-sm-8">
+
+            <VueDatePicker
+                :format="'dd/MM/yyyy'"
+                :enable-time-picker="false"
+                locale="it"
+                v-model="date"
+            />
+            <Field style="display: none" name="date" id="phone" class="input" type="text" v-model="date" />
+            <ErrorMessage name="date" class="is-invalid" />
+          </div>
+        </div>
+        <hr class="my-5">
         <h4>Dati del medico</h4>
         <div class="row">
           <div class="col-4">

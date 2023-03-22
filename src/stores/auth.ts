@@ -68,6 +68,9 @@ export const useAuthStore = defineStore('auth',  {
               return formattedLastLoginDate(state.user.lastLogin);
           }
           return '-';
+      },
+      pssDateList(state) {
+          return state.patient.pssList.map(pss => formattedLastLoginDate((pss as any).date));
       }
   },
   actions: {
