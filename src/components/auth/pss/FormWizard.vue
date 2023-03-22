@@ -86,8 +86,8 @@ function goToPrev() {
         </button>
       </div>
     </div>
+    <!--  <pre>{{ values }}</pre>-->
 
-    <pre>{{ values }}</pre>
   </form>
 </template>
 

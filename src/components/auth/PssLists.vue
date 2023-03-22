@@ -22,7 +22,7 @@ const onChangePss = (event: any) => {
 </script>
 <template>
   <hr class="my-4">
-  <h2 class="mb-3">Lista dei PSS disponibili</h2>
+  <h2 class="mb-3" v-if="!userAuth.patient.isCreatingNewPss">Lista dei PSS disponibili</h2>
   <div>
     <div v-if="userAuth.patient.pssList.length === 0" class="add-new-pss">
       <strong>Nessun PSS trovato.</strong>
@@ -30,7 +30,7 @@ const onChangePss = (event: any) => {
       <ButtonAddNewPss :with-icon="true"/>
     </div>
     <!-- PSS LIST -->
-    <div class="row my-4" v-if="userAuth.patient.pssList.length > 0">
+    <div class="row my-4" v-if="userAuth.patient.pssList.length > 0 && !userAuth.patient.isCreatingNewPss">
       <div class="col-3 col-sm-2 d-flex align-items-center">
         <strong>Dati del: </strong>
       </div>
@@ -51,7 +51,7 @@ const onChangePss = (event: any) => {
       </div>
     </div>
 
-    <div class="row" v-if="userAuth.patient.pssList.length > 0 && Boolean(selectedPssId)">
+    <div class="row" v-if="userAuth.patient.pssList.length > 0 && Boolean(selectedPssId) && !userAuth.patient.isCreatingNewPss">
      <PssInfo />
     </div>
 
