@@ -7,6 +7,10 @@ const props = defineProps({
     type: Array,
     required: true,
   },
+  canAbort: {
+    type: Boolean,
+    required: false,
+  }
 });
 
 const emit = defineEmits(['submit', 'reset', 'next', 'previous']);
@@ -69,25 +73,25 @@ function goToPrev() {
     <slot />
 
     <div class="row mt-5">
-      <div class="col-12 col-sm-4">
+      <div class="col-12 col-sm-4" v-if="props.canAbort">
         <button class="btn btn-warning mr-1 w-100" @click="emit('reset')">
           Annulla Inserimento
         </button>
       </div>
-      <div class="col-12 col-sm-4">
+      <div class="col-12 col-sm-4" :class="{'col-sm-6': !props.canAbort}">
         <button class="btn btn-outline-primary mr-1 w-100" v-if="hasPrevious" type="button" @click="goToPrev">
           Step Precedente
         </button>
       </div>
 
-      <div class="col-12 col-sm-4">
+      <div class="col-12 col-sm-4" :class="{'col-sm-6': !props.canAbort}">
         <button class="btn btn-outline-primary mr-1 w-100" type="submit">
           {{ isLastStep ? 'Salva PSS' : 'Step Successivo' }}
         </button>
       </div>
     </div>
-    <!--  <pre>{{ values }}</pre>-->
-
+    <!-- -->
+    <pre>{{ values }}</pre>
   </form>
 </template>
 

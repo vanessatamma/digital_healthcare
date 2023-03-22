@@ -54,6 +54,7 @@ const initialPatientState =  {
     pssList: [],
     currentPss: initialPssState,
     isCreatingNewPss: false,
+    isUpdatingCurrentPss: false,
 };
 export const useAuthStore = defineStore('auth',  {
   state: () => ({
@@ -242,6 +243,9 @@ export const useAuthStore = defineStore('auth',  {
           await this.getPssList();
             //dopo metterlo a false
           this.patient.isCreatingNewPss = false;
+      },
+      async updateSelectedPss() {
+          console.log('updateSelectedPss', this.patient.currentPss)
       }
   },
 })
