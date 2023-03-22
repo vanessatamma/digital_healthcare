@@ -242,8 +242,8 @@ const userAuth = useAuthStore()
     </div>
     <div class="row my-3 pss-actions text-center">
       <div class="col-6">
-        <button type="button" class="btn btn-outline-danger arrow-back w-100">
-          Cancella PSS
+        <button type="button" class="btn btn-outline-success arrow-back w-100">
+          Scarica PSS
         </button>
       </div>
       <div class="col-6">
@@ -261,15 +261,10 @@ const userAuth = useAuthStore()
 
     <!-- Actions -->
     <div class="row my-5">
-      <div class="col-6">
+      <div class="col-12">
         <div class="btn btn-outline-warning  w-100"  @click="userAuth.patient.isUpdatingCurrentPss = false">
           Annulla Creazione
         </div>
-      </div>
-      <div class="col-6">
-        <button type="button" class="btn btn-outline-primary arrow-back w-100">
-          Salva PSS aggiornato
-        </button>
       </div>
     </div>
   </div>

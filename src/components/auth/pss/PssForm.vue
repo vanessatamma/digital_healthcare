@@ -802,7 +802,7 @@ const isPatologyIncluded = (patology: string, arrayToCheck: string[]) => {
               <h4>Inserisci data PSS</h4>
             </div>
             <div class="col-6 col-sm-8">
-              <span class="last-date">Data del PSS copiato: {{props.model.date}}</span>
+              <span class="last-date">Data del PSS precedente: {{props.model.date}}</span>
               <VueDatePicker
                   :format="'dd/MM/yyyy'"
                   :enable-time-picker="false"

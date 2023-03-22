@@ -32,25 +32,26 @@ export const initialUserState = {
         lastLogin: null,
         userType:"",
     };
+export const initialPatientInfoState = {
+    lastName: '-',
+    firstName: '-',
+    cf: '-',
+    cityOfBirth: '-',
+    dateOfBirth: '-',
+    domicile: '-',
+    email: '-',
+    genre: '-',
+    infoCaregiver: '-',
+    pec: '-',
+    phone: '-',
+    phoneCaregiver: '-',
+}
 export const initialPatientState =  {
     isCreating: false,
     isUpdating: false,
     isLoading: false,
     cf: "",
-    info: {
-        lastName: '-',
-        firstName: '-',
-        cf: '-',
-        cityOfBirth: '-',
-        dateOfBirth: '-',
-        domicile: '-',
-        email: '-',
-        genre: '-',
-        infoCaregiver: '-',
-        pec: '-',
-        phone: '-',
-        phoneCaregiver: '-',
-    },
+    info: initialPatientInfoState,
     pssList: [],
     currentPss: initialPssState,
     isCreatingNewPss: false,
@@ -84,6 +85,10 @@ export const useAuthStore = defineStore('auth',  {
       }
   },
   actions: {
+      resetState() {
+          this.patient.isCreating = false;
+          this.patient.info = initialPatientInfoState;
+      },
       async register(user: IUser) {
         // Register User with email and password on firebase
         try {
@@ -169,7 +174,7 @@ export const useAuthStore = defineStore('auth',  {
               useToast({position: 'top', duration: 2000,}).success("Logout in corso.. ");
               this.patient = JSON.parse(JSON.stringify(initialPatientState));
               this.user = JSON.parse(JSON.stringify(initialUserState));
-
+                this.resetState();
               setTimeout(async () => {
                     await signOut(auth);
                   this.patient.isCreating = false;
