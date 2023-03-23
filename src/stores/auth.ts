@@ -259,22 +259,29 @@ export const useAuthStore = defineStore('auth',  {
                   {
                       text: `Paziente: ${this.patient.info.lastName} ${this.patient.info.firstName}`,
                       margin: [ 0, 0, 0, 10 ],
+
                       style: 'header'
                   },
                   {
-                      text: `PSS - ${(this.patient.currentPss as any).date}`,
-                      margin: [ 0, 0, 0, 10 ],
+                      text: `PSS del ${(this.patient.currentPss as any).date}`,
+                      margin: [ 0, 0, 0, 25 ],
                       style: 'subheader'
                   },
-
+                  {
+                      text: [
+                          {text: 'Il seguente form di inserimento dati PSS segue le linee guida FSE/PSS-PS,', fontSize: 13},
+                          {text: ' "versione 31 marzo 2014" ', fontSize: 13, bold: true,  italics: true,},
+                      ]
+                  },
+                    // Dati medico
                   {
                       style: 'tableExample',
                       color: '#444',
-                      margin: [ 0, 0, 0, 10 ],
+                      margin: [ 0, 10, 0, 10 ],
                       table: {
                           widths: [200, '*'],
                           body: [
-                              [{text: 'Dati del medico', style: 'header', colSpan: 2, alignment: 'center',}, {}],
+                              [{text: 'Dati del medico', style: 'header', colSpan: 2, alignment: 'left',}, {}],
                               ['Cognome', `${checkIfNull((this.patient.currentPss as any).lastName)}`,],
                               ['Nome', `${checkIfNull((this.patient.currentPss as any).firstName)}`,],
                               ['Codice Fiscale', `${checkIfNull((this.patient.currentPss as any).cf.toUpperCase())}`,],
@@ -284,8 +291,68 @@ export const useAuthStore = defineStore('auth',  {
                           ]
                       }
                   },
+                 // Dati sanitari del paziente
                   {
-                      text: 'It is possible to apply multiple styles, by passing an array. This paragraph uses two styles: quote and small. When multiple styles are provided, they are evaluated in the specified order which is important in case they define the same properties',
+                      style: 'tableExample',
+                      color: '#444',
+                      margin: [ 0, 10, 0, 10 ],
+                      table: {
+                          widths: [200, '*'],
+                          body: [
+                              [{text: 'Dati sanitari del paziente', style: 'header', colSpan: 2, alignment: 'left',}, {}],
+                              ['Capacità Motoria Paziente', `${checkIfNull((this.patient.currentPss as any).motorSkills)}`,],
+                              ['Attività Lavorativa', `${checkIfNull((this.patient.currentPss as any).workingActivity)}`,],
+                              ['Patologie Croniche Rilevanti', `${checkIfNull((this.patient.currentPss as any).chronicPathologies)}`,],
+                              ['Organi Mancanti', `${checkIfNull((this.patient.currentPss as any).missingOrgans)}`,],
+                              ['Trapianti', `${checkIfNull((this.patient.currentPss as any).transplants)}`,],
+                              ['Malformazioni rilevanti', `${checkIfNull((this.patient.currentPss as any).relevantMalformations)}`,],
+                              ['Reazioni avverse farmaci e alimenti', `${checkIfNull((this.patient.currentPss as any).adverseReactions)}`,],
+                              ['Allergie cutanee, respiratorie e sistemiche', `${checkIfNull((this.patient.currentPss as any).skinAllergies)}`,],
+                              ['Allergie a veleno di imenotteri', `${checkIfNull((this.patient.currentPss as any).venomAllergies)}`,],
+                              ['Protesi/Impianti permanenti', `${checkIfNull((this.patient.currentPss as any).prosthetics)}`,],
+                              ['Ausili', `${checkIfNull((this.patient.currentPss as any).aids)}`,],
+                              ['Patologie in atto paziente', `${checkIfNull((this.patient.currentPss as any).actualPathologies)}`,],
+                              ['Terapie Farmacologiche Croniche', `${checkIfNull((this.patient.currentPss as any).chronicPharmacologicalTherapies)}`,],
+                              ['Terapie Farmacologiche Altre', `${checkIfNull((this.patient.currentPss as any).othersPharmacologicalTherapies)}`,],
+                              ['Vaccinazioni', `${checkIfNull((this.patient.currentPss as any).vaccinations)}`,],
+                          ]
+                      }
+                  },
+                  {
+                      style: 'tableExample',
+                      color: '#444',
+                      margin: [ 0, 10, 0, 10 ],
+                      table: {
+                          widths: [200, '*'],
+                          body: [
+                              [{text: 'Parametri di monitoraggio', style: 'header', colSpan: 2, alignment: 'left',}, {}],
+                              ['Altezza', `${checkIfNull((this.patient.currentPss as any).height)}`,],
+                              ['Peso', `${checkIfNull((this.patient.currentPss as any).weight)}`,],
+                              ['BMI', `${checkIfNull((this.patient.currentPss as any).bmi)}`,],
+                              ['Pressione Arteriosa', `${checkIfNull((this.patient.currentPss as any).bloodPressure)}`,],
+                              ['ADI', `${checkIfNull((this.patient.currentPss as any).adi)}`,],
+                              ['ADP', `${checkIfNull((this.patient.currentPss as any).adp)}`,],
+                          ]
+                      }
+                  },
+                  {
+                      style: 'tableExample',
+                      color: '#444',
+                      margin: [ 0, 10, 0, 10 ],
+                      table: {
+                          widths: [200, '*'],
+                          body: [
+                              [{text: 'Anamnesi ed informazioni', style: 'header', colSpan: 2, alignment: 'left',}, {}],
+                              ['Anamnesi Familiare', `${checkIfNull((this.patient.currentPss as any).medicalHistory)}`,],
+                              ['Fattori di rischio', `${checkIfNull((this.patient.currentPss as any).riskFactors)}`,],
+                              ['Gravidenze e parti', `${checkIfNull((this.patient.currentPss as any).pregnancies)}`,],
+                              ['Donazioni Organi', `${checkIfNull((this.patient.currentPss as any).organDonation)}`,],
+                          ]
+                      }
+                  },
+                  {
+                      text: 'PSS redato secondo le linee guida indicate in intestazione. Il PSS corrente può essere oggetto di modifica e aggiornamenti.',
+                      margin: [ 0, 10, 0, 10 ],
                       style: ['quote', 'small']
                   }
               ],
@@ -293,11 +360,13 @@ export const useAuthStore = defineStore('auth',  {
                   header: {
                       fontSize: 18,
                       bold: true,
-                      padding: 10
+                      padding: 10,
+                      alignment: 'center'
                   },
                   subheader: {
                       fontSize: 15,
-                      bold: true
+                      bold: true,
+                      alignment: 'center'
                   },
                   quote: {
                       italics: true
@@ -308,7 +377,7 @@ export const useAuthStore = defineStore('auth',  {
               }
 
           }
-          pdfMake.createPdf(dd).download('PSS');
+          pdfMake.createPdf(dd).download(`PSS-${(this.patient.currentPss as any).date}`);
       }
   },
 })
