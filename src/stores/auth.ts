@@ -8,7 +8,7 @@ import {
 } from "firebase/auth";
 import router from "@/router";
 import type {ILoginCredentials, IUser} from "@/interfaces/user.interfaces";
-import {setDoc, doc, getDoc, collection, addDoc, getDocs} from "firebase/firestore";
+import {setDoc, doc, getDoc, collection, addDoc, getDocs, query, where} from "firebase/firestore";
 import {db} from "@/firebase/init";
 import {useToast} from "vue-toast-notification";
 import {
@@ -66,7 +66,11 @@ export const useAuthStore = defineStore('auth',  {
       isLoggedIn: false,
       user: initialUserState,
       errorMessage: "",
-      patient: initialPatientState
+      patient: initialPatientState,
+      patientsList: {
+          headers: [],
+          items: [],
+      }
   }),
   getters: {
       capitalizedName(state) {
@@ -378,6 +382,23 @@ export const useAuthStore = defineStore('auth',  {
 
           }
           pdfMake.createPdf(dd).download(`PSS-${(this.patient.currentPss as any).date}`);
+      },
+      async getPatientsList() {
+          const colRef = collection(db, "patients");
+          const docsSnap = await getDocs(colRef);
+          this.patientsList.headers = (Object.keys(docsSnap.docs[0].data()) as any).map((header: any) => {
+              return {
+                    text: header,
+                    value: header
+              }
+          });
+          console.log('headers', this.patientsList.headers, )
+          const patientsBody: any[] = [];
+          docsSnap.forEach(doc => {
+              //console.log(' patients list --> ', doc.id, " => ", doc.data());
+              patientsBody.push((doc.data() as any));
+          });
+            this.patientsList.items = patientsBody as never[];
       }
   },
 })
