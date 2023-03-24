@@ -33,6 +33,12 @@ const router = createRouter({
       meta: { requiresAuth: true }
     },
     {
+      path: "/patient/:cf",
+      name: 'Patient',
+      component: () => import("../views/AddNewPatient.vue"),
+      meta: { requiresAuth: true }
+    },
+    {
       path: "/upload-document",
       name: 'UploadDocument',
       component: () => import("../views/UploadDocument.vue"),

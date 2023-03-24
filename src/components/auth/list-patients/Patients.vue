@@ -35,7 +35,7 @@ onMounted(() => {
 const showRow = (item: ClickRowArgument) => {
   userAuth.patient.isCreating = true;
   userAuth.patient.cf = item.cf.toUpperCase();
-  router.push('/add-new-patient');
+  router.push({name: 'Patient', params: { cf: userAuth.patient.cf }});
 };
 
 /*

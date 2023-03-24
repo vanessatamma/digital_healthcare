@@ -283,6 +283,29 @@ export const useAuthStore = defineStore('auth',  {
                           {text: ' "versione 31 marzo 2014" ', fontSize: 13, bold: true,  italics: true,},
                       ]
                   },
+                  // Dati Paziente
+                  {
+                      style: 'tableExample',
+                      color: '#444',
+                      margin: [ 0, 10, 0, 10 ],
+                      table: {
+                          widths: [200, '*'],
+                          body: [
+                              [{text: 'Dati identificati del Paziente/Care Giver', style: 'header', colSpan: 2, alignment: 'left',}, {}],
+                              ['Cognome', `${checkIfNull((this.patient.info as any).lastName)}`,],
+                              ['Nome', `${checkIfNull((this.patient.info as any).firstName)}`,],
+                              ['Data di nascita', `${checkIfNull((this.patient.info as any).dateOfBirth)}`,],
+                              ['Codice Fiscale', `${checkIfNull((this.patient.info as any).cf.toUpperCase())}`,],
+                              ['Recapito Telefonico', `${checkIfNull((this.patient.info as any).phone)}`,],
+                              ['Email', `${checkIfNull((this.patient.info as any).email)}`,],
+                              ['PEC', `${checkIfNull((this.patient.info as any).pec)}`,],
+                              ['Comune di nascita', `${checkIfNull((this.patient.info as any).cityOfBirth)}`,],
+                              ['Comune di domicilio', `${checkIfNull((this.patient.info as any).domicile)}`,],
+                              ['Info Care Giver', `${checkIfNull((this.patient.info as any).infoCaregiver)}`,],
+                              ['Recapito Telefonico Care Giver', `${checkIfNull((this.patient.info as any).phoneCaregiver)}`,],
+                          ]
+                      }
+                  },
                     // Dati medico
                   {
                       style: 'tableExample',

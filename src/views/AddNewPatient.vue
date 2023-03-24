@@ -5,8 +5,17 @@ import * as Yup from 'yup';
 import { useAuthStore } from "@/stores/auth";
 import PssLists from "@/components/auth/PssLists.vue";
 import PatientInfo from "@/components/auth/PatientInfo.vue";
+import {onMounted} from "vue";
+import { useRouter } from 'vue-router';
 
+const router = useRouter()
 const userAuth = useAuthStore()
+
+onMounted(() => {
+  if(!userAuth.patient.cf) {
+    //router.push('/home')
+  }
+})
 
 const schema = Yup.object().shape({
   cf: Yup.string()
