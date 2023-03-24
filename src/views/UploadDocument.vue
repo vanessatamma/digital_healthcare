@@ -21,7 +21,6 @@ import Upload from "@/components/auth/documents/Upload.vue";
 <style scoped lang="scss">
 @import '../assets/form.scss';
 
-
 .card {
   &__new-patient {
     border-radius: 10px;

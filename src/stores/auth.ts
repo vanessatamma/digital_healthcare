@@ -6,6 +6,7 @@ import {
     signInWithEmailAndPassword,
     type UserCredential,
 } from "firebase/auth";
+import { getStorage, ref, uploadBytes } from "firebase/storage";
 import router from "@/router";
 import type {ILoginCredentials, IUser} from "@/interfaces/user.interfaces";
 import {setDoc, doc, getDoc, collection, addDoc, getDocs, query, where} from "firebase/firestore";
@@ -20,6 +21,7 @@ import {
 
 import * as pdfMake from "pdfmake/build/pdfmake";
 import * as pdfFonts from 'pdfmake/build/vfs_fonts';
+import {v4 as uuidv4} from "uuid";
 (<any>pdfMake).vfs = pdfFonts.pdfMake.vfs;
 export const initialPssState = {
         lastName: '-',
@@ -386,6 +388,7 @@ export const useAuthStore = defineStore('auth',  {
 
           }
           pdfMake.createPdf(dd).download(`PSS-${(this.patient.currentPss as any).date}`);
+          useToast({position: 'top', duration: 2000}).success("PSS scaricato.");
       },
       async getPatientsList() {
           const colRef = collection(db, "patients");
@@ -410,6 +413,17 @@ export const useAuthStore = defineStore('auth',  {
           });
           this.patientsList.items = (patientsBody as never[]);
           this.patientsList.patientsCF = (patientsCF as never[]);
+      },
+      async uploadDoc(doc: any, cf: string) {
+          const storage = getStorage();
+          const docName = `${cf}_${uuidv4()}`;
+          const storageRef = ref(storage, `reports/${docName}`);
+
+          //console.log('uploadDoc', doc)
+          uploadBytes(storageRef, doc).then((snapshot) => {
+              useToast({position: 'top', duration: 2000}).success(`Documento ${docName} caricato con successo.`);
+          });
+
       }
   },
 })
