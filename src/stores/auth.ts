@@ -476,7 +476,14 @@ export const useAuthStore = defineStore('auth', {
         },
         async uploadDoc(doc: any, cf: string) {
             const storage = getStorage();
-            const docName = `${cf}_${uuidv4()}`;
+            const date = new Date();
+            let day = date.getDate();
+            let month = date.getMonth() + 1;
+            let year = date.getFullYear();
+
+            let currentDate = `${day}-${month}-${year}`;
+            const docName = `${cf}_${currentDate}_${uuidv4()}`;
+
             const storageRef = ref(storage, `reports/${docName}`);
 
             //console.log('uploadDoc', doc)
