@@ -6,7 +6,7 @@ import {
     signInWithEmailAndPassword,
     type UserCredential,
 } from "firebase/auth";
-import {getDownloadURL, getMetadata, getStorage, listAll, ref, uploadBytes, type StorageReference} from "firebase/storage";
+import {getBlob, getDownloadURL, getMetadata, getStorage, listAll, ref, uploadBytes, type StorageReference} from "firebase/storage";
 import router from "@/router";
 import type {ILoginCredentials, IUser} from "@/interfaces/user.interfaces";
 import {setDoc, doc, getDoc, collection, addDoc, getDocs, query, where} from "firebase/firestore";
@@ -510,23 +510,24 @@ export const useAuthStore = defineStore('auth', {
             const storage = getStorage();
             const storageRef = ref(storage, `reports/${doc.name}`);
             console.log('path', doc.name)
-            getDownloadURL(storageRef)
-                .then((url) => {
-                    // `url` is the download URL for 'images/stars.jpg'
+            const blob = await getBlob(storageRef);
+            const data = window.URL.createObjectURL(blob);
+            const link = document.createElement('a');
+            link.href = data;
+            link.download = doc.name;
 
-                    // This can be downloaded directly:
-                    const xhr = new XMLHttpRequest();
-                    xhr.responseType = 'blob';
-                    xhr.onload = (event) => {
-                        const blob = xhr.response;
-                    };
-                    xhr.open('GET', url);
-                    xhr.send();
-
+            link.dispatchEvent(
+                new MouseEvent('click', {
+                    bubbles: true,
+                    cancelable: true,
+                    view: window
                 })
-                .catch((error) => {
-                    // Handle any errors
-                });
+            );
+
+            setTimeout(() => {
+                window.URL.revokeObjectURL(data);
+                link.remove();
+            }, 100);
         }
   },
 })
