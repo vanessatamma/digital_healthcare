@@ -393,19 +393,22 @@ export const useAuthStore = defineStore('auth',  {
       async getPatientsList() {
           const colRef = collection(db, "patients");
           const docsSnap = await getDocs(colRef);
-          this.patientsList.headers = (Object.keys(docsSnap.docs[0].data()) as any).map((header: any) => {
+         /* this.patientsList.headers = (Object.keys(docsSnap.docs[0].data()) as any).map((header: any) => {
               return {
                     text: header,
                     value: header
               }
-          });
+          });*/
 
           const patientsBody: any[] = [];
           const patientsCF: any[] = [];
           docsSnap.forEach(doc => {
-              //console.log(' patients list --> ', doc.id, " => ", Boolean(doc.data()));
-              patientsBody.push((doc.data() as any));
-              patientsCF.push((doc.id as any));
+              // Check that patient has data
+              if( Object.keys(doc.data()).length > 0) {
+                  patientsBody.push((doc.data() as any) );
+                  patientsCF.push((doc.id as any));
+              }
+
           });
           // Put char: '-' every time value is null
           (patientsBody as never[]).map((value) => {
