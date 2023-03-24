@@ -10,6 +10,7 @@ import Navbar from "@/components/shared/Navbar.vue";
         <Navbar />
         <br>
         <div id="portfolio-grid" class="row no-gutter" data-aos="fade-up" data-aos-delay="200">
+          <span class="title-box">Lista Pazienti</span>
           <div @click="$router.push('/list-patients')"  class="item web col-sm-6 col-md-6 col-lg-6 mb-4">
             <div class="item-wrap fancybox">
               <div class="work-info">
@@ -24,8 +25,9 @@ import Navbar from "@/components/shared/Navbar.vue";
               <img class="img-fluid" src="../assets/lists.jpg">
             </div>
           </div>
-          <div class="item photography col-sm-6 col-md-6 col-lg-6 mb-4">
-            <div @click="$router.push('/add-new-patient')" class="item-wrap fancybox">
+          <span class="title-box">Aggiungi Paziente</span>
+          <div  @click="$router.push('/add-new-patient')" class="item photography col-sm-6 col-md-6 col-lg-6 mb-4">
+            <div class="item-wrap fancybox">
               <div class="work-info">
                 <h3>Aggiungi Paziente</h3>
                 <span>
@@ -38,8 +40,9 @@ import Navbar from "@/components/shared/Navbar.vue";
               <img class="img-fluid" src="../assets/add.jpg">
             </div>
           </div>
-          <div class="item photography col-sm-6 col-md-6 col-lg-6 mb-4">
-            <div @click="$router.push('/upload-document')" class="item-wrap fancybox">
+          <span class="title-box">Lista Referti / Carica Referto</span>
+          <div @click="$router.push('/upload-document')"  class="item photography col-sm-6 col-md-6 col-lg-6 mb-4">
+            <div class="item-wrap fancybox">
               <div class="work-info">
                 <h3>Lista Referti / Carica Referto</h3>
                 <span>
@@ -63,5 +66,15 @@ import Navbar from "@/components/shared/Navbar.vue";
   //background-size: cover;
   //
 }
+.title-box {
+  padding: 10px;
+  font-size: 25px;
+  text-align: center;
+  font-weight: 300;
+  display: none;
+  @media(max-width: 576px) {
+    display: inline;
+  }
 
+}
 </style>
