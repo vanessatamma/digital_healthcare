@@ -36,7 +36,7 @@ async function onSubmit(values) {
         <Navbar :arrow-back="true" />
         <br>
         <div class="card-wrapper">
-          <div class="card card__new-patient" :style="[userAuth.patient.isCreating ? {'width': '100%'} : {'width': '60%'}]" >
+          <div class="card card__new-patient" >
             <Form class="check-cf" v-if="!userAuth.patient.isCreating" @submit="onSubmit" :validation-schema="schema" v-slot="{ errors }">
               <!-- CF -->
               <div class="input-field">
@@ -94,6 +94,7 @@ async function onSubmit(values) {
     background: #fff;
     box-shadow: 5px 5px 10px 1px rgba(0, 0, 0, 0.2);
     padding: 1.5rem;
+    width: 100%;
   }
 }
 
