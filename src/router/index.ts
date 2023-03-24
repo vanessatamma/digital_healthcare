@@ -33,6 +33,12 @@ const router = createRouter({
       meta: { requiresAuth: true }
     },
     {
+      path: "/upload-document",
+      name: 'UploadDocument',
+      component: () => import("../views/UploadDocument.vue"),
+      meta: { requiresAuth: true }
+    },
+    {
       path: "/list-patients",
       name: 'ListPatients',
       component: () => import("../views/ListPatients.vue"),

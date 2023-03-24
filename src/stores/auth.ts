@@ -70,6 +70,7 @@ export const useAuthStore = defineStore('auth',  {
       patientsList: {
           headers: [],
           items: [],
+          patientsCF: [],
       }
   }),
   getters: {
@@ -210,7 +211,9 @@ export const useAuthStore = defineStore('auth',  {
               useToast({position: 'top', duration: 2000}).success("Il paziente risulta già registrato, scaricamento PSS in corso..");
           }
           // Retireve all pss of the current patient
-          await this.getPssList();
+          if(this.patient.pssList.length === 0) {
+              await this.getPssList();
+          }
 
           this.patient.isCreating = true;
           this.patient.isLoading = false;
@@ -395,15 +398,18 @@ export const useAuthStore = defineStore('auth',  {
           });
 
           const patientsBody: any[] = [];
+          const patientsCF: any[] = [];
           docsSnap.forEach(doc => {
               //console.log(' patients list --> ', doc.id, " => ", Boolean(doc.data()));
               patientsBody.push((doc.data() as any));
+              patientsCF.push((doc.id as any));
           });
-          // Put - every time value is null
+          // Put char: '-' every time value is null
           (patientsBody as never[]).map((value) => {
               inverseRecursivelyNullifyUndefinedValues(value, '-')
           });
           this.patientsList.items = (patientsBody as never[]);
+          this.patientsList.patientsCF = (patientsCF as never[]);
       }
   },
 })

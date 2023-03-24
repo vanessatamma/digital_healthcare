@@ -33,7 +33,6 @@ onMounted(() => {
 });
 
 const showRow = (item: ClickRowArgument) => {
-  console.log( item);
   userAuth.patient.isCreating = true;
   userAuth.patient.cf = item.cf.toUpperCase();
   router.push('/add-new-patient');
