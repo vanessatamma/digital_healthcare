@@ -5,9 +5,7 @@ import {onMounted, ref} from "vue";
 import {useAuthStore} from "@/stores/auth";
 import * as Yup from "yup";
 const userAuth = useAuthStore()
-onMounted(() => {
-  userAuth.getPatientInfo();
-});
+
 const date = ref();
 const schemaPatient = Yup.object().shape({
   firstName: Yup.string()
@@ -27,7 +25,7 @@ const schemaPatient = Yup.object().shape({
       .required('Campo Obbligatorio.')
       .matches(/^([A-Z]{6}[0-9LMNPQRSTUV]{2}[ABCDEHLMPRST]{1}[0-9LMNPQRSTUV]{2}[A-Z]{1}[0-9LMNPQRSTUV]{3}[A-Z]{1})$|([0-9]{11})$/, 'Formato codice fiscale non valido.'),
   genre: Yup.string(),
-      //.required('Campo Obbligatorio.'),
+  //.required('Campo Obbligatorio.'),
   email: Yup.string()
       .required('Campo Obbligatorio.')
       .email('Formato email non valido.'),
@@ -38,6 +36,11 @@ const schemaPatient = Yup.object().shape({
       .trim()
       .matches(/^(([+])39)?((3[1-6][0-9]))(\d{7})$/, 'Formato numero non corretto.'),
 });
+
+onMounted(() => {
+  userAuth.getPatientInfo();
+});
+
 
 async function onSubmit(values) {
   await userAuth.setPatientInfo({
@@ -120,6 +123,7 @@ const saveForm = () => {
               :enable-time-picker="false"
               locale="it"
               :placeholder="userAuth.patient.info.dateOfBirth"
+              v-model="date"
           />
         </div>
         <div class="col-12">

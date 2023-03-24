@@ -13,7 +13,7 @@ import {db} from "@/firebase/init";
 import {useToast} from "vue-toast-notification";
 import {
     capitalizeString, checkIfNull,
-    formattedLastLoginDate,
+    formattedLastLoginDate, inverseRecursivelyNullifyUndefinedValues,
     isEmptyObject,
     recursivelyNullifyUndefinedValues
 } from "@/shared/utils";
@@ -220,6 +220,7 @@ export const useAuthStore = defineStore('auth',  {
           const userSnap = await getDoc(doc(db, "patients", this.patient.cf));
           if(!isEmptyObject(userSnap.data())) {
               this.patient.info = (userSnap.data() as any)
+              await this.getPssList();
           }
       },
       async setPatientInfo(patientInfo: any) {
@@ -392,13 +393,17 @@ export const useAuthStore = defineStore('auth',  {
                     value: header
               }
           });
-          console.log('headers', this.patientsList.headers, )
+
           const patientsBody: any[] = [];
           docsSnap.forEach(doc => {
-              //console.log(' patients list --> ', doc.id, " => ", doc.data());
+              //console.log(' patients list --> ', doc.id, " => ", Boolean(doc.data()));
               patientsBody.push((doc.data() as any));
           });
-            this.patientsList.items = patientsBody as never[];
+          // Put - every time value is null
+          (patientsBody as never[]).map((value) => {
+              inverseRecursivelyNullifyUndefinedValues(value, '-')
+          });
+          this.patientsList.items = (patientsBody as never[]);
       }
   },
 })

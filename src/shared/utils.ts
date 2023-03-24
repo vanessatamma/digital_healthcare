@@ -46,14 +46,18 @@ export const recursivelyNullifyUndefinedValues = (obj: any) => {
     return obj;
 }
 
-export const inverseRecursivelyNullifyUndefinedValues = (obj: any) => {
+export const inverseRecursivelyNullifyUndefinedValues = (obj: any, valueToWrite?: string) => {
     Object
         .entries(obj)
         .forEach(([key, value]) => {
             if (!!value && (typeof value === 'object')) {
                 recursivelyNullifyUndefinedValues(value);
             } else if (value === null) {
-                obj[key] = undefined;
+                if(valueToWrite) {
+                    obj[key] = valueToWrite;
+                } else {
+                    obj[key] = undefined;
+                }
             }
         });
     return obj;

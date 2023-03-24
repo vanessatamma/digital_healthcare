@@ -1,11 +1,11 @@
 <script setup lang="ts">
-
-
-import type {Header, Item} from "vue3-easy-data-table";
+import type {ClickRowArgument, Header, Item} from "vue3-easy-data-table";
 import {ref} from "vue";
 import {onMounted} from "vue";
 import {useAuthStore} from "@/stores/auth";
+import { useRouter } from 'vue-router';
 
+const router = useRouter()
 
 const headers: Header[] = [
   { text: "NOME", value: "firstName" },
@@ -13,14 +13,14 @@ const headers: Header[] = [
   { text: "CODICE FISCALE", value: "cf"},
   { text: "COMUNE DI NASCITA", value: "cityOfBirth"},
   { text: "COMUNE DI DOMICILIO", value: "domicile"},
-  { text: "PHONE", value: "phone",},
+  { text: "TELEFONO", value: "phone",},
   { text: "EMAIL", value: "email", },
   { text: "PEC", value: "pec"},
+  { text: "INFO CAREGIVER", value: "infoCaregiver"},
+  { text: "TELEFONO CAREGIVER", value: "phoneCaregiver"},
 ];
 
-const items: Item[] = [
-  { firstName: "Stephen Curry", lastName: "GSW", number: 30, position: 'G', indicator: {"height": '6-2', "weight": 185}, lastAttended: "Davidson", country: "USA"},
-];
+
 
 const searchValue = ref("");
 const isLoading = ref(false);
@@ -32,6 +32,12 @@ onMounted(() => {
   isLoading.value = false;
 });
 
+const showRow = (item: ClickRowArgument) => {
+  console.log( item);
+  userAuth.patient.isCreating = true;
+  userAuth.patient.cf = item.cf.toUpperCase();
+  router.push('/add-new-patient');
+};
 
 /*
 mostro lista dei pazienti con alcune informazioni e poi al click
@@ -50,11 +56,17 @@ e vado nella pagina dettaglio che ha gli stessi componenti di add-new-patient
   </div>
   <div class="row" v-if="!isLoading">
     <DataTable
-        :headers="userAuth.patientsList.headers"
+        :headers="headers"
         :items="userAuth.patientsList.items"
         :hide-footer="true"
         :search-value="searchValue"
-    />
+        @click-row="showRow"
+    >
+      <template #empty-message>
+        <span >Nessun dato presente.</span>
+      </template>
+
+    </DataTable>
   </div>
   <div class="row" v-else>
     <h3>Caricamento Pazienti in corso...</h3>
