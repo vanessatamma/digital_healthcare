@@ -154,11 +154,10 @@ const isPatologyIncluded = (patology: string, arrayToCheck: string[]) => {
       <!-- Dati del medico -->
       <FormStep>
         <div class="row mb-3">
-          <div class="col-6 col-sm-4">
+          <div class="col-12 col-sm-4">
             <h4>Inserisci data PSS</h4>
           </div>
-          <div class="col-6 col-sm-8">
-
+          <div class="col-12 col-sm-8">
             <VueDatePicker
                 :format="'dd/MM/yyyy'"
                 :enable-time-picker="false"
@@ -172,21 +171,21 @@ const isPatologyIncluded = (patology: string, arrayToCheck: string[]) => {
         <hr class="my-5">
         <h4>Dati del medico</h4>
         <div class="row">
-          <div class="col-4">
+          <div class="col-12 col-sm-4">
             <div class="input-field">
               <label for="lastName">Cognome</label>
               <Field id="lastName" name="lastName" class="input" type="text"  />
               <ErrorMessage name="lastName" class="is-invalid" />
             </div>
           </div>
-          <div class="col-4">
+          <div class="col-12 col-sm-4">
             <div class="input-field">
               <label for="firstName">Nome</label>
               <Field id="firstName" name="firstName" class="input" type="text"  />
               <ErrorMessage name="firstName" class="is-invalid" />
             </div>
           </div>
-          <div class="col-4">
+          <div class="col-12 col-sm-4">
             <div class="input-field">
               <label for="cf">Codice Fiscale</label>
               <Field id="cf" name="cf" class="input" type="text"  />
@@ -195,21 +194,21 @@ const isPatologyIncluded = (patology: string, arrayToCheck: string[]) => {
           </div>
         </div>
         <div class="row">
-         <div class="col-4">
+         <div class="col-12 col-sm-4">
            <div class="input-field">
              <label for="phone">Recapito Telefonico</label>
              <Field id="phone" name="phone" class="input" type="text"  />
              <ErrorMessage name="phone" class="is-invalid" />
            </div>
          </div>
-         <div class="col-4">
+         <div class="col-12 col-sm-4">
            <div class="input-field">
              <label for="email">Email</label>
              <Field id="email" name="email" class="input" type="text"  />
              <ErrorMessage name="email" class="is-invalid" />
            </div>
          </div>
-         <div class="col-4">
+         <div class="col-12 col-sm-4">
            <div class="input-field">
              <label for="pec">PEC</label>
              <Field id="pec" name="pec" class="input" type="text"  />
@@ -223,7 +222,7 @@ const isPatologyIncluded = (patology: string, arrayToCheck: string[]) => {
       <FormStep>
         <h4>Dati sanitari del paziente</h4>
         <div class="row">
-          <div class="col-4">
+          <div class="col-12 col-sm-4">
             <div class="input-field">
               <label for="motorSkills">Capacità Motoria Paziente</label>
               <Field class="input" id="motorSkills" name="motorSkills" as="select">
@@ -235,7 +234,7 @@ const isPatologyIncluded = (patology: string, arrayToCheck: string[]) => {
               <ErrorMessage name="motorSkills" class="is-invalid" />
             </div>
           </div>
-          <div class="col-4">
+          <div class="col-12 col-sm-4">
             <div class="input-field">
               <label for="workingActivity">Attività Lavorativa</label>
               <Field id="workingActivity" name="workingActivity" class="input" type="text"  />
@@ -248,7 +247,7 @@ const isPatologyIncluded = (patology: string, arrayToCheck: string[]) => {
             <div class="input-field">
               <label for="chronicPathologies">Patologie Croniche Rilevanti</label>
               <div class="row">
-                <div class="col-4">
+                <div class="col-12 col-sm-4">
                   <div class="form-check">
                     <input class="form-check-input" type="checkbox" @change="addPatology('Allergie SAI (995.3)', chronicPathologies)"  id="Allergie_SAI">
                     <label class="form-check-label" for="Allergie_SAI">
@@ -256,7 +255,7 @@ const isPatologyIncluded = (patology: string, arrayToCheck: string[]) => {
                     </label>
                   </div>
                 </div>
-                <div class="col-4">
+                <div class="col-12 col-sm-4">
                   <div class="form-check">
                     <input class="form-check-input" type="checkbox" @change="addPatology('Cardiopatia ischemica (410* 414*)', chronicPathologies)"  id="Cardiopatia">
                     <label class="form-check-label" for="Cardiopatia">
@@ -264,7 +263,7 @@ const isPatologyIncluded = (patology: string, arrayToCheck: string[]) => {
                     </label>
                   </div>
                 </div>
-                <div class="col-4">
+                <div class="col-12 col-sm-4">
                   <div class="form-check">
                     <input class="form-check-input" type="checkbox" @change="addPatology('IMA pregresso (412)', chronicPathologies)"  id="IMA">
                     <label class="form-check-label" for="IMA">
@@ -274,7 +273,7 @@ const isPatologyIncluded = (patology: string, arrayToCheck: string[]) => {
                 </div>
               </div>
               <div class="row">
-                <div class="col-4">
+                <div class="col-12 col-sm-4">
                   <div class="form-check">
                     <input class="form-check-input" type="checkbox" @change="addPatology('Aneurismi: aorta (441*)', chronicPathologies)"  id="Aneurismi">
                     <label class="form-check-label" for="Aneurismi">
@@ -282,7 +281,7 @@ const isPatologyIncluded = (patology: string, arrayToCheck: string[]) => {
                     </label>
                   </div>
                 </div>
-                <div class="col-4">
+                <div class="col-12 col-sm-4">
                   <div class="form-check">
                     <input class="form-check-input" type="checkbox" @change="addPatology('Aneurismi: altre sedi (442*)', chronicPathologies)"  id="Aneurismi_altri">
                     <label class="form-check-label" for="Aneurismi_altri">
@@ -290,7 +289,7 @@ const isPatologyIncluded = (patology: string, arrayToCheck: string[]) => {
                     </label>
                   </div>
                 </div>
-                <div class="col-4">
+                <div class="col-12 col-sm-4">
                   <div class="form-check">
                     <input class="form-check-input" type="checkbox" @change="addPatology('Ipertensione arteriosa (401*-405*)', chronicPathologies)"  id="Ipertensione">
                     <label class="form-check-label" for="Ipertensione">
@@ -300,7 +299,7 @@ const isPatologyIncluded = (patology: string, arrayToCheck: string[]) => {
                 </div>
               </div>
               <div class="row">
-                <div class="col-4">
+                <div class="col-12 col-sm-4">
                   <div class="form-check">
                     <input class="form-check-input" type="checkbox" @change="addPatology('Aritmie cardiache (427*)', chronicPathologies)"  id="Aritmie">
                     <label class="form-check-label" for="Aritmie">
@@ -308,7 +307,7 @@ const isPatologyIncluded = (patology: string, arrayToCheck: string[]) => {
                     </label>
                   </div>
                 </div>
-                <div class="col-4">
+                <div class="col-12 col-sm-4">
                   <div class="form-check">
                     <input class="form-check-input" type="checkbox" @change="addPatology('Portatore di pacemaker', chronicPathologies)"  id="pacemaker">
                     <label class="form-check-label" for="pacemaker">
@@ -316,7 +315,7 @@ const isPatologyIncluded = (patology: string, arrayToCheck: string[]) => {
                     </label>
                   </div>
                 </div>
-                <div class="col-4">
+                <div class="col-12 col-sm-4">
                   <div class="form-check">
                     <input class="form-check-input" type="checkbox" @change="addPatology('Malattie cerebrovascolari (430*-438*)', chronicPathologies)"  id="cerebrovascolari">
                     <label class="form-check-label" for="cerebrovascolari">
@@ -326,7 +325,7 @@ const isPatologyIncluded = (patology: string, arrayToCheck: string[]) => {
                 </div>
               </div>
               <div class="row">
-                <div class="col-4">
+                <div class="col-12 col-sm-4">
                   <div class="form-check">
                     <input class="form-check-input" type="checkbox" @change="addPatology('Insuff. respiratoria cronaca (518.83)', chronicPathologies)"  id="Insuff_respiratoria">
                     <label class="form-check-label" for="Insuff_respiratoria">
@@ -334,7 +333,7 @@ const isPatologyIncluded = (patology: string, arrayToCheck: string[]) => {
                     </label>
                   </div>
                 </div>
-                <div class="col-4">
+                <div class="col-12 col-sm-4">
                   <div class="form-check">
                     <input class="form-check-input" type="checkbox" @change="addPatology('Diabete (250*)', chronicPathologies)"  id="Diabete">
                     <label class="form-check-label" for="Diabete">
@@ -342,7 +341,7 @@ const isPatologyIncluded = (patology: string, arrayToCheck: string[]) => {
                     </label>
                   </div>
                 </div>
-                <div class="col-4">
+                <div class="col-12 col-sm-4">
                   <div class="form-check">
                     <input class="form-check-input" type="checkbox" @change="addPatology('Patologie neurologiche (20* 326*)', chronicPathologies)"  id="neurologiche">
                     <label class="form-check-label" for="neurologiche">
@@ -352,7 +351,7 @@ const isPatologyIncluded = (patology: string, arrayToCheck: string[]) => {
                 </div>
               </div>
               <div class="row">
-                <div class="col-4">
+                <div class="col-12 col-sm-4">
                   <div class="form-check">
                     <input class="form-check-input" type="checkbox" @change="addPatology('Epilessia (345*)', chronicPathologies)"  id="Epilessia">
                     <label class="form-check-label" for="Epilessia">
@@ -360,7 +359,7 @@ const isPatologyIncluded = (patology: string, arrayToCheck: string[]) => {
                     </label>
                   </div>
                 </div>
-                <div class="col-4">
+                <div class="col-12 col-sm-4">
                   <div class="form-check">
                     <input class="form-check-input" type="checkbox" @change="addPatology('Patologia oncologica (140*-239*)', chronicPathologies)"  id="oncologica">
                     <label class="form-check-label" for="oncologica">
@@ -368,7 +367,7 @@ const isPatologyIncluded = (patology: string, arrayToCheck: string[]) => {
                     </label>
                   </div>
                 </div>
-                <div class="col-4">
+                <div class="col-12 col-sm-4">
                   <div class="form-check">
                     <input class="form-check-input" type="checkbox" @change="addPatology('Insuff. renale cronica (585)', chronicPathologies)"  id="renale_cronica">
                     <label class="form-check-label" for="renale_cronica">
@@ -378,7 +377,7 @@ const isPatologyIncluded = (patology: string, arrayToCheck: string[]) => {
                 </div>
               </div>
               <div class="row">
-                <div class="col-4">
+                <div class="col-12 col-sm-4">
                   <div class="form-check">
                     <input class="form-check-input" type="checkbox" @change="addPatology('Traumi recenti (800*-859*)', chronicPathologies)"  id="Traumi_recenti">
                     <label class="form-check-label" for="Traumi_recenti">
@@ -386,7 +385,7 @@ const isPatologyIncluded = (patology: string, arrayToCheck: string[]) => {
                     </label>
                   </div>
                 </div>
-                <div class="col-4">
+                <div class="col-12 col-sm-4">
                   <div class="form-check">
                     <input class="form-check-input" type="checkbox" @change="addPatology('Epatite virale (070.*)', chronicPathologies)"  id="Epatite">
                     <label class="form-check-label" for="Epatite">
@@ -394,7 +393,7 @@ const isPatologyIncluded = (patology: string, arrayToCheck: string[]) => {
                     </label>
                   </div>
                 </div>
-                <div class="col-4">
+                <div class="col-12 col-sm-4">
                   <div class="form-check">
                     <input class="form-check-input" type="checkbox" @change="addPatology('Infezione HIV (0.42)', chronicPathologies)"  id="HIV">
                     <label class="form-check-label" for="HIV">
@@ -404,7 +403,7 @@ const isPatologyIncluded = (patology: string, arrayToCheck: string[]) => {
                 </div>
               </div>
               <div class="row">
-                <div class="col-4">
+                <div class="col-12 col-sm-4">
                   <div class="form-check">
                     <input class="form-check-input" type="checkbox" @change="addPatology('Elementi di sintesi ferromagnetici (RMN): protesi e/o impianti', chronicPathologies)"  id="ferromagnetici">
                     <label class="form-check-label" for="ferromagnetici">
@@ -412,7 +411,7 @@ const isPatologyIncluded = (patology: string, arrayToCheck: string[]) => {
                     </label>
                   </div>
                 </div>
-                <div class="col-4">
+                <div class="col-12 col-sm-4">
                   <div class="form-check">
                     <input class="form-check-input" type="checkbox" @change="addPatology('Terapia anticoagulante (warfarin/acenocumarolo) (B01AA03/B01AA07)', chronicPathologies)"  id="anticoagulante">
                     <label class="form-check-label" for="anticoagulante">
@@ -420,7 +419,7 @@ const isPatologyIncluded = (patology: string, arrayToCheck: string[]) => {
                     </label>
                   </div>
                 </div>
-                <div class="col-4">
+                <div class="col-12 col-sm-4">
                   <div class="form-check">
                     <input class="form-check-input" type="checkbox" @change="addPatology('Inibitori diretti Trombina (B01AE*)', chronicPathologies)"  id="Trombina">
                     <label class="form-check-label" for="Trombina">
@@ -430,7 +429,7 @@ const isPatologyIncluded = (patology: string, arrayToCheck: string[]) => {
                 </div>
               </div>
               <div class="row">
-                <div class="col-4">
+                <div class="col-12 col-sm-4">
                   <div class="form-check">
                     <input class="form-check-input" type="checkbox" @change="addPatology('Terapia antiaggregante (B01AC*)', chronicPathologies)"  id="antiaggregante">
                     <label class="form-check-label" for="antiaggregante">
@@ -438,7 +437,7 @@ const isPatologyIncluded = (patology: string, arrayToCheck: string[]) => {
                     </label>
                   </div>
                 </div>
-                <div class="col-4">
+                <div class="col-12 col-sm-4">
                   <div class="form-check">
                     <input class="form-check-input" type="checkbox" @change="addPatology('Terapia con insulina (A10A*)', chronicPathologies)"  id="insulina">
                     <label class="form-check-label" for="insulina">
@@ -451,21 +450,21 @@ const isPatologyIncluded = (patology: string, arrayToCheck: string[]) => {
           </div>
         </div>
         <div class="row">
-          <div class="col-4">
+          <div class="col-12 col-sm-4">
             <div class="input-field">
               <label for="missingOrgans">Organi Mancanti</label>
               <Field id="missingOrgans" name="missingOrgans" class="input" type="text"  />
               <ErrorMessage name="missingOrgans" class="is-invalid" />
             </div>
           </div>
-          <div class="col-4">
+          <div class="col-12 col-sm-4">
             <div class="input-field">
               <label for="transplants">Trapianti</label>
               <Field id="transplants" name="transplants" class="input" type="text"  />
               <ErrorMessage name="transplants" class="is-invalid" />
             </div>
           </div>
-          <div class="col-4">
+          <div class="col-12 col-sm-4">
             <div class="input-field">
               <label for="relevantMalformations">Malformazioni rilevanti</label>
               <Field id="relevantMalformations" name="relevantMalformations" class="input" type="text"  />
@@ -479,28 +478,28 @@ const isPatologyIncluded = (patology: string, arrayToCheck: string[]) => {
       <FormStep>
         <h4>Dati sanitari del paziente</h4>
         <div class="row">
-          <div class="col-6">
+          <div class="col-12 col-sm-6">
             <div class="input-field">
               <label for="adverseReactions">Reazioni avverse farmaci e alimenti</label>
               <Field id="adverseReactions" name="adverseReactions" class="input" type="text"  />
               <ErrorMessage name="adverseReactions" class="is-invalid" />
             </div>
           </div>
-          <div class="col-6">
+          <div class="col-12 col-sm-6">
             <div class="input-field">
               <label for="skinAllergies">Allergie cutanee, respiratorie e sistemiche</label>
               <Field id="skinAllergies" name="skinAllergies" class="input" type="text"  />
               <ErrorMessage name="skinAllergies" class="is-invalid" />
             </div>
           </div>
-          <div class="col-6">
+          <div class="col-12 col-sm-6">
             <div class="input-field">
               <label for="venomAllergies">Allergie a veleno di imenotteri</label>
               <Field id="venomAllergies" name="venomAllergies" class="input" type="text"  />
               <ErrorMessage name="venomAllergies" class="is-invalid" />
             </div>
           </div>
-          <div class="col-6">
+          <div class="col-12 col-sm-6">
             <div class="input-field">
               <label for="prosthetics">Protesi/Impianti permanenti</label>
               <Field id="prosthetics" name="prosthetics" class="input" type="text"  />
@@ -533,7 +532,7 @@ const isPatologyIncluded = (patology: string, arrayToCheck: string[]) => {
                     </label>
                   </div>
                 </div>
-                <div class="col-4">
+                <div class="col-12 col-sm-4">
                   <div class="form-check">
                     <input class="form-check-input" type="checkbox" @change="addPatology('Ipertensione arteriosa', actualPathologies)"  id="Ipertensione">
                     <label class="form-check-label" for="Ipertensione">
@@ -541,7 +540,7 @@ const isPatologyIncluded = (patology: string, arrayToCheck: string[]) => {
                     </label>
                   </div>
                 </div>
-                <div class="col-4">
+                <div class="col-12 col-sm-4">
                   <div class="form-check">
                     <input class="form-check-input" type="checkbox" @change="addPatology('Respiratorie', actualPathologies)"  id="Respiratorie">
                     <label class="form-check-label" for="Respiratorie">
@@ -551,7 +550,7 @@ const isPatologyIncluded = (patology: string, arrayToCheck: string[]) => {
                 </div>
               </div>
               <div class="row">
-                <div class="col-4">
+                <div class="col-12 col-sm-4">
                   <div class="form-check">
                     <input class="form-check-input" type="checkbox" @change="addPatology('Oculari', actualPathologies)"  id="Oculari">
                     <label class="form-check-label" for="Oculari">
@@ -559,7 +558,7 @@ const isPatologyIncluded = (patology: string, arrayToCheck: string[]) => {
                     </label>
                   </div>
                 </div>
-                <div class="col-4">
+                <div class="col-12 col-sm-4">
                   <div class="form-check">
                     <input class="form-check-input" type="checkbox" @change="addPatology('Otorinolaingoriatiche', actualPathologies)"  id="Otorinolaingoriatiche">
                     <label class="form-check-label" for="Otorinolaingoriatiche">
@@ -567,7 +566,7 @@ const isPatologyIncluded = (patology: string, arrayToCheck: string[]) => {
                     </label>
                   </div>
                 </div>
-                <div class="col-4">
+                <div class="col-12 col-sm-4">
                   <div class="form-check">
                     <input class="form-check-input" type="checkbox" @change="addPatology('Gastroenteriche', actualPathologies)"  id="Gastroenteriche">
                     <label class="form-check-label" for="Gastroenteriche">
@@ -577,7 +576,7 @@ const isPatologyIncluded = (patology: string, arrayToCheck: string[]) => {
                 </div>
               </div>
               <div class="row">
-                <div class="col-4">
+                <div class="col-12 col-sm-4">
                   <div class="form-check">
                     <input class="form-check-input" type="checkbox" @change="addPatology('Renali', actualPathologies)"  id="Renali">
                     <label class="form-check-label" for="Renali">
@@ -585,7 +584,7 @@ const isPatologyIncluded = (patology: string, arrayToCheck: string[]) => {
                     </label>
                   </div>
                 </div>
-                <div class="col-4">
+                <div class="col-12 col-sm-4">
                   <div class="form-check">
                     <input class="form-check-input" type="checkbox" @change="addPatology('Genitali-urinarie', actualPathologies)"  id="Genitali-urinarie">
                     <label class="form-check-label" for="Genitali-urinarie">
@@ -593,7 +592,7 @@ const isPatologyIncluded = (patology: string, arrayToCheck: string[]) => {
                     </label>
                   </div>
                 </div>
-                <div class="col-4">
+                <div class="col-12 col-sm-4">
                   <div class="form-check">
                     <input class="form-check-input" type="checkbox" @change="addPatology('Cutanee', actualPathologies)"  id="Cutanee">
                     <label class="form-check-label" for="Cutanee">
@@ -603,7 +602,7 @@ const isPatologyIncluded = (patology: string, arrayToCheck: string[]) => {
                 </div>
               </div>
               <div class="row">
-                <div class="col-4">
+                <div class="col-12 col-sm-4">
                   <div class="form-check">
                     <input class="form-check-input" type="checkbox" @change="addPatology('Muscolo-scheletriche', actualPathologies)"  id="Muscolo-scheletriche">
                     <label class="form-check-label" for="Muscolo-scheletriche">
@@ -611,7 +610,7 @@ const isPatologyIncluded = (patology: string, arrayToCheck: string[]) => {
                     </label>
                   </div>
                 </div>
-                <div class="col-4">
+                <div class="col-12 col-sm-4">
                   <div class="form-check">
                     <input class="form-check-input" type="checkbox" @change="addPatology('Endocrino-metaboliche', actualPathologies)"  id="Endocrino-metaboliche">
                     <label class="form-check-label" for="Diabete">
@@ -619,7 +618,7 @@ const isPatologyIncluded = (patology: string, arrayToCheck: string[]) => {
                     </label>
                   </div>
                 </div>
-                <div class="col-4">
+                <div class="col-12 col-sm-4">
                   <div class="form-check">
                     <input class="form-check-input" type="checkbox" @change="addPatology('Psichiatrico-comportamentale', actualPathologies)"  id="Psichiatrico-comportamentale">
                     <label class="form-check-label" for="Psichiatrico-comportamentale">
@@ -632,14 +631,14 @@ const isPatologyIncluded = (patology: string, arrayToCheck: string[]) => {
           </div>
         </div>
         <div class="row">
-          <div class="col-6">
+          <div class="col-12 col-sm-6">
             <div class="input-field">
               <label for="chronicPharmacologicalTherapies">Terapie Farmacologiche Croniche</label>
               <Field id="chronicPharmacologicalTherapies" name="chronicPharmacologicalTherapies" class="input" type="text"  />
               <ErrorMessage name="chronicPharmacologicalTherapies" class="is-invalid" />
             </div>
           </div>
-          <div class="col-6">
+          <div class="col-12 col-sm-6">
             <div class="input-field">
               <label for="othersPharmacologicalTherapies">Terapie Farmacologiche Altre</label>
               <Field id="othersPharmacologicalTherapies" name="othersPharmacologicalTherapies" class="input" type="text"  />
@@ -662,28 +661,28 @@ const isPatologyIncluded = (patology: string, arrayToCheck: string[]) => {
       <FormStep>
         <h4>Parametri di monitoraggio</h4>
         <div class="row">
-          <div class="col-3">
+          <div class="col-12 col-sm-3">
             <div class="input-field">
               <label for="height">Altezza</label>
               <Field id="height" name="height" class="input" type="text"  />
               <ErrorMessage name="height" class="is-invalid" />
             </div>
           </div>
-          <div class="col-3">
+          <div class="col-12 col-sm-3">
             <div class="input-field">
               <label for="weight">Peso</label>
               <Field id="weight" name="weight" class="input" type="text"  />
               <ErrorMessage name="weight" class="is-invalid" />
             </div>
           </div>
-          <div class="col-3">
+          <div class="col-12 col-sm-3">
             <div class="input-field">
               <label for="bmi">BMI</label>
               <Field id="bmi" name="bmi" class="input" type="text"  />
               <ErrorMessage name="bmi" class="is-invalid" />
             </div>
           </div>
-          <div class="col-3">
+          <div class="col-12 col-sm-3">
             <div class="input-field">
               <label for="bloodPressure">Pressione Arteriosa</label>
               <Field id="bloodPressure" name="bloodPressure" class="input" type="text"  />
@@ -692,7 +691,7 @@ const isPatologyIncluded = (patology: string, arrayToCheck: string[]) => {
           </div>
         </div>
         <div class="row">
-          <div class="col-6">
+          <div class="col-12 col-sm-6">
             <div class="input-field">
               <div class="d-flex gap-3 align-items-center">
                 <label for="adi" class="mr-4">ADI</label>
@@ -711,7 +710,7 @@ const isPatologyIncluded = (patology: string, arrayToCheck: string[]) => {
               </div>
               </div>
           </div>
-          <div class="col-6">
+          <div class="col-12 col-sm-6">
             <div class="input-field">
               <div class="d-flex gap-3 align-items-center">
                 <label for="adp" class="mr-4">ADP</label>
@@ -737,21 +736,21 @@ const isPatologyIncluded = (patology: string, arrayToCheck: string[]) => {
       <FormStep>
         <h4>Anamnesi ed informazioni </h4>
         <div class="row">
-          <div class="col-4">
+          <div class="col-12 col-sm-4">
             <div class="input-field">
               <label for="medicalHistory">Anamnesi Familiare</label>
               <Field id="medicalHistory" name="medicalHistory" class="input" type="text"  />
               <ErrorMessage name="medicalHistory" class="is-invalid" />
             </div>
           </div>
-          <div class="col-4">
+          <div class="col-12 col-sm-4">
             <div class="input-field">
               <label for="riskFactors">Fattori di rischio</label>
               <Field id="riskFactors" name="riskFactors" class="input" type="text"  />
               <ErrorMessage name="riskFactors" class="is-invalid" />
             </div>
           </div>
-          <div class="col-4">
+          <div class="col-12 col-sm-4">
             <div class="input-field">
               <label for="pregnancies">Gravidenze e parti</label>
               <Field id="pregnancies" name="pregnancies" class="input" type="text"  />
@@ -760,7 +759,7 @@ const isPatologyIncluded = (patology: string, arrayToCheck: string[]) => {
           </div>
         </div>
         <div class="row">
-          <div class="col-6">
+          <div class="col-12 col-sm-6">
             <div class="input-field">
               <div class="d-flex gap-3 align-items-center">
                 <label for="organDonation" class="mr-4">Donazioni Organi</label>
@@ -798,10 +797,10 @@ const isPatologyIncluded = (patology: string, arrayToCheck: string[]) => {
 
         <FormStep>
           <div class="row mb-3">
-            <div class="col-6 col-sm-4">
+            <div class="col-12 col-sm-4">
               <h4>Inserisci data PSS</h4>
             </div>
-            <div class="col-6 col-sm-8">
+            <div class="col-12 col-sm-8">
               <span class="last-date">Data del PSS precedente: {{props.model.date}}</span>
               <VueDatePicker
                   :format="'dd/MM/yyyy'"
@@ -817,21 +816,21 @@ const isPatologyIncluded = (patology: string, arrayToCheck: string[]) => {
           <hr class="my-5">
           <h4>Dati del medico</h4>
           <div class="row">
-            <div class="col-4">
+            <div class="col-12 col-sm-4">
               <div class="input-field">
                 <label for="lastName">Cognome</label>
                 <Field  v-model="props.model.lastName" id="lastName" name="lastName" class="input" type="text"  />
                 <ErrorMessage name="lastName" class="is-invalid" />
               </div>
             </div>
-            <div class="col-4">
+            <div class="col-12 col-sm-4">
               <div class="input-field">
                 <label for="firstName">Nome</label>
                 <Field v-model="props.model.firstName" id="firstName" name="firstName" class="input" type="text"  />
                 <ErrorMessage name="firstName" class="is-invalid" />
               </div>
             </div>
-            <div class="col-4">
+            <div class="col-12 col-sm-4">
               <div class="input-field">
                 <label for="cf">Codice Fiscale</label>
                 <Field v-model="props.model.cf" id="cf" name="cf" class="input" type="text"  />
@@ -840,21 +839,21 @@ const isPatologyIncluded = (patology: string, arrayToCheck: string[]) => {
             </div>
           </div>
           <div class="row">
-            <div class="col-4">
+            <div class="col-12 col-sm-4">
               <div class="input-field">
                 <label for="phone">Recapito Telefonico</label>
                 <Field v-model="props.model.phone" id="phone" name="phone" class="input" type="text"  />
                 <ErrorMessage name="phone" class="is-invalid" />
               </div>
             </div>
-            <div class="col-4">
+            <div class="col-12 col-sm-4">
               <div class="input-field">
                 <label for="email">Email</label>
                 <Field v-model="props.model.email" id="email" name="email" class="input" type="text"  />
                 <ErrorMessage name="email" class="is-invalid" />
               </div>
             </div>
-            <div class="col-4">
+            <div class="col-12 col-sm-4">
               <div class="input-field">
                 <label for="pec">PEC</label>
 
@@ -869,7 +868,7 @@ const isPatologyIncluded = (patology: string, arrayToCheck: string[]) => {
         <FormStep>
           <h4>Dati sanitari del paziente</h4>
           <div class="row">
-            <div class="col-4">
+            <div class="col-12 col-sm-4">
               <div class="input-field">
                 <label for="motorSkills">Capacità Motoria Paziente</label>
                 <Field v-model="props.model.motorSkills" class="input" id="motorSkills" name="motorSkills" as="select">
@@ -881,7 +880,7 @@ const isPatologyIncluded = (patology: string, arrayToCheck: string[]) => {
                 <ErrorMessage name="motorSkills" class="is-invalid" />
               </div>
             </div>
-            <div class="col-4">
+            <div class="col-12 col-sm-4">
               <div class="input-field">
                 <label for="workingActivity">Attività Lavorativa</label>
                 <Field v-model="props.model.workingActivity" id="workingActivity" name="workingActivity" class="input" type="text"  />
@@ -895,7 +894,7 @@ const isPatologyIncluded = (patology: string, arrayToCheck: string[]) => {
               <div class="input-field">
                 <label for="chronicPathologies">Patologie Croniche Rilevanti</label>
                 <div class="row">
-                  <div class="col-4">
+                  <div class="col-12 col-sm-4">
                     <div class="form-check">
                       <input
                           class="form-check-input"
@@ -909,7 +908,7 @@ const isPatologyIncluded = (patology: string, arrayToCheck: string[]) => {
                       </label>
                     </div>
                   </div>
-                  <div class="col-4">
+                  <div class="col-12 col-sm-4">
                     <div class="form-check">
                       <input
                           class="form-check-input"
@@ -921,7 +920,7 @@ const isPatologyIncluded = (patology: string, arrayToCheck: string[]) => {
                       </label>
                     </div>
                   </div>
-                  <div class="col-4">
+                  <div class="col-12 col-sm-4">
                     <div class="form-check">
                       <input
                           class="form-check-input"
@@ -935,7 +934,7 @@ const isPatologyIncluded = (patology: string, arrayToCheck: string[]) => {
                   </div>
                 </div>
                 <div class="row">
-                  <div class="col-4">
+                  <div class="col-12 col-sm-4">
                     <div class="form-check">
                       <input class="form-check-input" type="checkbox"
                              :checked="isPatologyIncluded('Aneurismi: aorta (441*)', chronicPathologies)"
@@ -945,7 +944,7 @@ const isPatologyIncluded = (patology: string, arrayToCheck: string[]) => {
                       </label>
                     </div>
                   </div>
-                  <div class="col-4">
+                  <div class="col-12 col-sm-4">
                     <div class="form-check">
                       <input class="form-check-input" type="checkbox"
                              :checked="isPatologyIncluded('Aneurismi: altre sedi (442*)', chronicPathologies)"
@@ -955,7 +954,7 @@ const isPatologyIncluded = (patology: string, arrayToCheck: string[]) => {
                       </label>
                     </div>
                   </div>
-                  <div class="col-4">
+                  <div class="col-12 col-sm-4">
                     <div class="form-check">
                       <input class="form-check-input" type="checkbox"
                              :checked="isPatologyIncluded('Ipertensione arteriosa (401*-405*)', chronicPathologies)"
@@ -967,7 +966,7 @@ const isPatologyIncluded = (patology: string, arrayToCheck: string[]) => {
                   </div>
                 </div>
                 <div class="row">
-                  <div class="col-4">
+                  <div class="col-12 col-sm-4">
                     <div class="form-check">
                       <input class="form-check-input" type="checkbox"
                              :checked="isPatologyIncluded('Aritmie cardiache (427*)', chronicPathologies)"
@@ -977,7 +976,7 @@ const isPatologyIncluded = (patology: string, arrayToCheck: string[]) => {
                       </label>
                     </div>
                   </div>
-                  <div class="col-4">
+                  <div class="col-12 col-sm-4">
                     <div class="form-check">
                       <input class="form-check-input" type="checkbox"
                              :checked="isPatologyIncluded('Portatore di pacemaker', chronicPathologies)"
@@ -987,7 +986,7 @@ const isPatologyIncluded = (patology: string, arrayToCheck: string[]) => {
                       </label>
                     </div>
                   </div>
-                  <div class="col-4">
+                  <div class="col-12 col-sm-4">
                     <div class="form-check">
                       <input class="form-check-input" type="checkbox"
                              :checked="isPatologyIncluded('Malattie cerebrovascolari (430*-438*)', chronicPathologies)"
@@ -999,7 +998,7 @@ const isPatologyIncluded = (patology: string, arrayToCheck: string[]) => {
                   </div>
                 </div>
                 <div class="row">
-                  <div class="col-4">
+                  <div class="col-12 col-sm-4">
                     <div class="form-check">
                       <input class="form-check-input" type="checkbox"
                              :checked="isPatologyIncluded('Insuff. respiratoria cronaca (518.83)', chronicPathologies)"
@@ -1009,7 +1008,7 @@ const isPatologyIncluded = (patology: string, arrayToCheck: string[]) => {
                       </label>
                     </div>
                   </div>
-                  <div class="col-4">
+                  <div class="col-12 col-sm-4">
                     <div class="form-check">
                       <input class="form-check-input" type="checkbox"
                              :checked="isPatologyIncluded('Diabete (250*)', chronicPathologies)"
@@ -1019,7 +1018,7 @@ const isPatologyIncluded = (patology: string, arrayToCheck: string[]) => {
                       </label>
                     </div>
                   </div>
-                  <div class="col-4">
+                  <div class="col-12 col-sm-4">
                     <div class="form-check">
                       <input class="form-check-input" type="checkbox"
                              :checked="isPatologyIncluded('Patologie neurologiche (20* 326*)', chronicPathologies)"
@@ -1031,7 +1030,7 @@ const isPatologyIncluded = (patology: string, arrayToCheck: string[]) => {
                   </div>
                 </div>
                 <div class="row">
-                  <div class="col-4">
+                  <div class="col-12 col-sm-4">
                     <div class="form-check">
                       <input class="form-check-input" type="checkbox"
                              :checked="isPatologyIncluded('Epilessia (345*)', chronicPathologies)"
@@ -1041,7 +1040,7 @@ const isPatologyIncluded = (patology: string, arrayToCheck: string[]) => {
                       </label>
                     </div>
                   </div>
-                  <div class="col-4">
+                  <div class="col-12 col-sm-4">
                     <div class="form-check">
                       <input class="form-check-input" type="checkbox"
                              :checked="isPatologyIncluded('Patologia oncologica (140*-239*)', chronicPathologies)"
@@ -1051,7 +1050,7 @@ const isPatologyIncluded = (patology: string, arrayToCheck: string[]) => {
                       </label>
                     </div>
                   </div>
-                  <div class="col-4">
+                  <div class="col-12 col-sm-4">
                     <div class="form-check">
                       <input class="form-check-input" type="checkbox"
                              :checked="isPatologyIncluded('Insuff. renale cronica (585)', chronicPathologies)"
@@ -1063,7 +1062,7 @@ const isPatologyIncluded = (patology: string, arrayToCheck: string[]) => {
                   </div>
                 </div>
                 <div class="row">
-                  <div class="col-4">
+                  <div class="col-12 col-sm-4">
                     <div class="form-check">
                       <input class="form-check-input" type="checkbox"
                              :checked="isPatologyIncluded('Traumi recenti (800*-859*)', chronicPathologies)"
@@ -1073,7 +1072,7 @@ const isPatologyIncluded = (patology: string, arrayToCheck: string[]) => {
                       </label>
                     </div>
                   </div>
-                  <div class="col-4">
+                  <div class="col-12 col-sm-4">
                     <div class="form-check">
                       <input class="form-check-input" type="checkbox"
                              :checked="isPatologyIncluded('Epatite virale (070.*)', chronicPathologies)"
@@ -1083,7 +1082,7 @@ const isPatologyIncluded = (patology: string, arrayToCheck: string[]) => {
                       </label>
                     </div>
                   </div>
-                  <div class="col-4">
+                  <div class="col-12 col-sm-4">
                     <div class="form-check">
                       <input class="form-check-input" type="checkbox"
                              :checked="isPatologyIncluded('Infezione HIV (0.42)', chronicPathologies)"
@@ -1095,7 +1094,7 @@ const isPatologyIncluded = (patology: string, arrayToCheck: string[]) => {
                   </div>
                 </div>
                 <div class="row">
-                  <div class="col-4">
+                  <div class="col-12 col-sm-4">
                     <div class="form-check">
                       <input class="form-check-input" type="checkbox"
                              :checked="isPatologyIncluded('Elementi di sintesi ferromagnetici (RMN): protesi e/o impianti', chronicPathologies)"
@@ -1105,7 +1104,7 @@ const isPatologyIncluded = (patology: string, arrayToCheck: string[]) => {
                       </label>
                     </div>
                   </div>
-                  <div class="col-4">
+                  <div class="col-12 col-sm-4">
                     <div class="form-check">
                       <input class="form-check-input" type="checkbox"
                              :checked="isPatologyIncluded('Terapia anticoagulante (warfarin/acenocumarolo) (B01AA03/B01AA07)', chronicPathologies)"
@@ -1115,7 +1114,7 @@ const isPatologyIncluded = (patology: string, arrayToCheck: string[]) => {
                       </label>
                     </div>
                   </div>
-                  <div class="col-4">
+                  <div class="col-12 col-sm-4">
                     <div class="form-check">
                       <input class="form-check-input" type="checkbox"
                              :checked="isPatologyIncluded('Inibitori diretti Trombina (B01AE*)', chronicPathologies)"
@@ -1127,7 +1126,7 @@ const isPatologyIncluded = (patology: string, arrayToCheck: string[]) => {
                   </div>
                 </div>
                 <div class="row">
-                  <div class="col-4">
+                  <div class="col-12 col-sm-4">
                     <div class="form-check">
                       <input class="form-check-input" type="checkbox"
                              :checked="isPatologyIncluded('Terapia antiaggregante (B01AC*)', chronicPathologies)"
@@ -1137,7 +1136,7 @@ const isPatologyIncluded = (patology: string, arrayToCheck: string[]) => {
                       </label>
                     </div>
                   </div>
-                  <div class="col-4">
+                  <div class="col-12 col-sm-4">
                     <div class="form-check">
                       <input class="form-check-input" type="checkbox"
                              :checked="isPatologyIncluded('Terapia con insulina (A10A*)', chronicPathologies)"
@@ -1152,7 +1151,7 @@ const isPatologyIncluded = (patology: string, arrayToCheck: string[]) => {
             </div>
           </div>
           <div class="row">
-            <div class="col-4">
+            <div class="col-12 col-sm-4">
               <div class="input-field">
                 <label for="missingOrgans">Organi Mancanti</label>
                 <Field
@@ -1161,14 +1160,14 @@ const isPatologyIncluded = (patology: string, arrayToCheck: string[]) => {
                 <ErrorMessage name="missingOrgans" class="is-invalid" />
               </div>
             </div>
-            <div class="col-4">
+            <div class="col-12 col-sm-4">
               <div class="input-field">
                 <label for="transplants">Trapianti</label>
                 <Field  v-model="props.model.transplants" id="transplants" name="transplants" class="input" type="text"  />
                 <ErrorMessage name="transplants" class="is-invalid" />
               </div>
             </div>
-            <div class="col-4">
+            <div class="col-12 col-sm-4">
               <div class="input-field">
                 <label for="relevantMalformations">Malformazioni rilevanti</label>
                 <Field v-model="props.model.relevantMalformations" id="relevantMalformations" name="relevantMalformations" class="input" type="text"  />
@@ -1182,28 +1181,28 @@ const isPatologyIncluded = (patology: string, arrayToCheck: string[]) => {
         <FormStep>
           <h4>Dati sanitari del paziente</h4>
           <div class="row">
-            <div class="col-6">
+            <div class="col-12 col-sm-6">
               <div class="input-field">
                 <label for="adverseReactions">Reazioni avverse farmaci e alimenti</label>
                 <Field v-model="props.model.adverseReactions" id="adverseReactions" name="adverseReactions" class="input" type="text"  />
                 <ErrorMessage name="adverseReactions" class="is-invalid" />
               </div>
             </div>
-            <div class="col-6">
+            <div class="col-12 col-sm-6">
               <div class="input-field">
                 <label for="skinAllergies">Allergie cutanee, respiratorie e sistemiche</label>
                 <Field v-model="props.model.skinAllergies"  id="skinAllergies" name="skinAllergies" class="input" type="text"  />
                 <ErrorMessage name="skinAllergies" class="is-invalid" />
               </div>
             </div>
-            <div class="col-6">
+            <div class="col-12 col-sm-6">
               <div class="input-field">
                 <label for="venomAllergies">Allergie a veleno di imenotteri</label>
                 <Field v-model="props.model.venomAllergies" id="venomAllergies" name="venomAllergies" class="input" type="text"  />
                 <ErrorMessage name="venomAllergies" class="is-invalid" />
               </div>
             </div>
-            <div class="col-6">
+            <div class="col-12 col-sm-6">
               <div class="input-field">
                 <label for="prosthetics">Protesi/Impianti permanenti</label>
                 <Field v-model="props.model.prosthetics" id="prosthetics" name="prosthetics" class="input" type="text"  />
@@ -1228,7 +1227,7 @@ const isPatologyIncluded = (patology: string, arrayToCheck: string[]) => {
               <div class="input-field">
                 <label for="chronicPathologies">Patologie in atto paziente</label>
                 <div class="row">
-                  <div class="col-4">
+                  <div class="col-12 col-sm-4">
                     <div class="form-check">
                       <input class="form-check-input" type="checkbox"
                              :checked="isPatologyIncluded('Cardiache', actualPathologies)"
@@ -1238,7 +1237,7 @@ const isPatologyIncluded = (patology: string, arrayToCheck: string[]) => {
                       </label>
                     </div>
                   </div>
-                  <div class="col-4">
+                  <div class="col-12 col-sm-4">
                     <div class="form-check">
                       <input class="form-check-input" type="checkbox"
                              :checked="isPatologyIncluded('Ipertensione arteriosa', actualPathologies)"
@@ -1248,7 +1247,7 @@ const isPatologyIncluded = (patology: string, arrayToCheck: string[]) => {
                       </label>
                     </div>
                   </div>
-                  <div class="col-4">
+                  <div class="col-12 col-sm-4">
                     <div class="form-check">
                       <input class="form-check-input" type="checkbox"
                              :checked="isPatologyIncluded('Respiratorie', actualPathologies)"
@@ -1260,7 +1259,7 @@ const isPatologyIncluded = (patology: string, arrayToCheck: string[]) => {
                   </div>
                 </div>
                 <div class="row">
-                  <div class="col-4">
+                  <div class="col-12 col-sm-4">
                     <div class="form-check">
                       <input class="form-check-input" type="checkbox"
                              :checked="isPatologyIncluded('Oculari', actualPathologies)"
@@ -1270,7 +1269,7 @@ const isPatologyIncluded = (patology: string, arrayToCheck: string[]) => {
                       </label>
                     </div>
                   </div>
-                  <div class="col-4">
+                  <div class="col-12 col-sm-4">
                     <div class="form-check">
                       <input class="form-check-input" type="checkbox"
                              :checked="isPatologyIncluded('Otorinolaingoriatiche', actualPathologies)"
@@ -1280,7 +1279,7 @@ const isPatologyIncluded = (patology: string, arrayToCheck: string[]) => {
                       </label>
                     </div>
                   </div>
-                  <div class="col-4">
+                  <div class="col-12 col-sm-4">
                     <div class="form-check">
                       <input class="form-check-input" type="checkbox"
                              :checked="isPatologyIncluded('Gastroenteriche', actualPathologies)"
@@ -1292,7 +1291,7 @@ const isPatologyIncluded = (patology: string, arrayToCheck: string[]) => {
                   </div>
                 </div>
                 <div class="row">
-                  <div class="col-4">
+                  <div class="col-12 col-sm-4">
                     <div class="form-check">
                       <input class="form-check-input" type="checkbox"
                              :checked="isPatologyIncluded('Renali', actualPathologies)"
@@ -1302,7 +1301,7 @@ const isPatologyIncluded = (patology: string, arrayToCheck: string[]) => {
                       </label>
                     </div>
                   </div>
-                  <div class="col-4">
+                  <div class="col-12 col-sm-4">
                     <div class="form-check">
                       <input class="form-check-input" type="checkbox"
                              :checked="isPatologyIncluded('Genitali-urinarie', actualPathologies)"
@@ -1312,7 +1311,7 @@ const isPatologyIncluded = (patology: string, arrayToCheck: string[]) => {
                       </label>
                     </div>
                   </div>
-                  <div class="col-4">
+                  <div class="col-12 col-sm-4">
                     <div class="form-check">
                       <input class="form-check-input" type="checkbox"
                              :checked="isPatologyIncluded('Cutanee', actualPathologies)"
@@ -1324,7 +1323,7 @@ const isPatologyIncluded = (patology: string, arrayToCheck: string[]) => {
                   </div>
                 </div>
                 <div class="row">
-                  <div class="col-4">
+                  <div class="col-12 col-sm-4">
                     <div class="form-check">
                       <input class="form-check-input" type="checkbox"
                              :checked="isPatologyIncluded('Muscolo-scheletriche', actualPathologies)"
@@ -1334,7 +1333,7 @@ const isPatologyIncluded = (patology: string, arrayToCheck: string[]) => {
                       </label>
                     </div>
                   </div>
-                  <div class="col-4">
+                  <div class="col-12 col-sm-4">
                     <div class="form-check">
                       <input class="form-check-input" type="checkbox"
                              :checked="isPatologyIncluded('Endocrino-metaboliche', actualPathologies)"
@@ -1344,7 +1343,7 @@ const isPatologyIncluded = (patology: string, arrayToCheck: string[]) => {
                       </label>
                     </div>
                   </div>
-                  <div class="col-4">
+                  <div class="col-12 col-sm-4">
                     <div class="form-check">
                       <input class="form-check-input" type="checkbox"
                              :checked="isPatologyIncluded('Psichiatrico-comportamentale', actualPathologies)"
@@ -1359,14 +1358,14 @@ const isPatologyIncluded = (patology: string, arrayToCheck: string[]) => {
             </div>
           </div>
           <div class="row">
-            <div class="col-6">
+            <div class="col-12 col-sm-6">
               <div class="input-field">
                 <label for="chronicPharmacologicalTherapies">Terapie Farmacologiche Croniche</label>
                 <Field v-model="props.model.chronicPharmacologicalTherapies" id="chronicPharmacologicalTherapies" name="chronicPharmacologicalTherapies" class="input" type="text"  />
                 <ErrorMessage name="chronicPharmacologicalTherapies" class="is-invalid" />
               </div>
             </div>
-            <div class="col-6">
+            <div class="col-12 col-sm-6">
               <div class="input-field">
                 <label for="othersPharmacologicalTherapies">Terapie Farmacologiche Altre</label>
                 <Field v-model="props.model.othersPharmacologicalTherapies" id="othersPharmacologicalTherapies" name="othersPharmacologicalTherapies" class="input" type="text"  />
@@ -1389,28 +1388,28 @@ const isPatologyIncluded = (patology: string, arrayToCheck: string[]) => {
         <FormStep>
           <h4>Parametri di monitoraggio</h4>
           <div class="row">
-            <div class="col-3">
+            <div class="col-12 col-sm-3">
               <div class="input-field">
                 <label for="height">Altezza</label>
                 <Field v-model="props.model.height"  id="height" name="height" class="input" type="text"  />
                 <ErrorMessage name="height" class="is-invalid" />
               </div>
             </div>
-            <div class="col-3">
+            <div class="col-12 col-sm-3">
               <div class="input-field">
                 <label for="weight">Peso</label>
                 <Field v-model="props.model.weight"  id="weight" name="weight" class="input" type="text"  />
                 <ErrorMessage name="weight" class="is-invalid" />
               </div>
             </div>
-            <div class="col-3">
+            <div class="col-12 col-sm-3">
               <div class="input-field">
                 <label for="bmi">BMI</label>
                 <Field  v-model="props.model.bmi"  id="bmi" name="bmi" class="input" type="text"  />
                 <ErrorMessage name="bmi" class="is-invalid" />
               </div>
             </div>
-            <div class="col-3">
+            <div class="col-12 col-sm-3">
               <div class="input-field">
                 <label for="bloodPressure">Pressione Arteriosa</label>
                 <Field v-model="props.model.bloodPressure"  id="bloodPressure" name="bloodPressure" class="input" type="text"  />
@@ -1419,7 +1418,7 @@ const isPatologyIncluded = (patology: string, arrayToCheck: string[]) => {
             </div>
           </div>
           <div class="row">
-            <div class="col-6">
+            <div class="col-12 col-sm-6">
               <div class="input-field">
                 <div class="d-flex gap-3 align-items-center">
                   <label for="adi" class="mr-4">ADI</label>
@@ -1438,7 +1437,7 @@ const isPatologyIncluded = (patology: string, arrayToCheck: string[]) => {
                 </div>
               </div>
             </div>
-            <div class="col-6">
+            <div class="col-12 col-sm-6">
               <div class="input-field">
                 <div class="d-flex gap-3 align-items-center">
                   <label for="adp" class="mr-4">ADP</label>
@@ -1464,21 +1463,21 @@ const isPatologyIncluded = (patology: string, arrayToCheck: string[]) => {
         <FormStep>
           <h4>Anamnesi ed informazioni </h4>
           <div class="row">
-            <div class="col-4">
+            <div class="col-12 col-sm-4">
               <div class="input-field">
                 <label for="medicalHistory">Anamnesi Familiare</label>
                 <Field v-model="props.model.medicalHistory" id="medicalHistory" name="medicalHistory" class="input" type="text"  />
                 <ErrorMessage name="medicalHistory" class="is-invalid" />
               </div>
             </div>
-            <div class="col-4">
+            <div class="col-12 col-sm-4">
               <div class="input-field">
                 <label for="riskFactors">Fattori di rischio</label>
                 <Field v-model="props.model.riskFactors"  id="riskFactors" name="riskFactors" class="input" type="text"  />
                 <ErrorMessage name="riskFactors" class="is-invalid" />
               </div>
             </div>
-            <div class="col-4">
+            <div class="col-12 col-sm-4">
               <div class="input-field">
                 <label for="pregnancies">Gravidenze e parti</label>
                 <Field v-model="props.model.pregnancies" id="pregnancies" name="pregnancies" class="input" type="text"  />
@@ -1487,7 +1486,7 @@ const isPatologyIncluded = (patology: string, arrayToCheck: string[]) => {
             </div>
           </div>
           <div class="row">
-            <div class="col-6">
+            <div class="col-12 col-sm-6">
               <div class="input-field">
                 <div class="d-flex gap-3 align-items-center">
                   <label for="organDonation" class="mr-4">Donazioni Organi</label>

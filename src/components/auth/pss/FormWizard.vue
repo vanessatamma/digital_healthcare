@@ -73,12 +73,12 @@ function goToPrev() {
     <slot />
 
     <div class="row mt-5">
-      <div class="col-12 col-sm-4" v-if="props.canAbort">
+      <div class="col-12 col-sm-4 mb-3 mb-sm-0" v-if="props.canAbort">
         <button class="btn btn-warning mr-1 w-100" @click="emit('reset')">
           Annulla Inserimento
         </button>
       </div>
-      <div class="col-12 col-sm-4" :class="{'col-sm-6': !props.canAbort}">
+      <div class="col-12 col-sm-4 mb-3 mb-sm-0" :class="{'col-sm-6': !props.canAbort}">
         <button class="btn btn-outline-primary mr-1 w-100" v-if="hasPrevious" type="button" @click="goToPrev">
           Step Precedente
         </button>
