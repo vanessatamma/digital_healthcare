@@ -1,7 +1,7 @@
 <script setup>
-import {initialPatientState, useAuthStore} from "@/stores/auth";
-const userAuth = useAuthStore()
 import { useRouter } from 'vue-router';
+import {useAuthStore} from "@/stores/auth";
+const userAuth = useAuthStore()
 const props = defineProps(['arrowBack'])
 
 const router = useRouter()

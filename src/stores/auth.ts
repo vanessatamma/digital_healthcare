@@ -20,10 +20,13 @@ import {
 } from "@/shared/utils";
 
 import * as pdfMake from "pdfmake/build/pdfmake";
-import * as pdfFonts from 'pdfmake/build/vfs_fonts';
+import 'pdfmake/build/vfs_fonts';
+//(pdfMake as any).vfs = pdfFonts.pdfMake.vfs;
+
+
 import {v4 as uuidv4} from "uuid";
 
-(<any>pdfMake).vfs = pdfFonts.pdfMake.vfs;
+
 export const initialPssState = {
     lastName: '-',
     firstName: '-',
@@ -72,10 +75,10 @@ export const useAuthStore = defineStore('auth', {
         patient: initialPatientState,
         patientsList: {
             headers: [],
-            items: [],
-            patientsCF: [],
+            items: [] as any,
+            patientsCF: [] as any,
         },
-        patientDocList: [],
+        patientDocList: [] as any,
     }),
     getters: {
         capitalizedName(state) {
@@ -439,9 +442,9 @@ export const useAuthStore = defineStore('auth', {
                         fontSize: 8
                     }
                 }
+            };
+            (pdfMake as any).createPdf(dd).download(`PSS-${(this.patient.currentPss as any).date}`);
 
-            }
-            pdfMake.createPdf(dd).download(`PSS-${(this.patient.currentPss as any).date}`);
             useToast({position: 'top', duration: 2000}).success("PSS scaricato.");
         },
         async getPatientsList() {
@@ -465,11 +468,11 @@ export const useAuthStore = defineStore('auth', {
 
             });
             // Put char: '-' every time value is null
-            (patientsBody as never[]).map((value) => {
+            (patientsBody as any[]).map((value) => {
                 inverseRecursivelyNullifyUndefinedValues(value, '-')
             });
-            this.patientsList.items = (patientsBody as never[]);
-            this.patientsList.patientsCF = (patientsCF as never[]);
+            this.patientsList.items = (patientsBody as any[]);
+            this.patientsList.patientsCF = (patientsCF as any[]);
         },
         async uploadDoc(doc: any, cf: string) {
             const storage = getStorage();

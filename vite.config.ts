@@ -10,5 +10,12 @@ export default defineConfig({
     alias: {
       '@': fileURLToPath(new URL('./src', import.meta.url))
     }
-  }
+  },
+  build: {
+    rollupOptions: {
+      moduleContext: {
+        './node_modules/pdfmake/build/vfs_fonts.js': 'window',
+      },
+    },
+  },
 })
