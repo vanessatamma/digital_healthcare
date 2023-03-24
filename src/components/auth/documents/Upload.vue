@@ -99,10 +99,14 @@ watch(selectedPatient, (selection, prevSelection) => {
   <div class="row" v-if="selectedPatient">
     <div class="col-12 col-sm-12">
      <h4>Lista Referti Paziente: {{ selectedPatient }}</h4>
-      <div v-if="userAuth.patientDocList.length > 0" v-for="doc in userAuth.patientDocList">
-        <span>
-          Doc: {{ doc.name}}
-        </span>
+      <div v-if="userAuth.patientDocList.length > 0" class="list-group mt-4">
+        <a @click="userAuth.downloadDocByPath(doc)"
+           v-for="doc in userAuth.patientDocList"
+           class="list-group-item list-group-item-action"
+        >
+          <p class="mb-1"> Documento: {{ doc.name}}</p>
+          {{ doc.type }}
+        </a>
       </div>
       <div v-else class="col-12 col-sm-12 mt-4">
         <span>Nessun Documento trovato.</span>
@@ -111,5 +115,7 @@ watch(selectedPatient, (selection, prevSelection) => {
   </div>
 </template>
 <style scoped lang="scss">
-
+.list-group-item:hover{
+  cursor: pointer;
+}
 </style>

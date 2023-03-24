@@ -503,9 +503,11 @@ export const useAuthStore = defineStore('auth', {
               // Uh-oh, an error occurred!
           });
         },
-        async downloadDocByPath(path: string) {
+        async downloadDocByPath(doc: any) {
             const storage = getStorage();
-            getDownloadURL(ref(storage, path))
+            const storageRef = ref(storage, `reports/${doc.name}`);
+            console.log('path', doc.name)
+            getDownloadURL(storageRef)
                 .then((url) => {
                     // `url` is the download URL for 'images/stars.jpg'
 
