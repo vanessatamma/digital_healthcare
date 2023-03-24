@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import {onMounted, ref} from "vue";
+import {onMounted, ref, watch} from "vue";
 import {useAuthStore} from "@/stores/auth";
 
 const file = ref<File | null>();
@@ -37,13 +37,18 @@ const onSelectPatient= (event: any) => {
   }
 }
 
+watch(selectedPatient, (selection, prevSelection) => {
+    userAuth.getDocByCf(selection);
+})
+
 </script>
 <template>
   <div class="row">
     <div class="col-12 col-sm-12" v-if="!isLoading">
       <label for="formFile" class="form-label">
         Seleziona il <strong>Codice Fiscale</strong>
-        del paziente di cui stai caricando il documento
+        del paziente di cui vorresti caricare un referto
+        o visualizzare quelli precedentementi caricati
       </label>
       <select
           v-model="selectedPatient"
@@ -88,6 +93,20 @@ const onSelectPatient= (event: any) => {
           <path fill-rule="evenodd" d="M7.646 4.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1-.708.708L8.5 5.707V14.5a.5.5 0 0 1-1 0V5.707L5.354 7.854a.5.5 0 1 1-.708-.708l3-3z"/>
         </svg>
       </button>
+    </div>
+  </div>
+  <hr class="my-5">
+  <div class="row" v-if="selectedPatient">
+    <div class="col-12 col-sm-12">
+     <h4>Lista Referti Paziente: {{ selectedPatient }}</h4>
+      <div v-if="userAuth.patientDocList.length > 0" v-for="doc in userAuth.patientDocList">
+        <span>
+          Doc: {{ doc.name}}
+        </span>
+      </div>
+      <div v-else class="col-12 col-sm-12 mt-4">
+        <span>Nessun Documento trovato.</span>
+      </div>
     </div>
   </div>
 </template>
