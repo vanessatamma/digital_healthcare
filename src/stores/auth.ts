@@ -228,12 +228,16 @@ export const useAuthStore = defineStore('auth', {
            // if (this.patient.pssList.length === 0) {
             // await this.getPssList();
            // }
-
+            this.patient.pssList = [];
             await this.getPatientInfo();
 
             this.patient.isCreating = true;
             this.patient.isLoading = false;
 
+        },
+        async checkPatientInfo() {
+            const userSnap = await getDoc(doc(db, "patients", this.patient.cf));
+            return userSnap.data();
         },
         async getPatientInfo() {
             const userSnap = await getDoc(doc(db, "patients", this.patient.cf));
