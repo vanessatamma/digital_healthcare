@@ -5,6 +5,9 @@ import { useAuthStore } from "@/stores/auth";
 import { onMounted } from "vue";
 import AOS from "aos";
 import router from "@/router";
+import { version } from "../package.json";
+
+console.log('version', version)
 
 const userAuth = useAuthStore()
 const auth = getAuth();
@@ -27,5 +30,14 @@ onMounted(() => {
 
 <template>
   <RouterView />
+  <div class="footer">Version: <strong>{{version}}</strong> </div>
 </template>
+<style scoped lang="scss">
+.footer {
+  background: #ececec;
+  padding: 10px;
+  text-align: left;
+  font-size: 10px;
+}
+</style>
 
