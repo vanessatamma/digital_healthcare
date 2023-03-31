@@ -217,7 +217,7 @@ export const useAuthStore = defineStore('auth', {
                     position: 'top',
                     duration: 2000
                 }).success("Registrazione Codice Fiscale paziente effettuata con successo.");
-                await this.getPatientInfo();
+                this.patient.info = JSON.parse(JSON.stringify(initialPatientInfoState));
             } else {
                 useToast({
                     position: 'top',
@@ -225,9 +225,11 @@ export const useAuthStore = defineStore('auth', {
                 }).success("Il paziente risulta già registrato, scaricamento PSS in corso..");
             }
             // Retireve all pss of the current patient
-            if (this.patient.pssList.length === 0) {
-                await this.getPssList();
-            }
+           // if (this.patient.pssList.length === 0) {
+            // await this.getPssList();
+           // }
+
+            await this.getPatientInfo();
 
             this.patient.isCreating = true;
             this.patient.isLoading = false;
