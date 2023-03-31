@@ -217,6 +217,7 @@ export const useAuthStore = defineStore('auth', {
                     position: 'top',
                     duration: 2000
                 }).success("Registrazione Codice Fiscale paziente effettuata con successo.");
+                await this.getPatientInfo();
             } else {
                 useToast({
                     position: 'top',
