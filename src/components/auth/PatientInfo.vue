@@ -2,7 +2,7 @@
 import { Form, Field } from 'vee-validate';
 import ItemText from "@/components/shared/ItemText.vue";
 import {onMounted, ref} from "vue";
-import {useAuthStore} from "@/stores/auth";
+import {initialPatientInfoState, useAuthStore} from "@/stores/auth";
 import * as Yup from "yup";
 const userAuth = useAuthStore()
 
@@ -56,10 +56,15 @@ async function onSubmit(values) {
 
 const updateForm = () => {
   userAuth.patient.isUpdating = !userAuth.patient.isUpdating;
+  if(!userAuth.patient.isUpdating) {
+    userAuth.patient.info = initialPatientInfoState;
+    userAuth.getPatientInfo();
+  }
 }
 
 const saveForm = () => {
-
+  const dateOfBirth = !date.value || date.value === 'undefined' || date.value === '-' ? userAuth.patient.info.dateOfBirth : date.value.toLocaleString().substring(0, 9);
+  console.log(dateOfBirth, userAuth.patient.info.dateOfBirth)
 }
 
 </script>
@@ -200,7 +205,7 @@ const saveForm = () => {
           </button>
         </div>
         <div class="col-4" >
-          <button type="submit" @click="saveForm" class="btn btn-outline-primary mr-1 w-100">
+          <button type="submit"  class="btn btn-outline-primary mr-1 w-100">
             Salva
           </button>
         </div>
