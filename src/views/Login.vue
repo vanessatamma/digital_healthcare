@@ -60,6 +60,9 @@ async function onSubmit(values) {
                   </div>
                 </div>
               </div>
+                <div class="forgot-password">
+                    <span><a href="#">Password Dimenticata</a></span>
+                </div>
               <div class="signin">
                 <span>Non hai un account? <a href="#" @click="$router.push('/signup')">Registrati</a></span>
               </div>
@@ -148,7 +151,12 @@ i{
 .signin{
   text-align: center;
   font-size: small;
-  margin-top: 25px;
+  margin-top: 15px;
+}
+.forgot-password {
+  text-align: center;
+  font-size: small;
+  margin-top: 10px;
 }
 span a{
   text-decoration: none;
