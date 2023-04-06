@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import {onMounted, ref, watch} from "vue";
 import {useAuthStore} from "@/stores/auth";
+import {Field} from "vee-validate";
 
 const file = ref<File | null>();
 const form = ref<HTMLFormElement>();
@@ -83,6 +84,15 @@ watch(selectedPatient, (selection, prevSelection) => {
         >
       </div>
     </div>
+    <div class="col-12 col-sm-12">
+      <div class="mt-3 mb-3">
+          <div class="input-field">
+              <label for="lastName">Descrizione Referto</label>
+              <input placeholder="Aggiungi una breve descrizione al documento che stai caricando" class="input" type="text">
+
+          </div>
+      </div>
+    </div>
   </div>
   <div class="row text-center mt-3" v-if="file">
     <div class="col-12 col-sm-12">
@@ -100,22 +110,58 @@ watch(selectedPatient, (selection, prevSelection) => {
     <div class="col-12 col-sm-12">
      <h4>Lista Referti Paziente: {{ selectedPatient }}</h4>
       <div v-if="userAuth.patientDocList.length > 0" class="list-group mt-4">
+          <div class="column-title">
+              <div class="col-6 col-sm-6">
+                  <h4>Nome Documento</h4>
+              </div>
+              <div class="col-6 col-sm-6 text-center">
+                 <h4>Descrizione</h4>
+              </div>
+          </div>
         <a @click="userAuth.downloadDocByPath(doc)"
            v-for="doc in userAuth.patientDocList"
            class="list-group-item list-group-item-action"
         >
-          <p class="mb-1"> Documento: {{ doc.name}}</p>
-          {{ doc.type }}
+            <div class="row">
+                <div class="col-6 col-sm-6 col-name">
+                    <p class="mb-1">{{ doc.name}} </p>
+                    {{ doc.type }}
+                </div>
+                <div class="col-6 col-sm-6 text-center d-flex align-items-center justify-content-center">
+                    <span>Certificato Vaccinazione Covid19</span>
+                </div>
+            </div>
         </a>
       </div>
       <div v-else class="col-12 col-sm-12 mt-4">
         <span>Nessun Documento trovato.</span>
       </div>
     </div>
+
   </div>
 </template>
 <style scoped lang="scss">
+@import '../../../assets/form.scss';
+.list-group-item {
+  padding-left: 5px;
+  padding-right: 5px;
+  font-size: 15px;
+
+  @media(max-width: 576px) {
+    font-size: 12px;
+  }
+}
 .list-group-item:hover{
   cursor: pointer;
+}
+.column-title {
+  display: flex;
+  text-align: center;
+  border: 1px solid #dfdfdf;
+  border-bottom: none;
+  padding: 8px;
+}
+.col-name {
+  border-right: 1px solid #dfdfdf;
 }
 </style>
