@@ -2,7 +2,8 @@
 import { Form, Field } from 'vee-validate';
 import * as Yup from 'yup';
 import { useAuthStore } from "@/stores/auth";
-
+import {useRouter} from "vue-router";
+const router = useRouter()
 const userAuth = useAuthStore()
 
 const schema = Yup.object().shape({
@@ -17,6 +18,12 @@ async function onSubmit(values) {
  // userAuth.isLoading = true;
   await userAuth.signIn(values);
  // userAuth.isLoading = false;
+}
+const resetPassword = () => {
+	userAuth.resetState();
+	router.push({
+		name: 'ResetPassword',
+	})
 }
 </script>
 
@@ -61,7 +68,7 @@ async function onSubmit(values) {
                 </div>
               </div>
                 <div class="forgot-password">
-                    <span><a href="#">Password Dimenticata</a></span>
+                    <span><a href="#" @click="resetPassword">Password Dimenticata</a></span>
                 </div>
               <div class="signin">
                 <span>Non hai un account? <a href="#" @click="$router.push('/signup')">Registrati</a></span>

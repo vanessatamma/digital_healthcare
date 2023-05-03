@@ -5,8 +5,19 @@ import {
     createUserWithEmailAndPassword,
     signInWithEmailAndPassword,
     type UserCredential,
+    type Auth,
+    sendPasswordResetEmail,
 } from "firebase/auth";
-import {getBlob, getDownloadURL, getMetadata, getStorage, listAll, ref, uploadBytes, type StorageReference} from "firebase/storage";
+import {
+    getBlob,
+    getDownloadURL,
+    getMetadata,
+    getStorage,
+    listAll,
+    ref,
+    uploadBytes,
+    type StorageReference
+} from "firebase/storage";
 import router from "@/router";
 import type {ILoginCredentials, IUser} from "@/interfaces/user.interfaces";
 import {setDoc, doc, getDoc, collection, addDoc, getDocs, query, where} from "firebase/firestore";
@@ -182,6 +193,30 @@ export const useAuthStore = defineStore('auth', {
                 this.isLoading = false;
             }
         },
+        async resetPassword(credentials: ILoginCredentials) {
+            try {
+                this.isLoading = true;
+                const auth = getAuth();
+                await sendPasswordResetEmail(auth, credentials.email);
+                useToast({position: 'top', duration: 2000,}).success(
+                    "Email con istruzioni inviata. " +
+                    "Redirect alla pagina login in corso...");
+                setTimeout(async () => {
+                    await router.push({name: 'Login'});
+                    this.isLoading = false;
+                }, 2500)
+            } catch (e) {
+                if ((e as any).code === 'auth/wrong-password' || (e as any).code === 'auth/user-not-found') {
+                    this.errorMessage = "Credenziali errate.";
+                } else {
+                    this.errorMessage = "Impossibile effettuare il reset password.";
+                }
+                useToast({position: 'top', duration: 2500,}).error(this.errorMessage);
+
+            } finally {
+                this.isLoading = false;
+            }
+        },
         logout() {
             try {
                 this.isLoading = true;
@@ -225,9 +260,9 @@ export const useAuthStore = defineStore('auth', {
                 }).success("Il paziente risulta già registrato, scaricamento PSS in corso..");
             }
             // Retireve all pss of the current patient
-           // if (this.patient.pssList.length === 0) {
+            // if (this.patient.pssList.length === 0) {
             // await this.getPssList();
-           // }
+            // }
             this.patient.pssList = [];
             await this.getPatientInfo();
 
@@ -504,21 +539,21 @@ export const useAuthStore = defineStore('auth', {
             const storageRef = ref(storage, `reports`);
             const filteredDoc: any[] = [];
             listAll(storageRef)
-              .then((res) => {
-                  res.prefixes.forEach((folderRef) => {
-                      // All the prefixes under listRef.
-                      // You may call listAll() recursively on them.
-                  });
-                  res.items.forEach((itemRef) => {
-                      if(itemRef.name.split('_').includes(cf)) {
-                          filteredDoc.push(itemRef);
-                      }
-                  });
+                .then((res) => {
+                    res.prefixes.forEach((folderRef) => {
+                        // All the prefixes under listRef.
+                        // You may call listAll() recursively on them.
+                    });
+                    res.items.forEach((itemRef) => {
+                        if (itemRef.name.split('_').includes(cf)) {
+                            filteredDoc.push(itemRef);
+                        }
+                    });
 
-                  this.patientDocList = filteredDoc as any;
-              }).catch((error) => {
-              // Uh-oh, an error occurred!
-          });
+                    this.patientDocList = filteredDoc as any;
+                }).catch((error) => {
+                // Uh-oh, an error occurred!
+            });
         },
         async downloadDocByPath(doc: any) {
             const storage = getStorage();
@@ -543,5 +578,6 @@ export const useAuthStore = defineStore('auth', {
                 link.remove();
             }, 100);
         }
-  },
+    },
 })
+
